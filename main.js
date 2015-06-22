@@ -1,3 +1,5 @@
+var Path = require('fire-path');
+
 module.exports = {
     load: function () {
         require('./init');
@@ -9,12 +11,17 @@ module.exports = {
     unload: function () {
         Editor.assetdb.unregister( Editor.metas.texture );
 
+        var cache = require.cache;
+        delete cache[Path.join( __dirname,'init.js')];
+
         [
             [ 'texture', 'Texture' ],
         ].forEach( function ( item ) {
             var name = item[0];
             var fireName = item[1];
 
+            delete cache[Path.join(__dirname, './asset/' + name + '.js')];
+            delete cache[Path.join(__dirname, './meta/' + name + '.js')];
             delete Fire[fireName];
             delete Editor.metas[name];
         });
