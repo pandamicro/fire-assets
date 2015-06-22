@@ -15,9 +15,8 @@ module.exports = {
             var name = item[0];
             var fireName = item[1];
 
-            delete Editor.assets[name];
-            delete Editor.metas[name];
             delete Fire[fireName];
+            delete Editor.metas[name];
         });
     },
 };
