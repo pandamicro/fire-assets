@@ -13,9 +13,11 @@
   "widgets": {},
   "panels": {},
   "assets": {
-    "asset/texture.js": {
-      "pattern": [ ".png", ".jpg" ],
-      "meta": "meta/texture-meta.js"
+    "texture": {
+      "pattern": [".png", ".jpg"],
+      "folder": false,
+      "asset": "asset/texture.js",
+      "meta": "meta/texture.js"
     }
   },
   "tests": [

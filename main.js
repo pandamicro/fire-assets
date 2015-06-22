@@ -1,12 +1,23 @@
 module.exports = {
     load: function () {
-        Fire.Texture = require('./asset/texture');
-        Editor.Meta.TextureMeta = require('./meta/texture-meta');
+        require('./init');
 
-        Editor.assetdb.register( '.png', false, Editor.Meta.TextureMeta );
-        Editor.assetdb.register( '.jpg', false, Editor.Meta.TextureMeta );
+        Editor.assetdb.register( '.png', false, Editor.metas.texture );
+        Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
     },
 
     unload: function () {
+        Editor.assetdb.unregister( Editor.metas.texture );
+
+        [
+            [ 'texture', 'Texture' ],
+        ].forEach( function ( item ) {
+            var name = item[0];
+            var fireName = item[1];
+
+            delete Editor.assets[name];
+            delete Editor.metas[name];
+            delete Fire[fireName];
+        });
     },
 };

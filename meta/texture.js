@@ -1,4 +1,4 @@
-var $super = Editor.Meta.AssetMeta;
+var $super = Editor.metas.asset;
 function TextureMeta () {
     $super.call(this);
 
@@ -15,6 +15,9 @@ TextureMeta.prototype.serialize = function () {
 
 TextureMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
+    this.type = jsonObj.type;
+    this.wrapMode = jsonObj.wrapMode;
+    this.filterMode = jsonObj.filterMode;
 };
 
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
