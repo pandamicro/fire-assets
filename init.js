@@ -6,5 +6,6 @@
 
     Fire[fireName] = require('./asset/' + name);
     Editor.metas[name] = require('./meta/' + name);
-    Editor.metas[name].prototype['meta-type'] = name;
+    Editor.metas[name]['meta-type'] = name;
+    Editor.metas[name]['meta-icon'] = 'packages://canvas-assets/static/' + name + '.png';
 });

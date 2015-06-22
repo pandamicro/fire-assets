@@ -18,6 +18,13 @@
       "folder": false,
       "asset": "asset/texture.js",
       "meta": "meta/texture.js"
+    },
+    "sprite": {
+      "pattern": [".sprite"],
+      "folder": false,
+      "asset": "asset/sprite.js",
+      "meta": "meta/sprite.js",
+      "icon": "icon/sprite.png"
     }
   },
   "tests": [
