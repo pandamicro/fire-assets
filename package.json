@@ -14,10 +14,7 @@
   "panels": {},
   "assets": {
     "asset/texture.js": {
-      "pattern": [
-        { ".png": "" },
-        { ".jpg": "" }
-      ],
+      "pattern": [ ".png", ".jpg" ],
       "meta": "meta/texture-meta.js"
     }
   },
