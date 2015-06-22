@@ -1,0 +1,27 @@
+{
+  "name": "texture",
+  "version": "0.0.1",
+  "description": "Texture Asset for fireball",
+  "author": "Firebox Technology",
+  "hosts": {
+    "editor-framework": "^0.3.4",
+    "asset-db": "^0.0.1",
+    "engine-framework": "^0.0.1"
+  },
+  "main": "main.js",
+  "menus": {},
+  "widgets": {},
+  "panels": {},
+  "assets": {
+    "asset/texture.js": {
+      "pattern": [
+        { ".png": "" },
+        { ".jpg": "" }
+      ],
+      "meta": "meta/texture-meta.js"
+    }
+  },
+  "tests": [
+    "test/basic.html"
+  ]
+}
