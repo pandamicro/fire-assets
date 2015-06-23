@@ -52,7 +52,7 @@ module.exports = (function () {
      * @constructor
      * @param {Image} [img] - the html image element to render
      */
-    var Texture = Fire.Class({
+    Texture = Fire.Class({
 
         name: 'Fire.Texture',
 
@@ -111,6 +111,8 @@ module.exports = (function () {
 
     Texture.WrapMode = WrapMode;
     Texture.FilterMode = FilterMode;
+
+    Fire.Texture = Texture;
 
     return Texture;
 })();
