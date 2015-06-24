@@ -76,6 +76,7 @@ module.exports = (function () {
                 type: Fire.Integer,
                 readonly: true
             },
+
             /**
              * @property height
              * @type number
@@ -85,6 +86,7 @@ module.exports = (function () {
                 type: Fire.Integer,
                 readonly: true
             },
+
             /**
              * @property wrapMode
              * @type Texture.WrapMode

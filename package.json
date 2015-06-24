@@ -28,6 +28,6 @@
     }
   },
   "tests": [
-    "test/basic.html"
+    "test/texture.js"
   ]
 }
