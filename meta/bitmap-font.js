@@ -45,7 +45,6 @@ BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
 BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Path = require('fire-path');
     var Fs   = require('fs');
-    var self = this;
 
     var extname = Path.extname(fspath);
     if ( extname.length > 0 ) { extname = extname.substr(1); }
@@ -68,8 +67,8 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var textureUuid = assetdb.fspathToUuid(texturePath);
     asset.texture = Editor.serialize.asAsset(textureUuid);
 
-    assetdb.copyToLibrary( self.uuid, extname, fspath );
-    assetdb.saveToLibrary( self.uuid, asset );
+    assetdb.copyToLibrary( this.uuid, extname, fspath );
+    assetdb.saveToLibrary( this.uuid, asset );
 
     if( cb ) cb();
 };
