@@ -1,0 +1,26 @@
+<dom-module id="texture-inspector">
+    <style>
+        :host {
+            @apply(--layout-fit);
+            @apply(--layout-vertical);
+        }
+    </style>
+
+    <template>
+        <span>{{target.type}}</span>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'texture-inspector',
+
+        properties: {
+            target: {
+                type: Object,
+                value: function () { return {}; },
+                notify: true,
+            },
+        },
+    });
+</script>

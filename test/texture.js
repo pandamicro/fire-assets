@@ -18,8 +18,8 @@ describe('texture', function () {
     it('should import to library', function ( done ) {
         var uuid;
         var assets = [
-            'assets://a-png-texture-with-meta.png',
-            'assets://a-png-texture.png'
+            'assets://texture-assets/a-png-texture-with-meta.png',
+            'assets://texture-assets/a-png-texture.png'
         ];
 
         assets.forEach( function ( path ) {

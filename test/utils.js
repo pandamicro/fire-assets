@@ -25,12 +25,14 @@ module.exports = {
 
         Editor.assetdb.register( '.png', false, Editor.metas.texture );
         Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
+        Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
 
         // start mounting
-        var src = Path.join( __dirname, 'fixtures/texture-assets/' );
+        var src = Path.join( __dirname, 'fixtures/' );
         var dest = Path.join( __dirname, 'playground/assets/' );
 
         Fs.copySync( src, dest );
+
         Editor.assetdb.mount( dest, 'assets', function ( err ) {
             Editor.assetdb.init( done );
         });

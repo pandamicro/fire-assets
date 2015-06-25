@@ -1,0 +1,12 @@
+{
+  "__type__": "Fire.Texture",
+  "_name": "arial-unicode-26",
+  "_objFlags": 0,
+  "_rawFiles": [
+    "png"
+  ],
+  "width": 512,
+  "height": 256,
+  "wrapMode": 1,
+  "filterMode": 1
+}
