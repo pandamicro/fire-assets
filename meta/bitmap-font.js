@@ -28,7 +28,7 @@ var $super = Editor.metas.asset;
 function BitmapFontMeta () {
     $super.call(this);
 
-    this.texture = '';
+    this.texturePath = '';
 }
 Editor.JS.extend(BitmapFontMeta, $super);
 
@@ -40,7 +40,7 @@ BitmapFontMeta.prototype.serialize = function () {
 BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 
-    this.texture = jsonObj.texture;
+    this.texturePath = jsonObj.texturePath;
 };
 
 BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
@@ -60,7 +60,7 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var pageObj = _parseStrToObj( text.match(PAGE_EXP)[0] );
 
     var texturePath = pageObj['file'];
-    this.texture = texturePath;
+    this.texturePath = texturePath;
 
     texturePath = Path.join(Path.dirname(fspath), texturePath);
 
