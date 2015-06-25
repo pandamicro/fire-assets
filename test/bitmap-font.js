@@ -5,6 +5,28 @@ var AssetDBUtils = require('./utils');
 
 var Ipc = require('ipc');
 
+// describe('bitmap-font core level', function () {
+
+//     after( function ( done ) {
+//         AssetDBUtils.deinit( done );
+//     });
+
+//     it('should report error', function (done) {
+
+//         // try {
+//             AssetDBUtils.init( 'font-assets/assets-without-texture', function (err) {
+
+//                 // assert(err)
+//                 console.log(' err ' + err);
+//                 done();
+//             });
+//         // }
+//         // catch (err){
+//         //     done();
+//         // }
+//     });
+
+// });
 
 describe('bitmap-font core level', function () {
 
@@ -14,7 +36,7 @@ describe('bitmap-font core level', function () {
     ];
 
     before(function ( done ) {
-        AssetDBUtils.init( 'font-assets', done );
+        AssetDBUtils.init( 'font-assets/assets', done );
     });
 
     after( function ( done ) {
@@ -34,3 +56,4 @@ describe('bitmap-font core level', function () {
     });
 
 });
+

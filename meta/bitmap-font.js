@@ -1,6 +1,6 @@
 var Fs = require('fire-fs');
-var Readline = require('readline');
-var Path = require('path');
+var Path = require('fire-path');
+
 
 var PAGE_EXP = /page [^\n]*(\n|$)/gi;
 var ITEM_EXP = /\w+=[^ \r\n]+/gi;
@@ -28,7 +28,7 @@ var $super = Editor.metas.asset;
 function BitmapFontMeta () {
     $super.call(this);
 
-    this.type = 'bitmap-font';
+    this.texture = '';
 }
 Editor.JS.extend(BitmapFontMeta, $super);
 
@@ -39,11 +39,11 @@ BitmapFontMeta.prototype.serialize = function () {
 
 BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
-    this.type = jsonObj.type;
+
+    this.texture = jsonObj.texture;
 };
 
 BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var Path = require('fire-path');
     var Fs   = require('fs');
 
     var extname = Path.extname(fspath);
@@ -60,8 +60,16 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var pageObj = _parseStrToObj( text.match(PAGE_EXP)[0] );
 
     var texturePath = pageObj['file'];
+    this.texture = texturePath;
 
     texturePath = Path.join(Path.dirname(fspath), texturePath);
+
+    var err;
+    console.log( texturePath + ' : ' + Fs.existsSync(texturePath) );
+    if ( !Fs.existsSync(texturePath) ) {
+        if ( cb )  cb ( new Error ( 'BitmapFontMeta can\'t find texture path :'  + texturePath ) );
+        return;
+    }
 
     // get uuid from path
     var textureUuid = assetdb.fspathToUuid(texturePath);
@@ -70,7 +78,7 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     assetdb.copyToLibrary( this.uuid, extname, fspath );
     assetdb.saveToLibrary( this.uuid, asset );
 
-    if( cb ) cb();
+    if ( cb ) cb ();
 };
 
 BitmapFontMeta.prototype.export = null;
