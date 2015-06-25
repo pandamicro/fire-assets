@@ -1,17 +1,33 @@
+var Fs = require('fire-fs');
+var Path = require('fire-path');
+
+var AssetDBUtils = require('./utils');
+
+//
 describe('texture', function () {
-    it ('should be ok', function ( done ) {
-        setTimeout( function () {
-            done();
-        }, 500);
+    var dest;
+
+    before(function ( done ) {
+        dest = AssetDBUtils.init( done );
     });
-    it ('should be ok 02', function ( done ) {
-        setTimeout( function () {
-            done();
-        }, 500);
+
+    after( function ( done ) {
+        AssetDBUtils.deinit( done );
     });
-    it ('should be ok 03', function ( done ) {
-        setTimeout( function () {
-            done();
-        }, 500);
+
+    it('should import to library', function ( done ) {
+        var uuid;
+        var assets = [
+            'assets://a-png-texture-with-meta.png',
+            'assets://a-png-texture.png'
+        ];
+
+        assets.forEach( function ( path ) {
+            var uuid = Editor.assetdb.urlToUuid(path);
+            expect( Fs.existsSync( Editor.assetdb._uuid2importPath(uuid) ) )
+                .to.be.equal(true);
+        });
+
+        done();
     });
 });
