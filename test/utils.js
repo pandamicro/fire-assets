@@ -36,8 +36,6 @@ module.exports = {
         Editor.assetdb.mount( dest, 'assets', function ( err ) {
             Editor.assetdb.init( done );
         });
-
-        return dest;
     },
 
     deinit: function ( done ) {
