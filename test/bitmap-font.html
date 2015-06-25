@@ -2,24 +2,26 @@
     <head>
         <meta charset="utf-8">
 
-        <link rel="import" href="app://builtin/canvas-assets/test/page-utils.html">
+        <link rel="import" href="packages://tester/env/env-canvas-studio.html">
     </head>
 
     <body>
         <h1>Test bitmap-font</h1>
 
         <script>
+            var path = 'app://builtin/canvas-assets/test/fixtures/font-assets/library/';
 
             // init AssetLibrary
-            Fire.AssetLibrary.init('app://builtin/canvas-assets/test/library');
+            Fire.AssetLibrary.init(path);
 
             describe('test bitmap-font', function () {
                 var assets = [
-                    'app://builtin/canvas-assets/test/library/91/91048d06-d998-4499-94c3-a5e0eccd40cf',
-                    'app://builtin/canvas-assets/test/library/1f/1fa44dcb-e034-4aa2-b50c-1afbd109c42d'
+                    path + '91/91048d06-d998-4499-94c3-a5e0eccd40cf',
+                    path + '1f/1fa44dcb-e034-4aa2-b50c-1afbd109c42d'
                 ];
                 
                 it('Fire.BitmapFont.texture should be Fire.Texture', function (done) {
+                    
                     var fntUuid = Fire.Asset.urlToUuid( assets[0] );
                     var textureUuid = Fire.Asset.urlToUuid( assets[1] );
 

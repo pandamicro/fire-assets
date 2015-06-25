@@ -3,7 +3,7 @@ var Fs = require('fire-fs');
 var Del = require('del');
 
 module.exports = {
-    init: function ( done ) {
+    init: function ( path, done ) {
         // simple init
         if ( !Editor.assets ) Editor.assets = {};
         if ( !Editor.metas ) Editor.metas = {};
@@ -27,8 +27,10 @@ module.exports = {
         Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
 
+        var assetsPath = 'fixtures/' + path + '/assets';
+
         // start mounting
-        var src = Path.join( __dirname, 'fixtures/' );
+        var src = Path.join( __dirname, assetsPath);
         var dest = Path.join( __dirname, 'playground/assets/' );
 
         Fs.copySync( src, dest );

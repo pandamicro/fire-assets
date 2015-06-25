@@ -7,7 +7,7 @@ var AssetDBUtils = require('./utils');
 //
 describe('texture', function () {
     before(function ( done ) {
-        AssetDBUtils.init( done );
+        AssetDBUtils.init( 'texture-assets', done );
     });
 
     after( function ( done ) {
@@ -17,9 +17,9 @@ describe('texture', function () {
     it('should import to library', function ( done ) {
         var uuid;
         var assets = [
-            'assets://texture-assets/button-with-meta.png',
-            'assets://texture-assets/star.png',
-            'assets://texture-assets/imgres.jpg',
+            'assets://button-with-meta.png',
+            'assets://star.png',
+            'assets://imgres.jpg',
         ];
 
         assets.forEach( function ( url ) {
