@@ -7,7 +7,7 @@ var AssetDBUtils = require('./utils');
 //
 describe('texture', function () {
     before(function ( done ) {
-        AssetDBUtils.init( done );
+        AssetDBUtils.init( 'texture-assets/assets', done );
     });
 
     after( function ( done ) {

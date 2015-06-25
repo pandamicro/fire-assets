@@ -28,6 +28,8 @@
     }
   },
   "tests": [
-    "test/texture.js"
+    "test/texture.js",
+    "test/bitmap-font.js",
+    "test/bitmap-font.html"
   ]
 }
