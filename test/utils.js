@@ -28,7 +28,7 @@ module.exports = {
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
 
         // start mounting
-        var src = Path.join( __dirname, 'fixtures/', path);
+        var src = Path.join( __dirname, 'fixtures', path);
         var dest = Path.join( __dirname, 'playground/assets/' );
 
         Fs.copySync( src, dest );
