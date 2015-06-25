@@ -57,13 +57,12 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var text = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
     var pageObj = _parseStrToObj( text.match(PAGE_EXP)[0] );
 
-    var texturePath = pageObj['file'];
+    var texturePath = pageObj.file;
     this.texturePath = texturePath;
 
     texturePath = Path.join(Path.dirname(fspath), texturePath);
 
-    var err;
-    console.log( texturePath + ' : ' + Fs.existsSync(texturePath) );
+    // console.log( texturePath + ' : ' + Fs.existsSync(texturePath) );
     if ( !Fs.existsSync(texturePath) ) {
         if ( cb )  cb ( new Error ( 'BitmapFontMeta can\'t find texture path :'  + texturePath ) );
         return;
