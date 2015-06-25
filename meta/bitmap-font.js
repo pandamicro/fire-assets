@@ -44,8 +44,6 @@ BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
 };
 
 BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var Fs   = require('fs');
-
     var extname = Path.extname(fspath);
     if ( extname.length > 0 ) { extname = extname.substr(1); }
 
