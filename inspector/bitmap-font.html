@@ -1,4 +1,4 @@
-<dom-module id="texture-inspector">
+<dom-module id="bitmap-font-inspector">
     <style>
         :host {
             @apply(--layout-fit);
@@ -7,13 +7,13 @@
     </style>
 
     <template>
-        <span>{{target.type}}</span>
+        <span>{{target.texturePath}}</span>
     </template>
 </dom-module>
 
 <script>
     Polymer({
-        is: 'texture-inspector',
+        is: 'bitmap-font-inspector',
 
         properties: {
             target: {
