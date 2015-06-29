@@ -68,6 +68,8 @@ function SpriteMeta () {
     $super.call(this);
 
     this.rawTextureUuid = '';
+    this.trimType = Editor.TrimType.Auto;
+    this.trimThreshold = 1;
 }
 Editor.JS.extend(SpriteMeta,$super);
 
@@ -81,6 +83,8 @@ SpriteMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 
     this.rawTextureUuid = jsonObj.rawTextureUuid;
+    this.trimType = jsonObj.trimType;
+    this.trimThreshold = jsonObj.trimThreshold;
 };
 
 SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
@@ -118,6 +122,8 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
             sprite.name = Path.basenameNoExt(fspath);
             sprite.rawWidth = rawWidth;
             sprite.rawHeight = rawHeight;
+            sprite.width = self.width;
+            sprite.height = self.height;
             sprite._setRawFiles([
                 extname
             ]);
