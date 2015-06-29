@@ -67,9 +67,7 @@ var $super = Editor.metas.asset;
 function SpriteMeta () {
     $super.call(this);
 
-    this.type = 'sprite';
-    this.wrapMode = 'clamp';
-    this.filterMode = 'bilinear';
+    this.rawTextureUuid = '';
 }
 Editor.JS.extend(SpriteMeta,$super);
 
