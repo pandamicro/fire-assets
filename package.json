@@ -30,6 +30,8 @@
   "tests": [
     "test/texture.js",
     "test/bitmap-font.js",
-    "test/bitmap-font.html"
+    "test/bitmap-font.html",
+    "test/sprite.js",
+    "test/sprite.html"
   ]
 }

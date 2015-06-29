@@ -1,0 +1,31 @@
+{
+  "__type__": "Fire.Sprite",
+  "_name": "sprite-with-meta",
+  "_objFlags": 0,
+  "_rawFiles": [
+    "sprite"
+  ],
+  "pivot": {
+    "__type__": "Fire.Vec2",
+    "x": 0.5,
+    "y": 0.5
+  },
+  "trimX": 0,
+  "trimY": 0,
+  "width": 0,
+  "height": 0,
+  "texture": {
+    "__uuid__": "d51b7909-09a5-4945-a4d0-d9241c16523e"
+  },
+  "rotated": false,
+  "x": 0,
+  "y": 0,
+  "rawWidth": 442,
+  "rawHeight": 141,
+  "pixelLevelHitTest": false,
+  "alphaThreshold": 0.1,
+  "borderTop": 0,
+  "borderBottom": 0,
+  "borderLeft": 0,
+  "borderRight": 0
+}

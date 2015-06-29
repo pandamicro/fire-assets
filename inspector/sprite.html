@@ -1,0 +1,25 @@
+<dom-module id="sprite-inspector">
+    <style>
+        :host {
+            @apply(--layout-fit);
+            @apply(--layout-vertical);
+        }
+    </style>
+
+    <template>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'sprite-inspector',
+
+        properties: {
+            target: {
+                type: Object,
+                value: function () { return {}; },
+                notify: true,
+            },
+        },
+    });
+</script>
