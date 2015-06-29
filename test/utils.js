@@ -25,6 +25,7 @@ module.exports = {
 
         Editor.assetdb.register( '.png', false, Editor.metas.texture );
         Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
+        Editor.assetdb.register( '.sprite', false, Editor.metas.sprite );
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
 
         // start mounting

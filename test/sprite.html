@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="import" href="packages://tester/env/env-canvas-studio.html">
+    </head>
+
+    <body>
+        <h1>Test sprite</h1>
+
+        <script>
+            var path = 'app://builtin/canvas-assets/test/fixtures/sprite-assets/library/';
+
+            // init AssetLibrary
+            Fire.AssetLibrary.init(path);
+
+            describe('test sprite page level', function () {
+                var assets = [
+                    path + '98/985ccc96-8ffb-4fb6-a2d1-eeb499c37d04',
+                    path + 'd5/d51b7909-09a5-4945-a4d0-d9241c16523e'
+                ];
+                
+                it('Fire.Sprite.texture should be Fire.Texture', function (done) {
+                    
+                    var spriteUuid = Fire.Asset.urlToUuid( assets[0] );
+                    var textureUuid = Fire.Asset.urlToUuid( assets[1] );
+
+                    Fire.AssetLibrary.loadAsset(spriteUuid, function(err, asset) {
+
+                        if (err) throw err;
+
+                        assert( asset instanceof Fire.Sprite );
+                        assert( asset.texture instanceof Fire.Texture );
+
+                        expect( asset._uuid ).equal( spriteUuid );
+                        expect( asset.texture._uuid ).equal( textureUuid );
+
+                        done();
+                    });
+                });
+
+            });
+
+        </script>
+
+    </body>
+</html>
