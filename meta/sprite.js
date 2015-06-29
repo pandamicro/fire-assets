@@ -56,20 +56,25 @@ var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
     return [tx, ty, tw, th];
 };
 
-Editor.TrimType = Fire.defineEnum({
-    Auto: -1,
-    Custom: -1,
-});
-
-
 
 var $super = Editor.metas.asset;
 function SpriteMeta () {
     $super.call(this);
 
     this.rawTextureUuid = '';
-    this.trimType = Editor.TrimType.Auto;
+    this.trimType = 'auto'; // auto, custom
     this.trimThreshold = 1;
+    this.spriteType = 'normal'; // normal, sliced
+
+    this.trimX = 0;
+    this.trimY = 0;
+    this.width = 0;
+    this.height = 0;
+
+    this.borderTop = 0;
+    this.borderBottom = 0;
+    this.borderLeft = 0;
+    this.borderRight = 0;
 }
 Editor.JS.extend(SpriteMeta,$super);
 
@@ -85,6 +90,17 @@ SpriteMeta.prototype.deserialize = function ( jsonObj ) {
     this.rawTextureUuid = jsonObj.rawTextureUuid;
     this.trimType = jsonObj.trimType;
     this.trimThreshold = jsonObj.trimThreshold;
+    this.spriteType = jsonObj.spriteType;
+
+    this.trimX = jsonObj.trimX;
+    this.trimY = jsonObj.trimY;
+    this.width = jsonObj.width;
+    this.height = jsonObj.height;
+
+    this.borderTop = jsonObj.borderTop;
+    this.borderBottom = jsonObj.borderBottom;
+    this.borderLeft = jsonObj.borderLeft;
+    this.borderRight = jsonObj.borderRight;
 };
 
 SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
@@ -130,7 +146,7 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             sprite.texture = Editor.serialize.asAsset(rawTextureUuid);
 
-            if ( self.trimType === Editor.TrimType.Auto ) {
+            if ( self.trimType === 'auto' ) {
                 var rect = _getTrimRect ( image, rawWidth, rawHeight, self.trimThreshold );
                 sprite.trimX = rect[0];
                 sprite.trimY = rect[1];
@@ -138,17 +154,21 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 sprite.height = rect[3];
             }
             else {
-                sprite.trimX = Math.clamp(sprite.trimX, 0, sprite.rawWidth);
-                sprite.trimY = Math.clamp(sprite.trimY, 0, sprite.rawHeight);
-                sprite.width = Math.clamp(sprite.width, 0, sprite.rawWidth-sprite.trimX);
-                sprite.height = Math.clamp(sprite.height, 0, sprite.rawHeight-sprite.trimY);
+                sprite.trimX = Math.clamp(self.trimX, 0, rawWidth);
+                sprite.trimY = Math.clamp(self.trimY, 0, rawHeight);
+                sprite.width = Math.clamp(self.width, 0, rawWidth - self.trimX);
+                sprite.height = Math.clamp(self.height, 0, rawHeight - sprite.trimY);
             }
 
-            // if the target texture is the raw-texture, we need to calculate the trimX, trimY
-            if ( sprite.texture._uuid === rawTextureUuid ) {
-                sprite.x = sprite.trimX;
-                sprite.y = sprite.trimY;
+            if ( self.spriteType === 'sliced') {
+                sprite.borderTop = self.borderTop;
+                sprite.borderBottom = self.borderBottom;
+                sprite.borderLeft = self.borderLeft;
+                sprite.borderRight = self.borderRight;
             }
+
+            sprite.x = sprite.trimX;
+            sprite.y = sprite.trimY;
 
             // TODO: this.atlasName
 
