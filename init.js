@@ -13,4 +13,5 @@
         Editor.inspectors[name] = 'packages://canvas-assets/inspector/' + name + '.html';
     }
 });
-Editor.inspectors['folder'] = 'packages://canvas-assets/inspector/folder.html';
+Editor.inspectors.folder = 'packages://canvas-assets/inspector/folder.html';
+Editor.inspectors.mount = 'packages://canvas-assets/inspector/mount.html';

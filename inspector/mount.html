@@ -1,0 +1,43 @@
+<link rel="import" href="header.html">
+
+<dom-module id="mount-inspector">
+    <link rel="import" type="css" href="common.css">
+    <style>
+        span {
+            color: #ccc;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+            margin-right: 5px;
+        }
+    </style>
+
+    <template>
+        <inspector-meta-header
+            name="[[name]]"
+            src="packages://canvas-assets/static/mount.png"
+        >
+        </inspector-meta-header>
+
+        <div class="layout horizontal center">
+            <span class="flex-1">{{_path(name)}}</span>
+            <editor-button on-click="_onOpen">
+                <i class="fa fa-folder-open"></i>
+            </editor-button>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'mount-inspector',
+
+        _path: function (name) {
+            return Editor.assetdb.remote._mounts[name];
+        },
+
+        _onOpen: function () {
+            Editor.assetdb.explore(this.name + '://');
+        },
+    });
+</script>
