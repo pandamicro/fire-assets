@@ -44,7 +44,6 @@ describe('bitmap-font core level', function () {
     });
 
     it('should import to library', function ( done ) {
-        var uuid;
 
         assets.forEach( function ( path ) {
             var uuid = Editor.assetdb.urlToUuid(path);

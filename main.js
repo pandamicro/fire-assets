@@ -8,6 +8,8 @@ module.exports = {
         Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
         Editor.assetdb.register( '.sprite', false, Editor.metas.sprite );
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
+        Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
+
     },
 
     unload: function () {

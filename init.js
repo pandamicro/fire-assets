@@ -1,7 +1,8 @@
 [
     'texture',
     'bitmap-font',
-    'sprite'
+    'sprite',
+    'ttf-font'
 ].forEach( function ( name ) {
     Editor.assets[name] = require('./asset/' + name);
     Editor.metas[name] = require('./meta/' + name);
