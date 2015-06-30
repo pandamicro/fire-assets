@@ -4,7 +4,7 @@ var $super = Editor.metas.asset;
 function TTFFontMeta () {
     $super.call(this);
 
-    this.fontName = '';
+    this.fontFamily = '';
 }
 Editor.JS.extend(TTFFontMeta, $super);
 
@@ -16,7 +16,7 @@ TTFFontMeta.prototype.serialize = function () {
 TTFFontMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 
-    this.fontName = jsonObj.fontName;
+    this.fontFamily = jsonObj.fontFamily;
 };
 
 TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
@@ -29,7 +29,7 @@ TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
         extname
     ]);
 
-    asset.fontName = this.fontName ? this.fontName : asset.name;
+    asset.fontFamily = this.fontFamily ? this.fontFamily : asset.name;
 
     assetdb.copyToLibrary( this.uuid, extname, fspath );
     assetdb.saveToLibrary( this.uuid, asset );
