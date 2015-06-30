@@ -9,7 +9,6 @@ module.exports = {
         Editor.assetdb.register( '.sprite', false, Editor.metas.sprite );
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
-
     },
 
     unload: function () {
@@ -20,6 +19,9 @@ module.exports = {
 
         [
             [ 'texture', 'Texture' ],
+            [ 'sprite', 'Sprite' ],
+            [ 'bitmap-font', 'BitmapFont' ],
+            [ 'ttf-font', 'TTFFont' ],
         ].forEach( function ( item ) {
             var name = item[0];
             var fireName = item[1];

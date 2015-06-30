@@ -1,7 +1,7 @@
 [
     'texture',
-    'bitmap-font',
     'sprite',
+    'bitmap-font',
     'ttf-font'
 ].forEach( function ( name ) {
     Editor.assets[name] = require('./asset/' + name);
@@ -13,3 +13,4 @@
         Editor.inspectors[name] = 'packages://canvas-assets/inspector/' + name + '.html';
     }
 });
+Editor.inspectors['folder'] = 'packages://canvas-assets/inspector/folder.html';

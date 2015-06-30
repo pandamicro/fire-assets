@@ -1,25 +1,24 @@
+<link rel="import" href="header.html">
+
 <dom-module id="ttf-font-inspector">
-    <style>
-        :host {
-            @apply(--layout-fit);
-            @apply(--layout-vertical);
-        }
-    </style>
+    <link rel="import" type="css" href="common.css">
 
     <template>
+        <inspector-meta-header
+            name="[[name]]"
+            src="packages://canvas-assets/static/ttf-font.png"
+            dirty="{{dirty}}"
+        >
+        </inspector-meta-header>
+
+        <editor-custom-prop name="Font Name">
+            <editor-input value="{{target.fontFamily}}"></editor-input>
+        </editor-custom-prop>
     </template>
 </dom-module>
 
 <script>
     Polymer({
         is: 'ttf-font-inspector',
-
-        properties: {
-            target: {
-                type: Object,
-                value: function () { return {}; },
-                notify: true,
-            },
-        },
     });
 </script>

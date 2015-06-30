@@ -1,15 +1,37 @@
+<link rel="import" href="header.html">
+
 <dom-module id="texture-inspector">
-    <style>
-        :host {
-            @apply(--layout-fit);
-            @apply(--layout-vertical);
-        }
-    </style>
+    <link rel="import" type="css" href="common.css">
 
     <template>
-        <span>{{target.type}}</span>
-        <span>{{target.wrapMode}}</span>
-        <span>{{target.filterMode}}</span>
+        <inspector-meta-header
+            name="[[name]]"
+            src="[[_thumbnail(target.uuid)]]"
+            dirty="{{dirty}}"
+        >
+        </inspector-meta-header>
+
+        <editor-custom-prop name="Type">
+            <editor-select value="{{target.type}}">
+                <editor-option value="sprite">Sprite</editor-option>
+                <editor-option value="texture">Texture</editor-option>
+            </editor-select>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Wrap Mode">
+            <editor-select value="{{target.wrapMode}}">
+                <editor-option value="clamp">Clamp</editor-option>
+                <editor-option value="repeat">Repeat</editor-option>
+            </editor-select>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Filter Mode">
+            <editor-select value="{{target.filterMode}}">
+                <editor-option value="point">Point</editor-option>
+                <editor-option value="bilinear">Bilinear</editor-option>
+                <editor-option value="trilinear">Trilinear</editor-option>
+            </editor-select>
+        </editor-custom-prop>
     </template>
 </dom-module>
 
@@ -17,12 +39,10 @@
     Polymer({
         is: 'texture-inspector',
 
-        properties: {
-            target: {
-                type: Object,
-                value: function () { return {}; },
-                notify: true,
-            },
+        _thumbnail: function ( uuid ) {
+            if ( uuid )
+                return 'uuid://' + uuid + '?thumbnail';
+            return '';
         },
     });
 </script>
