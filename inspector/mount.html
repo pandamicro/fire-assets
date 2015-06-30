@@ -20,7 +20,7 @@
         </inspector-meta-header>
 
         <div class="layout horizontal center">
-            <span class="flex-1">{{_path(name)}}</span>
+            <span class="flex-1">{{path}}</span>
             <editor-button on-click="_onOpen">
                 <i class="fa fa-folder-open"></i>
             </editor-button>
@@ -32,8 +32,18 @@
     Polymer({
         is: 'mount-inspector',
 
-        _path: function (name) {
-            return Editor.assetdb.remote._mounts[name];
+        properties: {
+            name: {
+                type: String,
+                value: '',
+                observer: '_nameChanged'
+            },
+        },
+
+        _nameChanged: function ( ) {
+            Editor.assetdb.queryPath( this.name + '://', function (path) {
+                this.path = path;
+            }.bind(this));
         },
 
         _onOpen: function () {
