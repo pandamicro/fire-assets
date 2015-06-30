@@ -10,7 +10,7 @@ module.exports = (function () {
         },
 
         properties: {
-            fontName: {
+            fontFamily: {
                 default: ''
             }
         },
