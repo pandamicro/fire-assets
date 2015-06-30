@@ -1,7 +1,7 @@
-<link rel="import" href="header.html">
+<link rel="import" href="share/header.html">
 
 <dom-module id="mount-inspector">
-    <link rel="import" type="css" href="common.css">
+    <link rel="import" type="css" href="share/common.css">
     <style>
         span {
             color: #ccc;
@@ -19,11 +19,13 @@
         >
         </inspector-meta-header>
 
-        <div class="layout horizontal center">
-            <span class="flex-1">{{path}}</span>
-            <editor-button on-click="_onOpen">
-                <i class="fa fa-folder-open"></i>
-            </editor-button>
+        <div class="props flex-1">
+            <div class="layout horizontal center">
+                <span class="flex-1">{{path}}</span>
+                <editor-button on-click="_onOpen">
+                    <i class="fa fa-folder-open"></i>
+                </editor-button>
+            </div>
         </div>
     </template>
 </dom-module>

@@ -1,7 +1,10 @@
-<link rel="import" href="header.html">
+<link rel="import" href="share/header.html">
+<link rel="import" href="share/image-preview.html">
 
 <dom-module id="texture-inspector">
-    <link rel="import" type="css" href="common.css">
+    <link rel="import" type="css" href="share/common.css">
+    <style>
+    </style>
 
     <template>
         <inspector-meta-header
@@ -11,27 +14,32 @@
         >
         </inspector-meta-header>
 
-        <editor-custom-prop name="Type">
-            <editor-select value="{{target.type}}">
-                <editor-option value="sprite">Sprite</editor-option>
-                <editor-option value="texture">Texture</editor-option>
-            </editor-select>
-        </editor-custom-prop>
+        <div class="props flex-1">
+            <editor-custom-prop name="Type">
+                <editor-select value="{{target.type}}">
+                    <editor-option value="sprite">Sprite</editor-option>
+                    <editor-option value="texture">Texture</editor-option>
+                </editor-select>
+            </editor-custom-prop>
 
-        <editor-custom-prop name="Wrap Mode">
-            <editor-select value="{{target.wrapMode}}">
-                <editor-option value="clamp">Clamp</editor-option>
-                <editor-option value="repeat">Repeat</editor-option>
-            </editor-select>
-        </editor-custom-prop>
+            <editor-custom-prop name="Wrap Mode">
+                <editor-select value="{{target.wrapMode}}">
+                    <editor-option value="clamp">Clamp</editor-option>
+                    <editor-option value="repeat">Repeat</editor-option>
+                </editor-select>
+            </editor-custom-prop>
 
-        <editor-custom-prop name="Filter Mode">
-            <editor-select value="{{target.filterMode}}">
-                <editor-option value="point">Point</editor-option>
-                <editor-option value="bilinear">Bilinear</editor-option>
-                <editor-option value="trilinear">Trilinear</editor-option>
-            </editor-select>
-        </editor-custom-prop>
+            <editor-custom-prop name="Filter Mode">
+                <editor-select value="{{target.filterMode}}">
+                    <editor-option value="point">Point</editor-option>
+                    <editor-option value="bilinear">Bilinear</editor-option>
+                    <editor-option value="trilinear">Trilinear</editor-option>
+                </editor-select>
+            </editor-custom-prop>
+        </div>
+
+        <inspector-image-preview id="preview" path="[[path]]">
+        </inspector-image-preview>
     </template>
 </dom-module>
 
@@ -43,6 +51,10 @@
             if ( uuid )
                 return 'uuid://' + uuid + '?thumbnail';
             return '';
+        },
+
+        resize: function () {
+            this.$.preview.resize();
         },
     });
 </script>
