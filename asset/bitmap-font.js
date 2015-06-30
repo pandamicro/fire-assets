@@ -7,7 +7,7 @@ module.exports = (function () {
      * @extends Asset
      * @constructor
      */
-    BitmapFont = Fire.Class({
+    var BitmapFont = Fire.Class({
 
         name: 'Fire.BitmapFont',
 
