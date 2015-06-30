@@ -1,0 +1,25 @@
+<dom-module id="ttf-font-inspector">
+    <style>
+        :host {
+            @apply(--layout-fit);
+            @apply(--layout-vertical);
+        }
+    </style>
+
+    <template>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'ttf-font-inspector',
+
+        properties: {
+            target: {
+                type: Object,
+                value: function () { return {}; },
+                notify: true,
+            },
+        },
+    });
+</script>
