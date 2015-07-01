@@ -16,11 +16,26 @@
                 <editor-input value="{{target.fontFamily}}"></editor-input>
             </editor-custom-prop>
         </div>
+
+        <!-- TODO: I should add a <style> in webview -->
+        <!-- <div style$="_previewStyle(path)">                                                                        -->
+        <!--     <div style="font-family: 'MyFont Normal';">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</div> -->
+        <!-- </div>                                                                                                    -->
     </template>
 </dom-module>
 
 <script>
     Polymer({
         is: 'ttf-font-inspector',
+
+        // _previewStyle: function ( path ) {
+        //     var css = '@font-face {'
+        //     + 'font-family: \'MyFont Normal\';'
+        //     + 'src: url(\'' + path + '\');'
+        //     + 'font-weight: normal;'
+        //     + 'font-style: normal;'
+        //     + '}'
+        //     ;
+        // },
     });
 </script>

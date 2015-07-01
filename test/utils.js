@@ -5,19 +5,18 @@ var Del = require('del');
 module.exports = {
     init: function ( path, done ) {
         // simple init
-        if ( !Editor.assets ) Editor.assets = {};
         if ( !Editor.metas ) Editor.metas = {};
         if ( !Editor.inspectors ) Editor.inspectors = {};
 
         // init engine-framework
         Editor.require('app://engine-framework');
-        Editor.assets.asset = Fire.Asset; // set the default asset
 
         // init asset-db
         var AssetDB = Editor.require('app://asset-db');
         Editor.assetdb = new AssetDB({
-            cwd: Path.join( __dirname, 'playground' ),
-            library: 'library',
+            'cwd': Path.join( __dirname, 'playground' ),
+            'library': 'library',
+            'default-asset': Fire.Asset,
         });
 
         // init canvas-assets

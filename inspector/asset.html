@@ -1,0 +1,19 @@
+<link rel="import" href="share/header.html">
+
+<dom-module id="asset-inspector">
+    <link rel="import" type="css" href="share/common.css">
+
+    <template>
+        <inspector-meta-header
+            name="[[name]]"
+            src="packages://canvas-assets/static/asset.png"
+        >
+        </inspector-meta-header>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'asset-inspector',
+    });
+</script>
