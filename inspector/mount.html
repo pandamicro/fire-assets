@@ -43,7 +43,7 @@
         },
 
         _nameChanged: function ( ) {
-            Editor.assetdb.queryPath( this.name + '://', function (path) {
+            Editor.assetdb.queryPathByUrl( this.name + '://', function (path) {
                 this.path = path;
             }.bind(this));
         },
