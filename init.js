@@ -26,7 +26,8 @@ if ( Editor.isPageLevel ) {
     'texture',
     'sprite',
     'bitmap-font',
-    'ttf-font'
+    'ttf-font',
+    'javascript'
 ].forEach( function ( name ) {
     // meta
     Editor.metas[name] = require('./meta/' + name);

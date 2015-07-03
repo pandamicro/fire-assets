@@ -33,6 +33,7 @@
     "test/bitmap-font.html",
     "test/sprite.js",
     "test/sprite.html",
-    "test/ttf-font.js"
+    "test/ttf-font.js",
+    "test/javascript.js"
   ]
 }
