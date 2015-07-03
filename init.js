@@ -29,7 +29,8 @@ if ( !Editor.isRuntime ) {
     'texture',
     'sprite',
     'bitmap-font',
-    'ttf-font'
+    'ttf-font',
+    'javascript'
 ].forEach( function ( name ) {
     if ( !Editor.isRuntime ) {
         // meta
