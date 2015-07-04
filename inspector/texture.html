@@ -8,8 +8,8 @@
 
     <template>
         <inspector-meta-header
-            name="[[name]]"
-            src="[[_thumbnail(target.uuid)]]"
+            target="[[target]]"
+            icon="[[_thumbnail(target.uuid)]]"
             dirty="{{dirty}}"
         >
         </inspector-meta-header>
@@ -38,7 +38,7 @@
             </editor-custom-prop>
         </div>
 
-        <inspector-image-preview id="preview" path="[[path]]">
+        <inspector-image-preview id="preview" path="[[target.__path__]]">
         </inspector-image-preview>
     </template>
 </dom-module>
