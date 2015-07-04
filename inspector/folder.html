@@ -2,6 +2,15 @@
 
 <dom-module id="folder-inspector">
     <link rel="import" type="css" href="packages://inspector/share/common.css">
+    <style>
+        span {
+            color: #ccc;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+            margin-right: 5px;
+        }
+    </style>
 
     <template>
         <inspector-meta-header
@@ -9,11 +18,50 @@
             src="packages://canvas-assets/static/folder.png"
         >
         </inspector-meta-header>
+
+        <div class="props flex-1">
+            <div class="layout horizontal center">
+                <span class="flex-1">{{url}}</span>
+                <editor-button on-click="_onOpen">
+                    <i class="fa fa-folder-open"></i>
+                </editor-button>
+            </div>
+        </div>
     </template>
 </dom-module>
 
 <script>
     Polymer({
         is: 'folder-inspector',
+
+        properties: {
+            url: {
+                type: String,
+                value: '',
+            },
+
+            name: {
+                type: String,
+                value: '',
+            },
+
+            target: {
+                type: Object,
+                value: null,
+                observer: '_targetChanged'
+            },
+        },
+
+        _targetChanged: function () {
+            if ( this.target ) {
+                Editor.assetdb.queryUrlByUuid(this.target.uuid, function (url) {
+                    this.url = url;
+                }.bind(this));
+            }
+        },
+
+        _onOpen: function () {
+            Editor.assetdb.explore(this.url);
+        },
     });
 </script>
