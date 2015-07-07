@@ -128,8 +128,7 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 next(new Error('Can not load image for ' + rawTextureFile));
             }
 
-            var extname = Path.extname(fspath);
-            if ( extname.length > 0 ) { extname = extname.substr(1); }
+            var basename = Path.basename(fspath);
 
             var rawWidth = image.width();
             var rawHeight = image.height();
@@ -141,7 +140,7 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
             sprite.width = self.width;
             sprite.height = self.height;
             sprite._setRawFiles([
-                extname
+                basename
             ]);
 
             sprite.texture = Editor.serialize.asAsset(rawTextureUuid);
@@ -172,7 +171,7 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             // TODO: this.atlasName
 
-            assetdb.copyToLibrary( self.uuid, extname, fspath );
+            assetdb.copyToLibrary( self.uuid, basename, fspath );
             assetdb.saveToLibrary( self.uuid, sprite );
 
             next ( null, sprite );

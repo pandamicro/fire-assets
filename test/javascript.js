@@ -19,18 +19,21 @@ describe('javascript', function () {
 
         assets.forEach( function ( url ) {
             var uuid = Editor.assetdb.urlToUuid(url);
-            var extname = Url.extname(url);
+            var basename = Path.basename(url);
 
-            expect( Fs.existsSync( Editor.assetdb._uuid2importPath(uuid) ) )
-                .to.be.true;
+            var jsonPath = Editor.assetdb._uuid2importPath(uuid) + '.json';
+            var filePath = Path.join(Editor.assetdb._uuid2importPath(uuid), basename);
 
-            expect( Fs.existsSync( Editor.assetdb._uuid2importPath(uuid) + extname ) )
-                .to.be.true;
+            expect( Fs.existsSync( jsonPath ) )
+                .to.be.equal(true);
+
+            expect( Fs.existsSync( filePath ) )
+                .to.be.equal(true);
 
             var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
-            var buf2 = Fs.readFileSync( Editor.assetdb._uuid2importPath(uuid) + extname );
+            var buf2 = Fs.readFileSync( filePath );
 
-            assert(buf1.equals(buf2));
+            expect(buf1).to.be.deep.equal(buf2);
         });
 
         done();

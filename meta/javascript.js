@@ -20,14 +20,13 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     Async.waterfall([
         function ( next ) {
-            var extname = Path.extname(fspath);
-            extname = extname && extname.substr(1);
+            var basename = Path.basename(fspath);
 
             var asset = new Fire.JavaScript();
             asset.name = Path.basenameNoExt(fspath);
-            asset._setRawFiles([extname]);
+            asset._setRawFiles([basename]);
 
-            assetdb.copyToLibrary( self.uuid, extname, fspath );
+            assetdb.copyToLibrary( self.uuid, basename, fspath );
             assetdb.saveToLibrary( self.uuid, asset );
 
             next ( null );

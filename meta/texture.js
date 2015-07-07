@@ -32,13 +32,12 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( image, next ) {
-            var extname = Path.extname(fspath);
-            if ( extname.length > 0 ) { extname = extname.substr(1); }
+            var basename = Path.basename(fspath);
 
             var texture = new Fire.Texture();
             texture.name = Path.basenameNoExt(fspath);
             texture._setRawFiles([
-                extname
+                basename
             ]);
             // TODO
             // texture.wrapMode = convertWrapMode(this.wrapMode);
@@ -50,7 +49,7 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 // TODO: create sprite meta here
             }
 
-            assetdb.copyToLibrary( self.uuid, extname, fspath );
+            assetdb.copyToLibrary( self.uuid, basename, fspath );
             assetdb.saveToLibrary( self.uuid, texture );
 
             next ( null, image );

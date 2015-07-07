@@ -44,13 +44,12 @@ BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
 };
 
 BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var extname = Path.extname(fspath);
-    if ( extname.length > 0 ) { extname = extname.substr(1); }
+    var basename = Path.basename(fspath);
 
     var asset = new Fire.BitmapFont();
     asset.name = Path.basenameNoExt(fspath);
     asset._setRawFiles([
-        extname
+        basename
     ]);
 
     // parse .fnt to get relative texture path
@@ -72,7 +71,7 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var textureUuid = assetdb.fspathToUuid(texturePath);
     asset.texture = Editor.serialize.asAsset(textureUuid);
 
-    assetdb.copyToLibrary( this.uuid, extname, fspath );
+    assetdb.copyToLibrary( this.uuid, basename, fspath );
     assetdb.saveToLibrary( this.uuid, asset );
 
     if ( cb ) cb ();

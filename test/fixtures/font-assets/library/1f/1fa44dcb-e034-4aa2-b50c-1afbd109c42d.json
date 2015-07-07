@@ -1,12 +1,12 @@
 {
   "__type__": "Fire.Texture",
-  "_name": "button-with-meta",
+  "_name": "arial-unicode-26",
   "_objFlags": 0,
   "_rawFiles": [
-    "png"
+    "arial-unicode-26.png"
   ],
-  "width": 442,
-  "height": 141,
+  "width": 512,
+  "height": 256,
   "wrapMode": 1,
   "filterMode": 1
 }

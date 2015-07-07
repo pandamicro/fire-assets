@@ -20,18 +20,17 @@ TTFFontMeta.prototype.deserialize = function ( jsonObj ) {
 };
 
 TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var extname = Path.extname(fspath);
-    if ( extname.length > 0 ) { extname = extname.substr(1); }
+    var basename = Path.basename(fspath);
 
     var asset = new Fire.TTFFont();
     asset.name = Path.basenameNoExt(fspath);
     asset._setRawFiles([
-        extname
+        basename
     ]);
 
     asset.fontFamily = this.fontFamily ? this.fontFamily : asset.name;
 
-    assetdb.copyToLibrary( this.uuid, extname, fspath );
+    assetdb.copyToLibrary( this.uuid, basename, fspath );
     assetdb.saveToLibrary( this.uuid, asset );
 
     if ( cb ) cb ();
