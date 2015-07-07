@@ -71,7 +71,7 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var textureUuid = assetdb.fspathToUuid(texturePath);
     asset.texture = Editor.serialize.asAsset(textureUuid);
 
-    assetdb.copyRawfileToLibrary( this.uuid, basename, fspath );
+    assetdb.copyRawfileToLibrary( this.uuid, fspath );
     assetdb.saveAssetToLibrary( this.uuid, asset );
 
     if ( cb ) cb ();
