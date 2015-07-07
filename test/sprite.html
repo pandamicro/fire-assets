@@ -16,12 +16,12 @@
 
             describe('test sprite page level', function () {
                 var assets = [
-                    path + '98/985ccc96-8ffb-4fb6-a2d1-eeb499c37d04',
-                    path + 'd5/d51b7909-09a5-4945-a4d0-d9241c16523e'
+                    path + '98/985ccc96-8ffb-4fb6-a2d1-eeb499c37d04/simple-sprite.sprite',
+                    path + 'd5/d51b7909-09a5-4945-a4d0-d9241c16523e/button-with-meta.png'
                 ];
-                
+
                 it('Fire.Sprite.texture should be Fire.Texture', function (done) {
-                    
+
                     var spriteUuid = Fire.Asset.urlToUuid( assets[0] );
                     var textureUuid = Fire.Asset.urlToUuid( assets[1] );
 

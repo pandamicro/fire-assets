@@ -3,7 +3,7 @@
   "_name": "sprite-with-meta",
   "_objFlags": 0,
   "_rawFiles": [
-    "sprite"
+    "simple-sprite.sprite"
   ],
   "pivot": {
     "__type__": "Fire.Vec2",

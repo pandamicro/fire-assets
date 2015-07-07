@@ -16,12 +16,12 @@
 
             describe('test bitmap-font', function () {
                 var assets = [
-                    path + '91/91048d06-d998-4499-94c3-a5e0eccd40cf',
-                    path + '1f/1fa44dcb-e034-4aa2-b50c-1afbd109c42d'
+                    path + '91/91048d06-d998-4499-94c3-a5e0eccd40cf/arial-unicode-26.fnt',
+                    path + '1f/1fa44dcb-e034-4aa2-b50c-1afbd109c42d/arial-unicode-26.png'
                 ];
-                
+
                 it('Fire.BitmapFont.texture should be Fire.Texture', function (done) {
-                    
+
                     var fntUuid = Fire.Asset.urlToUuid( assets[0] );
                     var textureUuid = Fire.Asset.urlToUuid( assets[1] );
 

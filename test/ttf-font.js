@@ -21,10 +21,23 @@ describe('ttf-font core level', function () {
 
     it('should import to library', function ( done ) {
 
-        assets.forEach( function ( path ) {
-            var uuid = Editor.assetdb.urlToUuid(path);
-            expect( Fs.existsSync( Editor.assetdb._uuid2importPath(uuid) ) )
+        assets.forEach( function ( url ) {
+            var uuid = Editor.assetdb.urlToUuid(url);
+            var basename = Path.basename(url);
+
+            var jsonPath = Editor.assetdb._uuid2importPath(uuid) + '.json';
+            var filePath = Path.join(Editor.assetdb._uuid2importPath(uuid), basename);
+
+            expect( Fs.existsSync( jsonPath ) )
                 .to.be.equal(true);
+
+            expect( Fs.existsSync( filePath ) )
+                .to.be.equal(true);
+
+            var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
+            var buf2 = Fs.readFileSync( filePath );
+
+            expect(buf1).to.be.deep.equal(buf2);
         });
 
         done();
