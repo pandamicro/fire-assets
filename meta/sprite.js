@@ -171,8 +171,8 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             // TODO: this.atlasName
 
-            assetdb.copyToLibrary( self.uuid, basename, fspath );
-            assetdb.saveToLibrary( self.uuid, sprite );
+            assetdb.copyRawfileToLibrary( self.uuid, basename, fspath );
+            assetdb.saveAssetToLibrary( self.uuid, sprite );
 
             next ( null, sprite );
         }

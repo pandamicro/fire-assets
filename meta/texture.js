@@ -49,8 +49,8 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 // TODO: create sprite meta here
             }
 
-            assetdb.copyToLibrary( self.uuid, basename, fspath );
-            assetdb.saveToLibrary( self.uuid, texture );
+            assetdb.copyRawfileToLibrary( self.uuid, basename, fspath );
+            assetdb.saveAssetToLibrary( self.uuid, texture );
 
             next ( null, image );
         },

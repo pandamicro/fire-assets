@@ -30,8 +30,8 @@ TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     asset.fontFamily = this.fontFamily ? this.fontFamily : asset.name;
 
-    assetdb.copyToLibrary( this.uuid, basename, fspath );
-    assetdb.saveToLibrary( this.uuid, asset );
+    assetdb.copyRawfileToLibrary( this.uuid, basename, fspath );
+    assetdb.saveAssetToLibrary( this.uuid, asset );
 
     if ( cb ) cb ();
 };

@@ -26,8 +26,8 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
             asset.name = Path.basenameNoExt(fspath);
             asset._setRawFiles([basename]);
 
-            assetdb.copyToLibrary( self.uuid, basename, fspath );
-            assetdb.saveToLibrary( self.uuid, asset );
+            assetdb.copyRawfileToLibrary( self.uuid, basename, fspath );
+            assetdb.saveAssetToLibrary( self.uuid, asset );
 
             next ( null );
         }
