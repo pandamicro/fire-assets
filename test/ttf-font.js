@@ -25,8 +25,8 @@ describe('ttf-font core level', function () {
             var uuid = Editor.assetdb.urlToUuid(url);
             var basename = Path.basename(url);
 
-            var jsonPath = Editor.assetdb._uuid2importPath(uuid) + '.json';
-            var filePath = Path.join(Editor.assetdb._uuid2importPath(uuid), basename);
+            var jsonPath = Editor.assetdb._uuid2importPath(uuid);
+            var filePath = Path.join(Path.dirname(Editor.assetdb._uuid2importPath(uuid)), uuid, basename);
 
             expect( Fs.existsSync( jsonPath ) )
                 .to.be.equal(true);
