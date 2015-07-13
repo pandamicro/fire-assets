@@ -3,7 +3,7 @@ var Path = require('fire-path');
 function registerMenu () {
     Editor.menus['create-asset'] = [
         {
-            menuPath: 'Script',
+            label: 'Script',
             message: 'assets:new-asset',
             params: ['NewScript.js', 'javascript']
         },
@@ -11,7 +11,7 @@ function registerMenu () {
             type: 'separator'
         },
         {
-            menuPath: 'Scene',
+            label: 'Scene',
             message: 'assets:new-asset',
             params: ['New Scene.fire', 'scene']
         },
