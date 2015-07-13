@@ -5,16 +5,16 @@ var Url = require('fire-url');
 var AssetDBUtils = require('./utils');
 
 //
-describe('javascript', function () {
+describe('scene', function () {
     before(function ( done ) {
-        AssetDBUtils.init( 'javascript-assets/assets', done );
+        AssetDBUtils.init( 'scene-assets/assets', done );
     });
 
     after( AssetDBUtils.deinit );
 
     it('should import to library', function ( done ) {
         var assets = [
-            'assets://rotate.js',
+            'assets://level.fire',
         ];
 
         assets.forEach( function ( url ) {

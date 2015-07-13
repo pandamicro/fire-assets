@@ -1,0 +1,20 @@
+<link rel="import" href="packages://inspector/share/meta-header.html">
+
+<dom-module id="scene-inspector">
+    <link rel="import" type="css" href="packages://inspector/share/common.css">
+
+    <template>
+        <inspector-meta-header
+            target="[[target]]"
+            icon="packages://canvas-assets/static/scene.png"
+            dirty="{{dirty}}"
+        >
+        </inspector-meta-header>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'scene-inspector',
+    });
+</script>

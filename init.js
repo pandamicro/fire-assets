@@ -30,7 +30,8 @@ if ( !Editor.isRuntime ) {
     'sprite',
     'bitmap-font',
     'ttf-font',
-    'javascript'
+    'javascript',
+    'scene'
 ].forEach( function ( name ) {
     if ( !Editor.isRuntime ) {
         // meta

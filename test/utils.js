@@ -28,6 +28,7 @@ module.exports = {
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
+        Editor.assetdb.register( '.fire', false, Editor.metas.scene );
 
         // start mounting
         var src = Path.join( __dirname, 'fixtures', path);

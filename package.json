@@ -34,6 +34,7 @@
     "test/sprite.js",
     "test/sprite.html",
     "test/ttf-font.js",
-    "test/javascript.js"
+    "test/javascript.js",
+    "test/scene.js"
   ]
 }

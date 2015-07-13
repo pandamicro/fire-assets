@@ -10,6 +10,7 @@ module.exports = {
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
+        Editor.assetdb.register( '.fire', false, Editor.metas.scene );
     },
 
     unload: function () {
@@ -24,6 +25,7 @@ module.exports = {
             [ 'bitmap-font', 'BitmapFont' ],
             [ 'ttf-font', 'TTFFont' ],
             [ 'javascript', 'JavaScript' ],
+            [ 'scene', 'Scene' ],
         ].forEach( function ( item ) {
             var name = item[0];
             var fireName = item[1];
