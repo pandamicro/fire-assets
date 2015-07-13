@@ -43,4 +43,21 @@ describe('texture', function () {
 
         done();
     });
+
+    it('should remove thumbnail if remove texture asset', function (done) {
+        var url = 'assets://button-with-meta.png';
+        var uuid = Editor.assetdb.urlToUuid(url);
+
+        var thumbnailPath = Path.join(Editor.assetdb._thumbnailPath, uuid.substring(0,2), uuid + '.png');
+
+        Editor.assetdb.delete(url, function (err) {
+            assert( !err );
+
+            expect( Fs.existsSync(thumbnailPath) ).to.not.be.true;
+
+            done();
+        });
+    });
+
 });
+

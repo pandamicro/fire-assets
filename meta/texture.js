@@ -66,5 +66,10 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
 TextureMeta.prototype.export = null;
 
+
+TextureMeta.prototype.delete = function ( assetdb, fspath, cb ) {
+    assetdb._deleteThumbnail( this.uuid, cb );
+}
+
 module.exports = TextureMeta;
 
