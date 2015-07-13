@@ -4,16 +4,16 @@ function registerMenu () {
     Editor.menus['create-asset'] = [
         {
             menuPath: 'Script',
-            filename: 'NewScript.js',
-            meta: Editor.metas.javascript
+            message: 'assets:new-asset',
+            params: ['NewScript.js', 'javascript']
         },
         {
             type: 'separator'
         },
         {
             menuPath: 'Scene',
-            filename: 'New Scene.fire',
-            meta: Editor.metas.scene
+            message: 'assets:new-asset',
+            params: ['New Scene.fire', 'scene']
         },
     ];
 }
