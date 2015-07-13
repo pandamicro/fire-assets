@@ -1,5 +1,23 @@
 var Path = require('fire-path');
 
+function registerMenu () {
+    Editor.menus['create-asset'] = [
+        {
+            menuPath: 'Script',
+            filename: 'NewScript.js',
+            meta: Editor.metas.javascript
+        },
+        {
+            type: 'separator'
+        },
+        {
+            menuPath: 'Scene',
+            filename: 'New Scene.fire',
+            meta: Editor.metas.scene
+        },
+    ];
+}
+
 module.exports = {
     load: function () {
         require('./init');
@@ -11,6 +29,8 @@ module.exports = {
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
+
+        registerMenu();
     },
 
     unload: function () {
