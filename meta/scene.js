@@ -1,3 +1,5 @@
+var Fs = require('fire-fs');
+
 var $super = Editor.metas.asset;
 function SceneMeta () {
     $super.call(this);
@@ -34,6 +36,13 @@ SceneMeta.prototype.import = function ( assetdb, fspath, cb ) {
     ], cb);
 };
 
-SceneMeta.prototype.export = null;
+SceneMeta.prototype.export = function (path, data, cb) {
+    if (data) {
+        Fs.writeFile(path, data, cb);
+    }
+    else {
+        if (cb) cb();
+    }
+};
 
 module.exports = SceneMeta;

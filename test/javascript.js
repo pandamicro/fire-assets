@@ -39,3 +39,37 @@ describe('javascript', function () {
         done();
     });
 });
+
+describe('javascript.export', function () {
+    beforeEach(function ( done ) {
+        AssetDBUtils.init( 'javascript-assets/assets', done );
+    });
+
+    afterEach( AssetDBUtils.deinit );
+
+    it('should create a javascript file from input data', function (done) {
+
+        var temp = Editor.assetdb._fspath('assets://rotate.js');
+        var dest = Editor.assetdb._fspath('assets://rotate2.js');
+        var data = Fs.readFileSync( temp );
+
+        var meta = new Editor.metas.javascript();
+        meta.export(dest, data, function () {
+            expect( Fs.existsSync(dest) ).to.be.true;
+            done();
+        });
+    });
+
+    it('should do nothing if input data is null', function (done) {
+
+        var temp = Editor.assetdb._fspath('assets://rotate.js');
+        var dest = Editor.assetdb._fspath('assets://rotate2.js');
+        var data = null;
+
+        var meta = new Editor.metas.javascript();
+        meta.export(dest, data, function () {
+            expect( Fs.existsSync(dest) ).to.not.be.true;
+            done();
+        });
+    });
+});
