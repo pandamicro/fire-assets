@@ -22,14 +22,11 @@ SceneMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     Async.waterfall([
         function ( next ) {
-            var basename = Path.basename(fspath);
+            var dest = assetdb.copyAssetToLibrary( self.uuid, fspath );
 
-            var asset = new Fire.Scene();
-            asset.name = Path.basenameNoExt(fspath);
-            asset._setRawFiles([basename]);
-
-            assetdb.copyRawfileToLibrary( self.uuid, fspath );
-            assetdb.saveAssetToLibrary( self.uuid, asset );
+            var asset = JSON.parse(Fs.readFileSync(dest));
+            asset._name = Path.basename(fspath);
+            Fs.writeFileSync( dest, JSON.stringify(asset) );
 
             next ( null );
         }
