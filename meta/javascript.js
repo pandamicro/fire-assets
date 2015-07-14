@@ -1,3 +1,5 @@
+var Fs = require('fire-fs');
+
 var $super = Editor.metas.asset;
 function JavaScriptMeta () {
     $super.call(this);
@@ -34,6 +36,10 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
     ], cb);
 };
 
-JavaScriptMeta.prototype.export = null;
+JavaScriptMeta.prototype.export = function (path, data, cb) {
+    if (data) {
+        Fs.writeFile(path, data, cb);
+    }
+};
 
 module.exports = JavaScriptMeta;

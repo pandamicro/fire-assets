@@ -39,3 +39,24 @@ describe('scene', function () {
         done();
     });
 });
+
+describe('scene.export', function () {
+    before(function ( done ) {
+        AssetDBUtils.init( 'scene-assets/assets', done );
+    });
+
+    after( AssetDBUtils.deinit );
+
+    it('should create a scene file from imput data', function (done) {
+
+        var temp = Editor.assetdb._fspath('assets://level.fire');
+        var dest = Editor.assetdb._fspath('assets://level2.fire');
+        var data = Fs.readFileSync( temp );
+
+        var meta = new Editor.metas.scene();
+        meta.export(dest, data, function () {
+            expect( Fs.existsSync(dest) ).to.be.true;
+            done();
+        });
+    });
+});
