@@ -41,13 +41,13 @@ describe('javascript', function () {
 });
 
 describe('javascript.export', function () {
-    before(function ( done ) {
+    beforeEach(function ( done ) {
         AssetDBUtils.init( 'javascript-assets/assets', done );
     });
 
-    after( AssetDBUtils.deinit );
+    afterEach( AssetDBUtils.deinit );
 
-    it('should create a scene file from imput data', function (done) {
+    it('should create a javascript file from input data', function (done) {
 
         var temp = Editor.assetdb._fspath('assets://rotate.js');
         var dest = Editor.assetdb._fspath('assets://rotate2.js');
@@ -56,6 +56,19 @@ describe('javascript.export', function () {
         var meta = new Editor.metas.javascript();
         meta.export(dest, data, function () {
             expect( Fs.existsSync(dest) ).to.be.true;
+            done();
+        });
+    });
+
+    it('should do nothing if input data is null', function (done) {
+
+        var temp = Editor.assetdb._fspath('assets://rotate.js');
+        var dest = Editor.assetdb._fspath('assets://rotate2.js');
+        var data = null;
+
+        var meta = new Editor.metas.javascript();
+        meta.export(dest, data, function () {
+            expect( Fs.existsSync(dest) ).to.not.be.true;
             done();
         });
     });

@@ -40,6 +40,9 @@ JavaScriptMeta.prototype.export = function (path, data, cb) {
     if (data) {
         Fs.writeFile(path, data, cb);
     }
+    else {
+        if (cb) cb();
+    }
 };
 
 module.exports = JavaScriptMeta;
