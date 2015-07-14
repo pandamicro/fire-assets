@@ -18,7 +18,7 @@ module.exports = {
                 message: 'assets:new-asset',
                 params: [{
                     name: 'NewScript.js',
-                    url: 'packages://canvas-assets/template/simple.js',
+                    url: Editor.runtimeUrl + '/static/template/new-script.js',
                 }],
             },
             {
@@ -29,7 +29,7 @@ module.exports = {
                 message: 'assets:new-asset',
                 params: [{
                     name: 'New Scene.fire',
-                    url: '',
+                    url: Editor.runtimeUrl + '/static/template/new-scene.fire',
                 }]
             },
         ];
