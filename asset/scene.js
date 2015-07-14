@@ -3,6 +3,7 @@ var Scene = Fire.Class({
     extends: Fire.Asset,
 
     properties: {
+        scene: null
     },
 });
 
