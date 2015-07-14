@@ -1,23 +1,5 @@
 var Path = require('fire-path');
 
-function registerMenu () {
-    Editor.menus['create-asset'] = [
-        {
-            label: 'Script',
-            message: 'assets:new-asset',
-            params: ['NewScript.js', 'javascript']
-        },
-        {
-            type: 'separator'
-        },
-        {
-            label: 'Scene',
-            message: 'assets:new-asset',
-            params: ['New Scene.fire', 'scene']
-        },
-    ];
-}
-
 module.exports = {
     load: function () {
         require('./init');
@@ -30,7 +12,27 @@ module.exports = {
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
 
-        registerMenu();
+        Editor.menus['create-asset'] = [
+            {
+                label: 'Script',
+                message: 'assets:new-asset',
+                params: [{
+                    name: 'NewScript.js',
+                    url: 'packages://canvas-assets/template/simple.js',
+                }],
+            },
+            {
+                type: 'separator'
+            },
+            {
+                label: 'Scene',
+                message: 'assets:new-asset',
+                params: [{
+                    name: 'New Scene.fire',
+                    url: '',
+                }]
+            },
+        ];
     },
 
     unload: function () {
