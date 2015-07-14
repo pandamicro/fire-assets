@@ -25,8 +25,8 @@ SceneMeta.prototype.import = function ( assetdb, fspath, cb ) {
             var dest = assetdb.copyAssetToLibrary( self.uuid, fspath );
 
             var asset = JSON.parse(Fs.readFileSync(dest));
-            asset._name = Path.basename(fspath);
-            Fs.writeFileSync( dest, JSON.stringify(asset) );
+            Editor.serialize.setName(asset, Path.basename(fspath));
+            Fs.writeFileSync(dest, JSON.stringify(asset, null, 2));
 
             next ( null );
         }
