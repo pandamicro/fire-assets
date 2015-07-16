@@ -10,6 +10,7 @@ module.exports = {
         Editor.assetdb.register( '.fnt', false, Editor.metas['bitmap-font'] );
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
+        Editor.assetdb.register( '.coffee', false, Editor.metas.coffeescript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
 
         Editor.menus['create-asset'] = [
@@ -47,6 +48,7 @@ module.exports = {
             [ 'bitmap-font', 'BitmapFont' ],
             [ 'ttf-font', 'TTFFont' ],
             [ 'javascript', 'JavaScript' ],
+            [ 'coffeescript', 'CoffeeScript' ],
             [ 'scene', 'Scene' ],
         ].forEach( function ( item ) {
             var name = item[0];

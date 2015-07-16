@@ -31,6 +31,7 @@ if ( !Editor.isRuntime ) {
     'bitmap-font',
     'ttf-font',
     'javascript',
+    'coffeescript',
     'scene'
 ].forEach( function ( name ) {
     if ( !Editor.isRuntime ) {

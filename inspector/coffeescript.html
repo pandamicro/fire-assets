@@ -1,0 +1,29 @@
+<link rel="import" href="packages://inspector/share/meta-header.html">
+<link rel="import" href="packages://inspector/share/code-preview.html">
+
+<dom-module id="coffeescript-inspector">
+    <link rel="import" type="css" href="packages://inspector/share/common.css">
+
+    <template>
+        <inspector-meta-header
+            target="[[target]]"
+            icon="packages://canvas-assets/static/icon/coffeescript.png"
+            dirty="{{dirty}}"
+        >
+        </inspector-meta-header>
+
+        <inspector-code-preview
+            id="preview"
+            class="flex-1"
+            type="[[target.meta-type]]"
+            path="[[target.__path__]]"
+        >
+        </inspector-code-preview>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'coffeescript-inspector',
+    });
+</script>
