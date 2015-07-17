@@ -1,12 +1,12 @@
 {
   "name": "canvas-assets",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Texture Asset for fireball",
   "author": "Firebox Technology",
   "hosts": {
-    "editor-framework": "^0.3.4",
-    "asset-db": "^0.1.0",
-    "engine-framework": "^0.0.1"
+    "editor-framework": "^0.3.12",
+    "asset-db": "^0.2.0",
+    "engine-framework": "^0.1.0"
   },
   "main": "main.js",
   "menus": {},
