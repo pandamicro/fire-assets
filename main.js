@@ -15,11 +15,19 @@ module.exports = {
 
         Editor.menus['create-asset'] = [
             {
-                label: 'Script',
+                label: 'JavaScript',
                 message: 'assets:new-asset',
                 params: [{
                     name: 'NewScript.js',
                     url: Editor.runtimeUrl + '/static/template/new-script.js',
+                }],
+            },
+            {
+                label: 'CoffeeScript',
+                message: 'assets:new-asset',
+                params: [{
+                    name: 'NewScript.coffee',
+                    url: Editor.runtimeUrl + '/static/template/new-script.coffee',
                 }],
             },
             {
