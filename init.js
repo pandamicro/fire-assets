@@ -25,15 +25,7 @@ if ( !Editor.isRuntime ) {
 // register builtin asset
 // =======================================
 
-[
-    'texture',
-    'sprite',
-    'bitmap-font',
-    'ttf-font',
-    'javascript',
-    'coffeescript',
-    'scene'
-].forEach( function ( name ) {
+require('./asset').forEach( function ( name ) {
     if ( !Editor.isRuntime ) {
         // meta
         Editor.metas[name] = require('./meta/' + name);
