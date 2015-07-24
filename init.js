@@ -3,16 +3,16 @@
 
 if ( !Editor.isRuntime ) {
     Editor.metas.mount = {
-        'meta-type': 'mount',
+        'asset-type': 'mount',
         'meta-icon': 'packages://canvas-assets/static/icon/mount.png',
     };
 
-    // NOTE: AssetMeta defines 'meta-type' in asset-db
-    // Editor.metas.asset['meta-type'] = 'asset';
+    // NOTE: AssetMeta defines 'asset-type' in asset-db
+    // Editor.metas.asset['asset-type'] = 'asset';
     Editor.metas.asset['meta-icon'] = 'packages://canvas-assets/static/icon/asset.png';
 
-    // NOTE: FolderMeta defines 'meta-type' in asset-db
-    // Editor.metas.folder['meta-type'] = 'folder';
+    // NOTE: FolderMeta defines 'asset-type' in asset-db
+    // Editor.metas.folder['asset-type'] = 'folder';
     Editor.metas.folder['meta-icon'] = 'packages://canvas-assets/static/icon/folder.png';
 
     if ( Editor.isPageLevel ) {
@@ -29,7 +29,7 @@ require('./asset').forEach( function ( name ) {
     if ( !Editor.isRuntime ) {
         // meta
         Editor.metas[name] = require('./meta/' + name);
-        Editor.metas[name]['meta-type'] = name;
+        Editor.metas[name]['asset-type'] = name;
         Editor.metas[name]['meta-icon'] = 'packages://canvas-assets/static/icon/' + name + '.png';
 
         // inspector
