@@ -48,9 +48,6 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     var asset = new Fire.BitmapFont();
     asset.name = Path.basenameNoExt(fspath);
-    asset._setRawFiles([
-        basename
-    ]);
 
     // parse .fnt to get relative texture path
     var text = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
@@ -59,9 +56,13 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var texturePath = pageObj.file;
     this.texturePath = texturePath;
 
+    asset._setRawFiles([
+        basename,
+        texturePath
+    ]);
+
     texturePath = Path.join(Path.dirname(fspath), texturePath);
 
-    // console.log( texturePath + ' : ' + Fs.existsSync(texturePath) );
     if ( !Fs.existsSync(texturePath) ) {
         if ( cb )  cb ( new Error ( 'BitmapFontMeta can\'t find texture path :'  + texturePath ) );
         return;
@@ -71,6 +72,7 @@ BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var textureUuid = assetdb.fspathToUuid(texturePath);
     asset.texture = Editor.serialize.asAsset(textureUuid);
 
+    assetdb.copyRawfileToLibrary( this.uuid, texturePath );
     assetdb.copyRawfileToLibrary( this.uuid, fspath );
     assetdb.saveAssetToLibrary( this.uuid, asset );
 
