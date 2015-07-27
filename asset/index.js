@@ -7,6 +7,7 @@ require('./ttf-font');
 require('./javascript');
 require('./coffeescript');
 require('./scene');
+require('./audio-clip');
 
 module.exports = [
     'texture',
@@ -15,5 +16,6 @@ module.exports = [
     'ttf-font',
     'javascript',
     'coffeescript',
-    'scene'
+    'scene',
+    'audio-clip'
 ];
