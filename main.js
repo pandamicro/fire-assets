@@ -12,6 +12,7 @@ module.exports = {
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
         Editor.assetdb.register( '.coffee', false, Editor.metas.coffeescript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
+        Editor.assetdb.register( '.mp3', false, Editor.metas['audio-clip'] );
 
         Editor.menus['create-asset'] = [
             {
@@ -58,6 +59,7 @@ module.exports = {
             [ 'javascript', 'JavaScript' ],
             [ 'coffeescript', 'CoffeeScript' ],
             [ 'scene', 'Scene' ],
+            [ 'audio-clip', 'AudioClip' ],
         ].forEach( function ( item ) {
             var name = item[0];
             var fireName = item[1];
