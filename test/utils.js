@@ -36,7 +36,7 @@ module.exports = {
 
         Fs.copySync( src, dest );
 
-        Editor.assetdb.mount( dest, 'assets', function ( err ) {
+        Editor.assetdb.mount( dest, 'assets', AssetDB.MountType.asset, function ( err ) {
             Editor.assetdb.init( done );
         });
     },
