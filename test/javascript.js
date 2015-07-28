@@ -29,11 +29,6 @@ describe('javascript', function () {
 
             expect( Fs.existsSync( filePath ) )
                 .to.be.equal(true);
-
-            var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
-            var buf2 = Fs.readFileSync( filePath );
-
-            expect(buf1).to.be.deep.equal(buf2);
         });
 
         done();
