@@ -16,7 +16,6 @@ module.exports = {
         Editor.assetdb = new AssetDB({
             'cwd': Path.join( __dirname, 'playground' ),
             'library': 'library',
-            'default-asset': Fire.Asset,
         });
 
         // init canvas-assets

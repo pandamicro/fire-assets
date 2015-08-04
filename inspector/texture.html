@@ -9,7 +9,7 @@
     <template>
         <inspector-meta-header
             target="[[target]]"
-            icon="[[_thumbnail(target.uuid)]]"
+            icon="[[_thumbnail(target.uuid,target.__mtime__)]]"
             dirty="{{dirty}}"
         >
         </inspector-meta-header>
@@ -17,8 +17,8 @@
         <div class="props flex-1">
             <editor-custom-prop name="Type">
                 <editor-select value="{{target.type}}">
+                    <editor-option value="normal">Normal</editor-option>
                     <editor-option value="sprite">Sprite</editor-option>
-                    <editor-option value="texture">Texture</editor-option>
                 </editor-select>
             </editor-custom-prop>
 
@@ -50,9 +50,9 @@
     Polymer({
         is: 'texture-inspector',
 
-        _thumbnail: function ( uuid ) {
+        _thumbnail: function ( uuid, mtime ) {
             if ( uuid )
-                return 'uuid://' + uuid + '?thumbnail';
+                return 'thumbnail://' + uuid + '?' + mtime;
             return '';
         },
 

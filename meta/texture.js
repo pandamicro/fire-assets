@@ -2,7 +2,7 @@ var $super = Editor.metas.asset;
 function TextureMeta () {
     $super.call(this);
 
-    this.type = 'sprite';
+    this.type = 'normal';
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
 }
@@ -66,10 +66,9 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
 TextureMeta.prototype.export = null;
 
-
 TextureMeta.prototype.delete = function ( assetdb, fspath, cb ) {
     assetdb._deleteThumbnail( this.uuid, cb );
-}
+};
 
 module.exports = TextureMeta;
 
