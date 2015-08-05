@@ -18,7 +18,7 @@ module.exports = {
             'library': 'library',
         });
 
-        // init canvas-assets
+        // init fire-assets
         require('../init');
 
         Editor.assetdb.register( '.png', false, Editor.metas.texture );
