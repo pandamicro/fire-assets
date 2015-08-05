@@ -32,53 +32,6 @@ function BitmapFontMeta () {
 }
 Editor.JS.extend(BitmapFontMeta, $super);
 
-BitmapFontMeta.prototype.serialize = function () {
-    $super.prototype.serialize.call(this);
-    return this;
-};
-
-BitmapFontMeta.prototype.deserialize = function ( jsonObj ) {
-    $super.prototype.deserialize.call(this, jsonObj);
-
-    this.texturePath = jsonObj.texturePath;
-};
-
-BitmapFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var basename = Path.basename(fspath);
-
-    var asset = new Fire.BitmapFont();
-    asset.name = Path.basenameNoExt(fspath);
-
-    // parse .fnt to get relative texture path
-    var text = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
-    var pageObj = _parseStrToObj( text.match(PAGE_EXP)[0] );
-
-    var texturePath = pageObj.file;
-    this.texturePath = texturePath;
-
-    asset._setRawFiles([
-        basename,
-        texturePath
-    ]);
-
-    texturePath = Path.join(Path.dirname(fspath), texturePath);
-
-    if ( !Fs.existsSync(texturePath) ) {
-        if ( cb )  cb ( new Error ( 'BitmapFontMeta can\'t find texture path :'  + texturePath ) );
-        return;
-    }
-
-    // get uuid from path
-    var textureUuid = assetdb.fspathToUuid(texturePath);
-    asset.texture = Editor.serialize.asAsset(textureUuid);
-
-    assetdb.copyRawfileToLibrary( this.uuid, texturePath );
-    assetdb.copyRawfileToLibrary( this.uuid, fspath );
-    assetdb.saveAssetToLibrary( this.uuid, asset );
-
-    if ( cb ) cb ();
-};
-
 BitmapFontMeta.prototype.export = null;
 
 module.exports = BitmapFontMeta;
