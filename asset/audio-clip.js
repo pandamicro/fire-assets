@@ -1,18 +1,8 @@
 
 var AudioClip = Fire.Class({
-
     name: 'Fire.AudioClip',
-
-    extends: Fire.Asset,
-
-    constructor: function () {
-    },
-
-    properties: {
-
-    },
+    extends: Fire.RawAsset,
 });
 
 Fire.AudioClip = AudioClip;
-
-return AudioClip;
+module.exports = AudioClip;

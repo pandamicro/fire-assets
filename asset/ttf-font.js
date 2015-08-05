@@ -1,22 +1,14 @@
-module.exports = (function () {
 
-    var TTFFont = Fire.Class({
+var TTFFont = Fire.Class({
+    name: 'Fire.TTFFont',
+    extends: Fire.Asset,
 
-        name: 'Fire.TTFFont',
+    properties: {
+        fontFamily: {
+            default: ''
+        }
+    },
+});
 
-        extends: Fire.Asset,
-
-        constructor: function () {
-        },
-
-        properties: {
-            fontFamily: {
-                default: ''
-            }
-        },
-    });
-
-    Fire.TTFFont = TTFFont;
-
-    return TTFFont;
-})();
+Fire.TTFFont = TTFFont;
+module.exports = TTFFont;

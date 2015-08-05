@@ -5,6 +5,7 @@ var Del = require('del');
 module.exports = {
     init: function ( path, done ) {
         // simple init
+        if ( !Editor.assets ) Editor.assets = {};
         if ( !Editor.metas ) Editor.metas = {};
         if ( !Editor.inspectors ) Editor.inspectors = {};
 

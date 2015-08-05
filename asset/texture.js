@@ -56,7 +56,7 @@ module.exports = (function () {
 
         name: 'Fire.Texture',
 
-        extends: Fire.Asset,
+        extends: Fire.RawAsset,     // It should be Fire.Asset....
 
         constructor: function () {
             var img = arguments[0];

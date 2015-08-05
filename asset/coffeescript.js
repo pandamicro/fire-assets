@@ -1,9 +1,6 @@
 var CoffeeScript = Fire.Class({
     name: 'Fire.CoffeeScript',
-    extends: Fire.Asset,
-
-    properties: {
-    },
+    extends: Fire.RawAsset,
 });
 
 Fire.CoffeeScript = CoffeeScript;

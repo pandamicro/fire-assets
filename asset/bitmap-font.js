@@ -1,31 +1,14 @@
-module.exports = (function () {
+/**
+ * Class for BitmapFont handling.
+ *
+ * @class BitmapFont
+ * @extends Asset
+ * @constructor
+ */
+var BitmapFont = Fire.Class({
+    name: 'Fire.BitmapFont',
+    extends: Fire.RawAsset,
+});
 
-    /**
-     * Class for BitmapFont handling.
-     *
-     * @class BitmapFont
-     * @extends Asset
-     * @constructor
-     */
-    var BitmapFont = Fire.Class({
-
-        name: 'Fire.BitmapFont',
-
-        extends: Fire.Asset,
-
-        constructor: function () {
-        },
-
-        properties: {
-            texture: {
-                default: null,
-                type: Fire.Texture,
-                visible: false,
-            }
-        },
-    });
-
-    Fire.BitmapFont = BitmapFont;
-
-    return BitmapFont;
-})();
+Fire.BitmapFont = BitmapFont;
+module.exports = BitmapFont;

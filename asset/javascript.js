@@ -1,9 +1,6 @@
 var JavaScript = Fire.Class({
     name: 'Fire.JavaScript',
-    extends: Fire.Asset,
-
-    properties: {
-    },
+    extends: Fire.RawAsset,
 });
 
 Fire.JavaScript = JavaScript;

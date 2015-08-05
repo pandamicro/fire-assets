@@ -2,6 +2,9 @@
 // =======================================
 
 if ( !Editor.isRuntime ) {
+    Editor.assets['raw-asset'] = Fire.RawAsset;
+    Editor.assets.asset = Fire.Asset;
+
     Editor.metas.mount = {
         'asset-type': 'mount',
         'asset-icon': 'packages://fire-assets/static/icon/mount.png',
@@ -36,10 +39,5 @@ require('./asset').forEach( function ( name ) {
         if ( Editor.isPageLevel ) {
             Editor.inspectors[name] = 'packages://fire-assets/inspector/' + name + '.html';
         }
-    }
-
-    if ( Editor.isCoreLevel || Editor.isRuntime ) {
-        // asset
-        require('./asset/' + name);
     }
 });
