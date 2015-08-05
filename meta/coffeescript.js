@@ -15,6 +15,16 @@ CoffeeScriptMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 };
 
+CoffeeScriptMeta.prototype.useRawfile = function () {
+    return false;
+};
+
+CoffeeScriptMeta.prototype.dests = function ( assetdb ) {
+    return [
+        assetdb._uuidToImportPathNoExt( this.uuid ) + '.js',
+    ];
+};
+
 CoffeeScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Async = require('async');
     var Path = require('fire-path');
@@ -44,14 +54,7 @@ CoffeeScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( data, next ) {
-            var basenameNoExt = Path.basenameNoExt(fspath);
-
-            var asset = new Fire.CoffeeScript();
-            asset.name = basenameNoExt;
-            asset._setRawFiles([basenameNoExt + '.js']);
-
-            assetdb.saveRawdataToLibrary( self.uuid, data, basenameNoExt+'.js' );
-            assetdb.saveAssetToLibrary( self.uuid, asset );
+            assetdb.saveRawdataToLibrary( self.uuid, '.js', data );
 
             next ( null );
         }

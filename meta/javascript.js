@@ -15,6 +15,16 @@ JavaScriptMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 };
 
+JavaScriptMeta.prototype.useRawfile = function () {
+    return false;
+};
+
+JavaScriptMeta.prototype.dests = function ( assetdb ) {
+    return [
+        assetdb._uuidToImportPathNoExt( this.uuid ) + '.js',
+    ];
+};
+
 JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Async = require('async');
     var Path = require('fire-path');
@@ -37,14 +47,7 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( data, next ) {
-            var basename = Path.basename(fspath);
-
-            var asset = new Fire.JavaScript();
-            asset.name = Path.basenameNoExt(fspath);
-            asset._setRawFiles([basename]);
-
-            assetdb.saveRawdataToLibrary( self.uuid, data, basename );
-            assetdb.saveAssetToLibrary( self.uuid, asset );
+            assetdb.saveRawdataToLibrary( self.uuid, '.js', data );
 
             next ( null );
         }
