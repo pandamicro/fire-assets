@@ -25,11 +25,6 @@ TextureMeta.prototype.useRawfile = function () {
 };
 
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    if ( this.useRawfile() ) {
-        if ( cb ) cb ();
-        return;
-    }
-
     var Lwip = require('lwip');
     var Async = require('async');
     var Path = require('fire-path');
