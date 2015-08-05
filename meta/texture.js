@@ -2,7 +2,7 @@ var $super = Editor.metas.asset;
 function TextureMeta () {
     $super.call(this);
 
-    this.type = 'normal';
+    this.type = 'raw'; // raw, normal-map, sprite
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
 }
@@ -20,7 +20,16 @@ TextureMeta.prototype.deserialize = function ( jsonObj ) {
     this.filterMode = jsonObj.filterMode;
 };
 
+TextureMeta.prototype.useRawfile = function () {
+    return this.type === 'raw';
+};
+
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
+    if ( this.useRawfile() ) {
+        if ( cb ) cb ();
+        return;
+    }
+
     var Lwip = require('lwip');
     var Async = require('async');
     var Path = require('fire-path');
@@ -54,13 +63,22 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             next ( null, image );
         },
-
-        // create thumbnail
-        function ( image, next ) {
-            assetdb._createThumbnail( fspath, 32, image, next );
-        },
     ], function ( err ) {
         if ( cb ) cb ( err );
+    });
+};
+
+TextureMeta.prototype.postImport = function ( assetdb, fspath, cb ) {
+    var Lwip = require('lwip');
+
+    // create thumbnail
+    Lwip.open( fspath, function ( err, image ) {
+        if ( err ) {
+            if ( cb ) cb ( err );
+            return;
+        }
+
+        assetdb._createThumbnail( fspath, 32, image, cb );
     });
 };
 

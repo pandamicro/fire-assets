@@ -103,6 +103,10 @@ SpriteMeta.prototype.deserialize = function ( jsonObj ) {
     this.borderRight = jsonObj.borderRight;
 };
 
+SpriteMeta.prototype.useRawfile = function () {
+    return false;
+};
+
 SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     var self = this;

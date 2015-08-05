@@ -15,6 +15,10 @@ SceneMeta.prototype.deserialize = function ( jsonObj ) {
     $super.prototype.deserialize.call(this, jsonObj);
 };
 
+SceneMeta.prototype.useRawfile = function () {
+    return false;
+};
+
 SceneMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Async = require('async');
     var Path = require('fire-path');
