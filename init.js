@@ -2,9 +2,6 @@
 // =======================================
 
 if ( !Editor.isRuntime ) {
-    Editor.assets['raw-asset'] = Fire.RawAsset;
-    Editor.assets.asset = Fire.Asset;
-
     Editor.metas.mount = {
         'asset-type': 'mount',
         'asset-icon': 'packages://fire-assets/static/icon/mount.png',
