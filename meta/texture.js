@@ -36,25 +36,25 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( image, next ) {
-            var basename = Path.basename(fspath);
+            // var basename = Path.basename(fspath);
 
-            var texture = new Fire.Texture();
-            texture.name = Path.basenameNoExt(fspath);
-            texture._setRawFiles([
-                basename
-            ]);
-            // TODO
-            // texture.wrapMode = convertWrapMode(this.wrapMode);
-            // texture.filterMode = convertFilterMode(this.filterMode);
-            texture.width = image.width();
-            texture.height = image.height();
+            // var texture = new Fire.Texture();
+            // texture.name = Path.basenameNoExt(fspath);
+            // texture._setRawFiles([
+            //     basename
+            // ]);
+            // // TODO
+            // // texture.wrapMode = convertWrapMode(this.wrapMode);
+            // // texture.filterMode = convertFilterMode(this.filterMode);
+            // texture.width = image.width();
+            // texture.height = image.height();
 
-            if ( texture.type === 'sprite' ) {
-                // TODO: create sprite meta here
-            }
+            // if ( texture.type === 'sprite' ) {
+            //     // TODO: create sprite meta here
+            // }
 
-            assetdb.copyRawfileToLibrary( self.uuid, fspath );
-            assetdb.saveAssetToLibrary( self.uuid, texture );
+            // assetdb.copyRawfileToLibrary( self.uuid, fspath );
+            // assetdb.saveAssetToLibrary( self.uuid, texture );
 
             next ( null, image );
         },
