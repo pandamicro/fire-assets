@@ -27,7 +27,6 @@ JavaScriptMeta.prototype.dests = function ( assetdb ) {
 
 JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Async = require('async');
-    var Path = require('fire-path');
     var Babel = require('babel');
 
     var self = this;
