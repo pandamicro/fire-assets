@@ -54,7 +54,7 @@ CoffeeScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( data, next ) {
-            assetdb.saveRawdataToLibrary( self.uuid, '.js', data );
+            assetdb.saveAssetToLibrary( self.uuid, data, '.js' );
 
             next ( null );
         }
