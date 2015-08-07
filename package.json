@@ -4,9 +4,9 @@
   "description": "Texture Asset for fireball",
   "author": "Firebox Technology",
   "hosts": {
-    "editor-framework": "^0.3.12",
-    "asset-db": "^0.2.0",
-    "engine-framework": "^0.1.0"
+    "asset-db": "^0.2.1",
+    "editor-framework": "^0.3.14",
+    "engine-framework": "^0.1.1"
   },
   "main": "main.js",
   "menus": {},
@@ -14,13 +14,18 @@
   "panels": {},
   "assets": {
     "texture": {
-      "pattern": [".png", ".jpg"],
+      "pattern": [
+        ".png",
+        ".jpg"
+      ],
       "folder": false,
       "asset": "asset/texture.js",
       "meta": "meta/texture.js"
     },
     "sprite": {
-      "pattern": [".sprite"],
+      "pattern": [
+        ".sprite"
+      ],
       "folder": false,
       "asset": "asset/sprite.js",
       "meta": "meta/sprite.js",
