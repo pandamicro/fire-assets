@@ -24,6 +24,12 @@ TextureMeta.prototype.useRawfile = function () {
     return this.type === 'raw';
 };
 
+TextureMeta.prototype.dests = function ( assetdb ) {
+    return [
+        assetdb._uuidToImportPathNoExt( this.uuid ) + '.thumb.png',
+    ];
+};
+
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Lwip = require('lwip');
     var Async = require('async');
@@ -36,52 +42,42 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( image, next ) {
-            // var basename = Path.basename(fspath);
+            if ( this.type === 'sprite' ) {
+                // TODO
+                // var basename = Path.basename(fspath);
 
-            // var texture = new Fire.Texture();
-            // texture.name = Path.basenameNoExt(fspath);
-            // texture._setRawFiles([
-            //     basename
-            // ]);
-            // // TODO
-            // // texture.wrapMode = convertWrapMode(this.wrapMode);
-            // // texture.filterMode = convertFilterMode(this.filterMode);
-            // texture.width = image.width();
-            // texture.height = image.height();
+                // var texture = new Fire.Texture();
+                // texture.name = Path.basenameNoExt(fspath);
+                // texture._setRawFiles([
+                //     basename
+                // ]);
+                // // TODO
+                // // texture.wrapMode = convertWrapMode(this.wrapMode);
+                // // texture.filterMode = convertFilterMode(this.filterMode);
+                // texture.width = image.width();
+                // texture.height = image.height();
 
-            // if ( texture.type === 'sprite' ) {
-            //     // TODO: create sprite meta here
-            // }
+                // if ( texture.type === 'sprite' ) {
+                //     // TODO: create sprite meta here
+                // }
 
-            // assetdb.copyRawfileToLibrary( self.uuid, fspath );
-            // assetdb.saveAssetToLibrary( self.uuid, texture );
+                // assetdb.copyAssetToLibrary( self.uuid, fspath );
+                // assetdb.saveAssetToLibrary( self.uuid, texture );
+            }
 
             next ( null, image );
         },
+
+        function ( image, next ) {
+            assetdb.createThumbnail( self.uuid, 32, image, next );
+        },
+
     ], function ( err ) {
         if ( cb ) cb ( err );
     });
 };
 
-TextureMeta.prototype.postImport = function ( assetdb, fspath, cb ) {
-    var Lwip = require('lwip');
-
-    // create thumbnail
-    Lwip.open( fspath, function ( err, image ) {
-        if ( err ) {
-            if ( cb ) cb ( err );
-            return;
-        }
-
-        assetdb._createThumbnail( fspath, 32, image, cb );
-    });
-};
-
 TextureMeta.prototype.export = null;
-
-TextureMeta.prototype.delete = function ( assetdb, fspath, cb ) {
-    assetdb._deleteThumbnail( this.uuid, cb );
-};
 
 module.exports = TextureMeta;
 

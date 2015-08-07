@@ -107,6 +107,12 @@ SpriteMeta.prototype.useRawfile = function () {
     return false;
 };
 
+SpriteMeta.prototype.dests = function ( assetdb ) {
+    return [
+        assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
+    ];
+};
+
 SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     var self = this;
@@ -175,7 +181,6 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             // TODO: this.atlasName
 
-            assetdb.copyRawfileToLibrary( self.uuid, fspath );
             assetdb.saveAssetToLibrary( self.uuid, sprite );
 
             next ( null, sprite );
