@@ -22,7 +22,7 @@ if (!FIRE_EDITOR || Editor.isCoreLevel || Editor.isRuntime) {
     require('./scene');
     require('./audio-clip');
 
-    if ( Editor.assets ) {
+    if ( FIRE_EDITOR && Editor.assets ) {
         module.exports.forEach(function (typeInEditor) {
             Editor.assets[typeInEditor] = require('./' + typeInEditor);
         });
