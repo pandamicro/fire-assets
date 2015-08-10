@@ -13,6 +13,7 @@ module.exports = {
         Editor.assetdb.register( '.coffee', false, Editor.metas.coffeescript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
         Editor.assetdb.register( '.mp3', false, Editor.metas['audio-clip'] );
+        Editor.assetdb.register( '.wav', false, Editor.metas['audio-clip'] );
 
         Editor.menus['create-asset'] = [
             {
