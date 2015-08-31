@@ -38,6 +38,7 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 var str = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
                 result = Babel.transform(str, {
                     ast: false,
+                    highlightCode: false
                 });
                 next ( null, result.code );
             } catch (err) {
