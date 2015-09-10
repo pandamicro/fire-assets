@@ -31,14 +31,16 @@ TextureMeta.prototype.dests = function ( assetdb ) {
 };
 
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var Lwip = require('lwip');
+    // var Lwip = require('lwip'); /*DISABLE*/
+    var Jimp = require("jimp");
     var Async = require('async');
     var Path = require('fire-path');
     var self = this;
 
     Async.waterfall([
         function ( next ) {
-            Lwip.open( fspath, next );
+            // Lwip.open( fspath, next ); /*DISABLE*/
+            new Jimp( fspath, next );
         },
 
         function ( image, next ) {

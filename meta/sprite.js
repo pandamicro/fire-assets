@@ -1,9 +1,20 @@
 var Async = require('async');
-var Lwip = require('lwip');
 var Fs = require('fs');
 var Path = require('fire-path');
 
-var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
+var _getPixiel = function (image, x, y ) {
+    // return image.getPixel(x,y); DISABLE: lwip
+
+    var idx = x * 4 + y * image.bitmap.width * 4;
+    return {
+        r: image.bitmap.data[idx],
+        g: image.bitmap.data[idx+1],
+        b: image.bitmap.data[idx+2],
+        a: image.bitmap.data[idx+3],
+    };
+};
+
+var _getTrimRect = function (image, w, h, trimThreshold) {
     // A B C
     // D x F
     // G H I
@@ -15,7 +26,7 @@ var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
     // trim A B C
     for (y = 0; y < h; y++) {
         for (x = 0; x < w; x++) {
-            if (lwipImage.getPixel(x,y).a >= threshold) {
+            if (_getPixiel(image,x,y).a >= threshold) {
                 ty = y;
                 y = h;
                 break;
@@ -25,7 +36,7 @@ var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
     // trim G H I
     for (y = h - 1; y >= ty; y--) {
         for (x = 0; x < w; x++) {
-            if (lwipImage.getPixel(x,y).a >= threshold) {
+            if (_getPixiel(image,x,y).a >= threshold) {
                 th = y - ty + 1;
                 y = 0;
                 break;
@@ -35,7 +46,7 @@ var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
     // trim D
     for (x = 0; x < w; x++) {
         for (y = ty; y < ty + th; y++) {
-            if (lwipImage.getPixel(x,y).a >= threshold) {
+            if (_getPixiel(image,x,y).a >= threshold) {
                 tx = x;
                 x = w;
                 break;
@@ -45,7 +56,7 @@ var _getTrimRect = function (lwipImage, w, h, trimThreshold) {
     // trim F
     for (x = w - 1; x >= tx; x--) {
         for (y = ty; y < ty + th; y++) {
-            if (lwipImage.getPixel(x,y).a >= threshold) {
+            if (_getPixiel(image,x,y).a >= threshold) {
                 tw = x - tx + 1;
                 x = 0;
                 break;
@@ -114,6 +125,7 @@ SpriteMeta.prototype.dests = function ( assetdb ) {
 };
 
 SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
+    // var Lwip = require('lwip'); /*DISABLE: lwip*/
 
     var self = this;
 
@@ -130,7 +142,8 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     Async.waterfall([
         function ( next ) {
-            Lwip.open( rawTextureFile, next );
+            // Lwip.open( rawTextureFile, next ); /*DISABLE: lwip*/
+            new Jimp( rawTextureFile, next );
         },
 
         function ( image, next ) {
@@ -140,8 +153,11 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
             var basename = Path.basename(fspath);
 
-            var rawWidth = image.width();
-            var rawHeight = image.height();
+            // DISABLE: lwip
+            // var rawWidth = image.width();
+            // var rawHeight = image.height();
+            var rawWidth = image.bitmap.width;
+            var rawHeight = image.bitmap.height;
 
             var sprite = new Fire.Sprite();
             sprite.name = Path.basenameNoExt(fspath);
