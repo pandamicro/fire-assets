@@ -18,25 +18,17 @@ var Prefab = Fire.Class({
         var wrappers = [this.data];
         var wrapperToNode = new Fire._RedirectWrapperToNode();
 
-        function doCreate () {
-            // create remainder nodes
-            initNodes(wrappers, null, wrapperToNode);
-            // reassociate nodes
-            wrapperToNode.apply();
-            //
-            //callback();
-        }
-        doCreate();
+        // create nodes
+        initNodes(wrappers, null, wrapperToNode);
+        // reassociate nodes
+        wrapperToNode.apply();
 
         var clone = this.data.w;
+        clone._onAfterInstantiate();
 
-        // init
-        if (Fire.engine.isPlaying) {
-            clone.name += ' (Clone)';
-        }
-
-        // invoke onLoad, note that the new node have not added to any parent yet
-        clone._onActivated();
+        var info = new Fire._PrefabInfo();
+        info.prefab = this;
+        clone._prefab = info;
 
         return clone.targetN;
     }
