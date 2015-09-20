@@ -1,0 +1,20 @@
+<link rel="import" href="packages://inspector/share/meta-header.html">
+
+<dom-module id="prefab-inspector">
+    <link rel="import" type="css" href="packages://inspector/share/common.css">
+
+    <template>
+        <inspector-meta-header
+            target="[[target]]"
+            icon="packages://fire-assets/static/icon/prefab.png"
+            dirty="{{dirty}}"
+        >
+        </inspector-meta-header>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'prefab-inspector',
+    });
+</script>

@@ -7,12 +7,13 @@ if (FIRE_EDITOR) {
         'javascript',
         'coffeescript',
         'scene',
-        'audio-clip'
+        'audio-clip',
+        'prefab',
     ];
 }
 
 if (!FIRE_EDITOR || Editor.isCoreLevel || Editor.isRuntime) {
-    // hard code for browserify
+    // IMPORTANT - hard code for browserify
     require('./texture');
     require('./sprite');
     require('./bitmap-font');
@@ -21,6 +22,7 @@ if (!FIRE_EDITOR || Editor.isCoreLevel || Editor.isRuntime) {
     require('./coffeescript');
     require('./scene');
     require('./audio-clip');
+    require('./prefab');
 
     if ( FIRE_EDITOR && Editor.assets ) {
         module.exports.forEach(function (typeInEditor) {

@@ -12,6 +12,7 @@ module.exports = {
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
         Editor.assetdb.register( '.coffee', false, Editor.metas.coffeescript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
+        Editor.assetdb.register( '.prefab', false, Editor.metas.prefab );
         Editor.assetdb.register( '.mp3', false, Editor.metas['audio-clip'] );
         Editor.assetdb.register( '.wav', false, Editor.metas['audio-clip'] );
 
@@ -60,6 +61,7 @@ module.exports = {
             [ 'javascript', 'JavaScript' ],
             [ 'coffeescript', 'CoffeeScript' ],
             [ 'scene', 'Scene' ],
+            [ 'prefab', '_Prefab' ],
             [ 'audio-clip', 'AudioClip' ],
         ].forEach( function ( item ) {
             var name = item[0];
