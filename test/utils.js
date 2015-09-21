@@ -29,6 +29,7 @@ module.exports = {
         Editor.assetdb.register( '.ttf', false, Editor.metas['ttf-font'] );
         Editor.assetdb.register( '.js', false, Editor.metas.javascript );
         Editor.assetdb.register( '.fire', false, Editor.metas.scene );
+        Editor.assetdb.register( '.prefab', false, Editor.metas.prefab );
 
         // start mounting
         var src = Path.join( __dirname, 'fixtures', path);

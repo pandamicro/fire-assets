@@ -50,14 +50,14 @@ describe('bitmap-font core level', function () {
 
             var basename = Path.basename(url);
 
-            var jsonPath = Editor.assetdb._uuid2importPath(uuid);
-            var filePath = Path.join(Path.dirname(Editor.assetdb._uuid2importPath(uuid)), uuid, basename);
+            var jsonPath = Editor.assetdb._uuidToImportPathNoExt(uuid) + '.json';
+            var filePath = Path.join(Editor.assetdb._uuidToImportPathNoExt(uuid), basename);
 
             expect( Fs.existsSync( jsonPath ) )
-                .to.be.equal(true);
+                .to.be.true;
 
             expect( Fs.existsSync( filePath ) )
-                .to.be.equal(true);
+                .to.be.true;
 
             var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
             var buf2 = Fs.readFileSync( filePath );

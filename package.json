@@ -39,6 +39,7 @@
     "test/sprite.html",
     "test/ttf-font.js",
     "test/javascript.js",
-    "test/scene.js"
+    "test/scene.js",
+    "test/prefab.js"
   ]
 }

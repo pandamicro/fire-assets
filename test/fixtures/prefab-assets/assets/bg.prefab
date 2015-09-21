@@ -1,0 +1,48 @@
+[
+  {
+    "__type__": "Fire.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_rawFiles": null,
+    "data": {
+      "w": {
+        "__id__": 1
+      }
+    }
+  },
+  {
+    "__type__": "Runtime.SpriteWrapper",
+    "_name": "bg_bust",
+    "_objFlags": 0,
+    "_id": "",
+    "_prefab": null,
+    "_position": [
+      667.0000000000001,
+      375
+    ],
+    "_scale": [
+      10,
+      10
+    ],
+    "_rotation": 0,
+    "_size": [
+      37,
+      37
+    ],
+    "_color": [
+      1,
+      0,
+      0,
+      1
+    ],
+    "_anchorPoint": [
+      0.5,
+      0.5
+    ],
+    "_visible": true,
+    "_texture": {
+      "__uuid__": "cfa54bb4-fdcc-4a3e-8dc1-c633370c4d74"
+    },
+    "_textureObject": null
+  }
+]
