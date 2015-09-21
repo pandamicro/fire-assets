@@ -10,6 +10,13 @@ PrefabMeta.prototype.useRawfile = function () {
     return false;
 };
 
+PrefabMeta.prototype.dests = function (db) {
+    var destBase = db._uuidToImportPathNoExt( this.uuid );
+    return [
+        destBase + '.json',
+    ];
+};
+
 PrefabMeta.prototype.import = function (db, fspath, cb) {
     var uuid = this.uuid;
     Fs.readFile(fspath, function (err, data) {
