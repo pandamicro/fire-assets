@@ -29,35 +29,33 @@
             </div>
         </div>
     </template>
+
+    <script>
+        Editor.registerElement({
+            properties: {
+                path: {
+                    type: String,
+                    value: '',
+                },
+
+                target: {
+                    type: String,
+                    value: '',
+                    observer: '_targetChanged'
+                },
+            },
+
+            _targetChanged: function ( ) {
+                if ( this.target ) {
+                    Editor.assetdb.queryPathByUrl( this.target.__name__ + '://', function (path) {
+                        this.path = path;
+                    }.bind(this));
+                }
+            },
+
+            _onOpen: function () {
+                Editor.assetdb.explore(this.target.__name__ + '://');
+            },
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: 'mount-inspector',
-
-        properties: {
-            path: {
-                type: String,
-                value: '',
-            },
-
-            target: {
-                type: String,
-                value: '',
-                observer: '_targetChanged'
-            },
-        },
-
-        _targetChanged: function ( ) {
-            if ( this.target ) {
-                Editor.assetdb.queryPathByUrl( this.target.__name__ + '://', function (path) {
-                    this.path = path;
-                }.bind(this));
-            }
-        },
-
-        _onOpen: function () {
-            Editor.assetdb.explore(this.target.__name__ + '://');
-        },
-    });
-</script>

@@ -29,35 +29,33 @@
             </div>
         </div>
     </template>
+
+    <script>
+        Editor.registerElement({
+            properties: {
+                url: {
+                    type: String,
+                    value: '',
+                },
+
+                target: {
+                    type: Object,
+                    value: null,
+                    observer: '_targetChanged'
+                },
+            },
+
+            _targetChanged: function () {
+                if ( this.target ) {
+                    Editor.assetdb.queryUrlByUuid(this.target.uuid, function (url) {
+                        this.url = url;
+                    }.bind(this));
+                }
+            },
+
+            _onOpen: function () {
+                Editor.assetdb.explore(this.url);
+            },
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: 'folder-inspector',
-
-        properties: {
-            url: {
-                type: String,
-                value: '',
-            },
-
-            target: {
-                type: Object,
-                value: null,
-                observer: '_targetChanged'
-            },
-        },
-
-        _targetChanged: function () {
-            if ( this.target ) {
-                Editor.assetdb.queryUrlByUuid(this.target.uuid, function (url) {
-                    this.url = url;
-                }.bind(this));
-            }
-        },
-
-        _onOpen: function () {
-            Editor.assetdb.explore(this.url);
-        },
-    });
-</script>

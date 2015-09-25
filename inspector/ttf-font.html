@@ -22,20 +22,18 @@
         <!--     <div style="font-family: 'MyFont Normal';">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</div> -->
         <!-- </div>                                                                                                    -->
     </template>
+
+    <script>
+        Editor.registerElement({
+            // _previewStyle: function ( path ) {
+            //     var css = '@font-face {'
+            //     + 'font-family: \'MyFont Normal\';'
+            //     + 'src: url(\'' + path + '\');'
+            //     + 'font-weight: normal;'
+            //     + 'font-style: normal;'
+            //     + '}'
+            //     ;
+            // },
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: 'ttf-font-inspector',
-
-        // _previewStyle: function ( path ) {
-        //     var css = '@font-face {'
-        //     + 'font-family: \'MyFont Normal\';'
-        //     + 'src: url(\'' + path + '\');'
-        //     + 'font-weight: normal;'
-        //     + 'font-style: normal;'
-        //     + '}'
-        //     ;
-        // },
-    });
-</script>

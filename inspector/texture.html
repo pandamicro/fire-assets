@@ -45,20 +45,18 @@
         >
         </inspector-image-preview>
     </template>
+
+    <script>
+        Editor.registerElement({
+            _thumbnail: function ( uuid, mtime ) {
+                if ( uuid )
+                    return 'thumbnail://' + uuid + '?' + mtime;
+                return '';
+            },
+
+            resize: function () {
+                this.$.preview.resize();
+            },
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: 'texture-inspector',
-
-        _thumbnail: function ( uuid, mtime ) {
-            if ( uuid )
-                return 'thumbnail://' + uuid + '?' + mtime;
-            return '';
-        },
-
-        resize: function () {
-            this.$.preview.resize();
-        },
-    });
-</script>

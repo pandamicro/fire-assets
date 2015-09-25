@@ -98,18 +98,16 @@
             </editor-custom-prop>
         </div>
     </template>
+
+    <script>
+        Editor.registerElement({
+            _isSliced: function ( spriteType ) {
+                return spriteType === 'sliced';
+            },
+
+            _isTrimCustom: function ( trimType ) {
+                return trimType === 'custom';
+            },
+        });
+    </script>
 </dom-module>
-
-<script>
-    Polymer({
-        is: 'sprite-inspector',
-
-        _isSliced: function ( spriteType ) {
-            return spriteType === 'sliced';
-        },
-
-        _isTrimCustom: function ( trimType ) {
-            return trimType === 'custom';
-        },
-    });
-</script>
