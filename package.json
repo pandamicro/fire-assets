@@ -9,9 +9,6 @@
     "engine-framework": "^0.1.2"
   },
   "main": "main.js",
-  "menus": {},
-  "widgets": {},
-  "panels": {},
   "assets": {
     "texture": {
       "pattern": [
