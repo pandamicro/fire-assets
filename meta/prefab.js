@@ -1,30 +1,9 @@
-var Fs = require('fire-fs');
+var CustomAssetMeta = require('./custom-asset');
 
-var $super = Editor.metas.asset;
+var $super = CustomAssetMeta;
 function PrefabMeta () {
     $super.call(this);
 }
 Editor.JS.extend(PrefabMeta, $super);
-
-PrefabMeta.prototype.useRawfile = function () {
-    return false;
-};
-
-PrefabMeta.prototype.dests = function (db) {
-    var destBase = db._uuidToImportPathNoExt( this.uuid );
-    return [
-        destBase + '.json',
-    ];
-};
-
-PrefabMeta.prototype.import = function (db, fspath, cb) {
-    var uuid = this.uuid;
-    Fs.readFile(fspath, function (err, data) {
-        if (data) {
-            db.saveAssetToLibrary(uuid, data);
-        }
-        if (cb) cb(err);
-    });
-};
 
 module.exports = PrefabMeta;

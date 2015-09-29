@@ -15,6 +15,7 @@ module.exports = {
         Editor.assetdb.register( '.prefab', false, Editor.metas.prefab );
         Editor.assetdb.register( '.mp3', false, Editor.metas['audio-clip'] );
         Editor.assetdb.register( '.wav', false, Editor.metas['audio-clip'] );
+        Editor.assetdb.register( '.anim', false, Editor.metas['animation-clip'] );
 
         Editor.menus['create-asset'] = [
             {
@@ -44,6 +45,17 @@ module.exports = {
                     url: Editor.runtimeUrl + '/static/template/new-scene.fire',
                 }]
             },
+            {
+                type: 'separator'
+            },
+            {
+                label: 'Animation Clip',
+                message: 'assets:new-asset',
+                params: [{
+                    name: 'New AnimationClip.anim',
+                    url: 'app://builtin/fire-assets/static/template/new-animation-clip.anim',
+                }]
+            },
         ];
     },
 
@@ -63,6 +75,7 @@ module.exports = {
             [ 'scene', 'Scene' ],
             [ 'prefab', '_Prefab' ],
             [ 'audio-clip', 'AudioClip' ],
+            [ 'animation-clip', 'AnimationClip' ],
         ].forEach( function ( item ) {
             var name = item[0];
             var fireName = item[1];

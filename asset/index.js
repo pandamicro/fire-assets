@@ -9,6 +9,7 @@ if (FIRE_EDITOR) {
         'scene',
         'audio-clip',
         'prefab',
+        'animation-clip',
     ];
 }
 
@@ -23,6 +24,7 @@ if (!FIRE_EDITOR || Editor.isCoreLevel || Editor.isRuntime) {
     require('./scene');
     require('./audio-clip');
     require('./prefab');
+    require('./animation-clip');
 
     if ( FIRE_EDITOR && Editor.assets ) {
         module.exports.forEach(function (typeInEditor) {
