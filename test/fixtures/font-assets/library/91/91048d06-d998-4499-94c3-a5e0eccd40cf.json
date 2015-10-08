@@ -1,5 +1,5 @@
 {
-  "__type__": "Fire.BitmapFont",
+  "__type__": "cc.BitmapFont",
   "_name": "arial-unicode-26",
   "_objFlags": 0,
   "_rawFiles": [

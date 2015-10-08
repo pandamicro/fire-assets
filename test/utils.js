@@ -10,7 +10,7 @@ module.exports = {
         if ( !Editor.inspectors ) Editor.inspectors = {};
 
         // init engine-framework
-        Editor.require('app://engine-framework');
+        Editor.require('app://cocos2d/cocos2d-html5');
 
         // init asset-db
         var AssetDB = Editor.require('app://asset-db');

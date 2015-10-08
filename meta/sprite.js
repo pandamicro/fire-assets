@@ -159,7 +159,7 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
             var rawWidth = image.bitmap.width;
             var rawHeight = image.bitmap.height;
 
-            var sprite = new Fire.Sprite();
+            var sprite = new cc.SpriteAsset();
             sprite.name = Path.basenameNoExt(fspath);
             sprite.rawWidth = rawWidth;
             sprite.rawHeight = rawHeight;
@@ -179,10 +179,10 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 sprite.height = rect[3];
             }
             else {
-                sprite.trimX = Math.clamp(self.trimX, 0, rawWidth);
-                sprite.trimY = Math.clamp(self.trimY, 0, rawHeight);
-                sprite.width = Math.clamp(self.width, 0, rawWidth - self.trimX);
-                sprite.height = Math.clamp(self.height, 0, rawHeight - sprite.trimY);
+                sprite.trimX = cc.clampf(self.trimX, 0, rawWidth);
+                sprite.trimY = cc.clampf(self.trimY, 0, rawHeight);
+                sprite.width = cc.clampf(self.width, 0, rawWidth - self.trimX);
+                sprite.height = cc.clampf(self.height, 0, rawHeight - sprite.trimY);
             }
 
             if ( self.spriteType === 'sliced') {

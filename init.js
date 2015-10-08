@@ -25,7 +25,24 @@ if ( !Editor.isRuntime ) {
 // register builtin asset
 // =======================================
 
-require('./asset').forEach( function ( name ) {
+var Assets = {
+    'texture': cc.Texture,
+    'sprite': cc.Sprite,
+    'bitmap-font': cc.BitmapFont,
+    'ttf-font': cc.TTFFont,
+    'javascript': cc.JavaScript,
+    'coffeescript': cc.CoffeeScript,
+    'scene': cc.Scene,
+    'audio-clip': cc.AudioClip,
+    'prefab': cc._Prefab,
+    'animation-clip': cc.AnimationClip
+};
+
+for ( var name in Assets ) {
+    if ( (Editor.isCoreLevel || Editor.isRuntime) && Editor.assets ) {
+        Editor.assets[name] = Assets[name];
+    }
+
     if ( !Editor.isRuntime ) {
         // meta
         Editor.metas[name] = require('./meta/' + name);
@@ -37,4 +54,4 @@ require('./asset').forEach( function ( name ) {
             Editor.inspectors[name] = 'packages://fire-assets/inspector/' + name + '.html';
         }
     }
-});
+}

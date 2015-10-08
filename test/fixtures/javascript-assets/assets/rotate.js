@@ -1,6 +1,6 @@
-var Rotate = Fire.Class({
+var Rotate = cc.FireClass({
     update: function () {
-        var wrapper = Fire(this);
+        var wrapper = cc(this);
         wrapper.rotation += 2;
     }
 });

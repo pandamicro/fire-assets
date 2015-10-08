@@ -35,7 +35,7 @@ TTFFontMeta.prototype.dests = function ( assetdb ) {
 TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var basename = Path.basename(fspath);
 
-    var asset = new Fire.TTFFont();
+    var asset = new cc.TTFFont();
     asset.name = Path.basenameNoExt(fspath);
     asset._setRawFiles([
         this.uuid + Path.extname(fspath)

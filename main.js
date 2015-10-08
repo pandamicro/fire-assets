@@ -63,26 +63,23 @@ module.exports = {
         Editor.assetdb.unregister( Editor.metas.texture );
 
         var cache = require.cache;
-        delete cache[Path.join( __dirname,'init.js')];
+        delete cache[Path.join( __dirname, 'init.js')];
 
         [
-            [ 'texture', 'Texture' ],
-            [ 'sprite', 'Sprite' ],
-            [ 'bitmap-font', 'BitmapFont' ],
-            [ 'ttf-font', 'TTFFont' ],
-            [ 'javascript', 'JavaScript' ],
-            [ 'coffeescript', 'CoffeeScript' ],
-            [ 'scene', 'Scene' ],
-            [ 'prefab', '_Prefab' ],
-            [ 'audio-clip', 'AudioClip' ],
-            [ 'animation-clip', 'AnimationClip' ],
-        ].forEach( function ( item ) {
-            var name = item[0];
-            var fireName = item[1];
+            'texture',
+            'sprite',
+            'bitmap-font',
+            'ttf-font',
+            'javascript',
+            'coffeescript',
+            'scene',
+            'prefab',
+            'audio-clip',
+            'animation-clip',
 
-            delete cache[Path.join(__dirname, './asset/' + name + '.js')];
+        ].forEach( function ( name ) {
             delete cache[Path.join(__dirname, './meta/' + name + '.js')];
-            delete Fire[fireName];
+            delete Editor.assets[name];
             delete Editor.metas[name];
         });
     },
