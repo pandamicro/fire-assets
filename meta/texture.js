@@ -48,7 +48,7 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
                 // TODO
                 // var basename = Path.basename(fspath);
 
-                // var texture = new Fire.Texture();
+                // var texture = new cc.TextureAsset();
                 // texture.name = Path.basenameNoExt(fspath);
                 // texture._setRawFiles([
                 //     basename

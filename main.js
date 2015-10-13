@@ -16,6 +16,10 @@ module.exports = {
         Editor.assetdb.register( '.mp3', false, Editor.metas['audio-clip'] );
         Editor.assetdb.register( '.wav', false, Editor.metas['audio-clip'] );
         Editor.assetdb.register( '.anim', false, Editor.metas['animation-clip'] );
+        Editor.assetdb.register( '.plist', false, Editor.metas['sprite-atlas'] );
+        Editor.assetdb.register( '.plist', false, Editor.metas['particle'] );
+        Editor.assetdb.register( '.animation', false, Editor.metas['sprite-animation'] );
+        Editor.assetdb.register( '.tmx', false, Editor.metas['tiled-map'] );
 
         Editor.menus['create-asset'] = [
             {
@@ -23,7 +27,7 @@ module.exports = {
                 message: 'assets:new-asset',
                 params: [{
                     name: 'NewScript.js',
-                    url: Editor.runtimeUrl + '/static/template/new-script.js',
+                    url: Editor.runtimeUrl + '/editor/template/new-script.js',
                 }],
             },
             {
@@ -31,7 +35,7 @@ module.exports = {
                 message: 'assets:new-asset',
                 params: [{
                     name: 'NewScript.coffee',
-                    url: Editor.runtimeUrl + '/static/template/new-script.coffee',
+                    url: Editor.runtimeUrl + '/editor/template/new-script.coffee',
                 }],
             },
             {
@@ -42,7 +46,7 @@ module.exports = {
                 message: 'assets:new-asset',
                 params: [{
                     name: 'New Scene.fire',
-                    url: Editor.runtimeUrl + '/static/template/new-scene.fire',
+                    url: Editor.runtimeUrl + '/editor/template/new-scene.fire',
                 }]
             },
             {

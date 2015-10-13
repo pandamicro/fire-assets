@@ -20,7 +20,7 @@
                     path + 'd5/d51b7909-09a5-4945-a4d0-d9241c16523e/button-with-meta.png'
                 ];
 
-                it('cc.SpriteAsset.texture should be Fire.Texture', function (done) {
+                it('cc.SpriteAsset.texture should be cc.TextureAsset', function (done) {
 
                     var spriteUuid = Editor.urlToUuid( assets[0] );
                     var textureUuid = Editor.urlToUuid( assets[1] );
@@ -29,7 +29,7 @@
 //                        if (err) throw err;
 //
 //                        assert( asset instanceof cc.SpriteAsset );
-//                        assert( asset.texture instanceof Fire.Texture );
+//                        assert( asset.texture instanceof cc.TextureAsset );
 //
 //                        expect( asset._uuid ).equal( spriteUuid );
 //                        expect( asset.texture._uuid ).equal( textureUuid );

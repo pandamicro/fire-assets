@@ -35,7 +35,11 @@ var Assets = {
     'scene': cc.Scene,
     'audio-clip': cc.AudioClip,
     'prefab': cc._Prefab,
-    'animation-clip': cc.AnimationClip
+    'animation-clip': cc.AnimationClip,
+    'particle': cc.ParticleAsset,
+    'sprite-animation': cc.SpriteAnimationAsset,
+    'sprite-atlas': cc.SpriteAtlas,
+    'tiled-map': cc.TiledMapAsset,
 };
 
 for ( var name in Assets ) {

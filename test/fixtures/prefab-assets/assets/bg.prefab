@@ -11,7 +11,7 @@
     }
   },
   {
-    "__type__": "Runtime.SpriteWrapper",
+    "__type__": "cc.SpriteWrapper",
     "_name": "bg_bust",
     "_objFlags": 0,
     "_id": "",
