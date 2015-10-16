@@ -26,13 +26,13 @@ if ( !Editor.isRuntime ) {
 // =======================================
 
 var Assets = {
-    'texture': cc.Texture,
-    'sprite': cc.Sprite,
+    'texture': cc.TextureAsset,
+    'sprite': cc.SpriteAsset,
     'bitmap-font': cc.BitmapFont,
     'ttf-font': cc.TTFFont,
     'javascript': cc.JavaScript,
     'coffeescript': cc.CoffeeScript,
-    'scene': cc.Scene,
+    'scene': cc.SceneAsset,
     'audio-clip': cc.AudioClip,
     'prefab': cc._Prefab,
     'animation-clip': cc.AnimationClip,
