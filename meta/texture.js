@@ -1,3 +1,5 @@
+'use strict';
+
 var $super = Editor.metas.asset;
 function TextureMeta () {
     $super.call(this);
@@ -32,9 +34,8 @@ TextureMeta.prototype.dests = function ( assetdb ) {
 
 TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
     // var Lwip = require('lwip'); /*DISABLE*/
-    var Jimp = require("jimp");
+    var Jimp = require('jimp');
     var Async = require('async');
-    var Path = require('fire-path');
     var self = this;
 
     Async.waterfall([

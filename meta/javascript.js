@@ -1,3 +1,5 @@
+'use strict';
+
 var Fs = require('fire-fs');
 
 var $super = Editor.metas.asset;
@@ -33,10 +35,9 @@ JavaScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
 
     Async.waterfall([
         function ( next ) {
-            var data;
             try {
                 var str = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
-                result = Babel.transform(str, {
+                var result = Babel.transform(str, {
                     ast: false,
                     highlightCode: false
                 });

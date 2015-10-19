@@ -1,3 +1,5 @@
+'use strict';
+
 var Path = require('fire-path');
 
 var $super = Editor.metas.asset;
@@ -33,7 +35,7 @@ TTFFontMeta.prototype.dests = function ( assetdb ) {
 };
 
 TTFFontMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    var basename = Path.basename(fspath);
+    // var basename = Path.basename(fspath);
 
     var asset = new cc.TTFFont();
     asset.name = Path.basenameNoExt(fspath);

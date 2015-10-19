@@ -1,3 +1,5 @@
+'use strict';
+
 var Fs = require('fire-fs');
 
 var $super = Editor.metas.asset;
@@ -27,7 +29,6 @@ CoffeeScriptMeta.prototype.dests = function ( assetdb ) {
 
 CoffeeScriptMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var Async = require('async');
-    var Path = require('fire-path');
     var Coffee = require('coffee-script');
 
     var self = this;
