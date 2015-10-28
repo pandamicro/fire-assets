@@ -45,7 +45,7 @@ TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
         },
 
         function ( image, next ) {
-            if ( this.type === 'sprite' ) {
+            if ( self.type === 'sprite' ) {
                 // TODO
                 // var basename = Path.basename(fspath);
 
