@@ -1,86 +1,89 @@
 'use strict';
 
-var $super = Editor.metas.asset;
-function TextureMeta () {
-    $super.call(this);
+class TextureMeta extends Editor.metas.asset {
+    constructor () {
+        super();
 
-    this.type = 'raw'; // raw, normal-map, sprite
-    this.wrapMode = 'clamp';
-    this.filterMode = 'bilinear';
-}
-Editor.JS.extend(TextureMeta,$super);
+        this.type = 'raw'; // raw, normal-map, sprite
+        this.wrapMode = 'clamp';
+        this.filterMode = 'bilinear';
+        this.export = null;
+    }
 
-TextureMeta.prototype.serialize = function () {
-    $super.prototype.serialize.call(this);
-    return this;
-};
+    serialize () {
+        super.serialize();
+        return this;
+    }
 
-TextureMeta.prototype.deserialize = function ( jsonObj ) {
-    $super.prototype.deserialize.call(this, jsonObj);
-    this.type = jsonObj.type;
-    this.wrapMode = jsonObj.wrapMode;
-    this.filterMode = jsonObj.filterMode;
-};
+    deserialize ( jsonObj ) {
+        super.deserialize(jsonObj);
 
-TextureMeta.prototype.useRawfile = function () {
-    return this.type === 'raw';
-};
+        this.type = jsonObj.type;
+        this.wrapMode = jsonObj.wrapMode;
+        this.filterMode = jsonObj.filterMode;
 
-TextureMeta.prototype.dests = function ( assetdb ) {
-    return [
-        assetdb._uuidToImportPathNoExt( this.uuid ) + '.thumb.png',
-    ];
-};
+        return this;
+    }
 
-TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    // var Lwip = require('lwip'); /*DISABLE*/
-    var Jimp = require('jimp');
-    var Async = require('async');
-    var self = this;
+    useRawfile () {
+        return this.type === 'raw';
+    }
 
-    Async.waterfall([
-        function ( next ) {
-            // Lwip.open( fspath, next ); /*DISABLE*/
-            new Jimp( fspath, next );
-        },
+    dests ( assetdb ) {
+        return [
+            assetdb._uuidToImportPathNoExt( this.uuid ) + '.thumb.png',
+        ];
+    }
 
-        function ( image, next ) {
-            if ( self.type === 'sprite' ) {
-                // TODO
-                // var basename = Path.basename(fspath);
+    import ( assetdb, fspath, cb ) {
+        // var Lwip = require('lwip'); /*DISABLE*/
+        const Jimp = require('jimp');
+        const Async = require('async');
 
-                // var texture = new cc.TextureAsset();
-                // texture.name = Path.basenameNoExt(fspath);
-                // texture._setRawFiles([
-                //     basename
-                // ]);
-                // // TODO
-                // // texture.wrapMode = convertWrapMode(this.wrapMode);
-                // // texture.filterMode = convertFilterMode(this.filterMode);
-                // texture.width = image.width();
-                // texture.height = image.height();
+        Async.waterfall([
+            next => {
+                // Lwip.open( fspath, next ); /*DISABLE*/
+                new Jimp( fspath, next );
+            },
 
-                // if ( texture.type === 'sprite' ) {
-                //     // TODO: create sprite meta here
-                // }
+            ( image, next ) => {
+                if ( this.type === 'sprite' ) {
+                    // TODO
+                    // var basename = Path.basename(fspath);
 
-                // assetdb.copyAssetToLibrary( self.uuid, fspath );
-                // assetdb.saveAssetToLibrary( self.uuid, texture );
+                    // var texture = new cc.TextureAsset();
+                    // texture.name = Path.basenameNoExt(fspath);
+                    // texture._setRawFiles([
+                    //     basename
+                    // ]);
+                    // // TODO
+                    // // texture.wrapMode = convertWrapMode(this.wrapMode);
+                    // // texture.filterMode = convertFilterMode(this.filterMode);
+                    // texture.width = image.width();
+                    // texture.height = image.height();
+
+                    // if ( texture.type === 'sprite' ) {
+                    //     // TODO: create sprite meta here
+                    // }
+
+                    // assetdb.copyAssetToLibrary( this.uuid, fspath );
+                    // assetdb.saveAssetToLibrary( this.uuid, texture );
+                }
+
+                next ( null, image );
+            },
+
+            ( image, next ) => {
+                assetdb.createThumbnail( this.uuid, 32, image, next );
+            },
+
+        ], err => {
+            if ( cb ) {
+                cb ( err );
             }
-
-            next ( null, image );
-        },
-
-        function ( image, next ) {
-            assetdb.createThumbnail( self.uuid, 32, image, next );
-        },
-
-    ], function ( err ) {
-        if ( cb ) cb ( err );
-    });
-};
-
-TextureMeta.prototype.export = null;
+        });
+    }
+}
 
 module.exports = TextureMeta;
 
