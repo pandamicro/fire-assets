@@ -30,8 +30,12 @@ class TextureMeta extends Editor.metas.asset {
     }
 
     dests ( assetdb ) {
+        if ( this.type === 'raw' ) {
+            return [];
+        }
+
         return [
-            assetdb._uuidToImportPathNoExt( this.uuid ) + '.thumb.png',
+            assetdb._uuidToImportPathNoExt(this.uuid) + '.png',
         ];
     }
 
@@ -73,9 +77,10 @@ class TextureMeta extends Editor.metas.asset {
                 next ( null, image );
             },
 
-            ( image, next ) => {
-                assetdb.createThumbnail( this.uuid, 32, image, next );
-            },
+            // DISABLE
+            // ( image, next ) => {
+            //     assetdb.createThumbnail( this.uuid, 32, image, next );
+            // },
 
         ], err => {
             if ( cb ) {
