@@ -7,7 +7,6 @@ class TextureMeta extends Editor.metas.asset {
         this.type = 'raw'; // raw, normal-map, sprite
         this.wrapMode = 'clamp';
         this.filterMode = 'bilinear';
-        this.export = null;
     }
 
     serialize () {
@@ -89,6 +88,8 @@ class TextureMeta extends Editor.metas.asset {
         });
     }
 }
+
+TextureMeta.prototype.export = null;
 
 module.exports = TextureMeta;
 
