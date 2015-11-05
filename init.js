@@ -26,7 +26,7 @@ if ( !Editor.isRuntime ) {
 // =======================================
 
 var Assets = {
-    'texture': cc.TextureAsset,
+    'texture': cc.Texture2D,
     'sprite': cc.SpriteAsset,
     'bitmap-font': cc.BitmapFont,
     'ttf-font': cc.TTFFont,
@@ -58,4 +58,10 @@ for ( var name in Assets ) {
             Editor.inspectors[name] = 'packages://fire-assets/inspector/' + name + '.html';
         }
     }
+}
+
+if (Editor.isRuntime) {
+    cc.game.once(cc.game.EVENT_RENDERER_INITED, function () {
+        Editor.assets.texture = cc.Texture2D;
+    });
 }

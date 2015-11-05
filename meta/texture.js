@@ -55,7 +55,7 @@ class TextureMeta extends Editor.metas.asset {
                     // TODO
                     // var basename = Path.basename(fspath);
 
-                    // var texture = new cc.TextureAsset();
+                    // var texture = new cc.Texture2D();
                     // texture.name = Path.basenameNoExt(fspath);
                     // texture._setRawFiles([
                     //     basename
