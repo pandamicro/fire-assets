@@ -1,4 +1,5 @@
 var Fs = require('fire-fs');
+var Path = require('fire-path');
 
 var $super = Editor.metas.asset;
 function CustomAssetMeta () {
@@ -19,9 +20,14 @@ CustomAssetMeta.prototype.dests = function (db) {
 
 CustomAssetMeta.prototype.import = function (db, fspath, cb) {
     var self = this;
-    Fs.readFile(fspath, function (err, data) {
+
+    Fs.readFile(fspath, {encoding: 'utf-8'}, function (err, data) {
         if (data) {
-            db.saveAssetToLibrary(self.uuid, data);
+            var json = JSON.parse(data);
+
+            Editor.serialize.setName(json, Path.basenameNoExt(fspath));
+
+            db.saveAssetToLibrary(self.uuid, json);
         }
         if (cb) cb(err);
     });
