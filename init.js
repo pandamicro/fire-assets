@@ -27,7 +27,7 @@ if ( !Editor.isRuntime ) {
 
 var Assets = {
     'texture': cc.Texture2D,
-    'sprite': cc.SpriteAsset,
+    'sprite': cc.SpriteFrame,
     'bitmap-font': cc.BitmapFont,
     'ttf-font': cc.TTFFont,
     'javascript': cc.JavaScript,

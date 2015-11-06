@@ -159,41 +159,41 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
             var rawWidth = image.bitmap.width;
             var rawHeight = image.bitmap.height;
 
-            var sprite = new cc.SpriteAsset();
+            var sprite = new cc.SpriteFrame();
             sprite.name = Path.basenameNoExt(fspath);
-            sprite.rawWidth = rawWidth;
-            sprite.rawHeight = rawHeight;
-            sprite.width = self.width;
-            sprite.height = self.height;
-            sprite._setRawFiles([
-                basename
-            ]);
+            sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
+            sprite.setRectInPixels(cc.rect(0,0, self.width,self.height));
+            //sprite._setRawFiles([
+            //    basename
+            //]);
 
-            sprite.texture = Editor.serialize.asAsset(rawTextureUuid);
+            sprite._textureFilename = assetdb.uuidToUrl(rawTextureUuid);
 
+            var trimX, trimY;
             if ( self.trimType === 'auto' ) {
                 var rect = _getTrimRect ( image, rawWidth, rawHeight, self.trimThreshold );
-                sprite.trimX = rect[0];
-                sprite.trimY = rect[1];
-                sprite.width = rect[2];
-                sprite.height = rect[3];
+                sprite.setRectInPixels(cc.rect(rect[0],rect[1], rect[2],rect[3]));
+                trimX = rect[0];
+                trimY = rect[1];
             }
             else {
-                sprite.trimX = cc.clampf(self.trimX, 0, rawWidth);
-                sprite.trimY = cc.clampf(self.trimY, 0, rawHeight);
-                sprite.width = cc.clampf(self.width, 0, rawWidth - self.trimX);
-                sprite.height = cc.clampf(self.height, 0, rawHeight - sprite.trimY);
+                trimX = cc.clampf(self.trimX, 0, rawWidth);
+                trimY = cc.clampf(self.trimY, 0, rawHeight);
+                var width = cc.clampf(self.width, 0, rawWidth - self.trimX);
+                var height = cc.clampf(self.height, 0, rawHeight - trimY);
+                sprite.setRectInPixels(cc.rect(trimX,trimY, width,height));
             }
 
             if ( self.spriteType === 'sliced') {
-                sprite.borderTop = self.borderTop;
-                sprite.borderBottom = self.borderBottom;
-                sprite.borderLeft = self.borderLeft;
-                sprite.borderRight = self.borderRight;
+                sprite.insetTop = self.borderTop;
+                sprite.insetBottom = self.borderBottom;
+                sprite.insetLeft = self.borderLeft;
+                sprite.insetRight = self.borderRight;
             }
 
-            sprite.x = sprite.trimX;
-            sprite.y = sprite.trimY;
+            var rawCenter = cc.p(rawWidth, rawHeight).div(2);
+            var offset = sprite.getRectInPixels().center.sub(rawCenter);
+            sprite.setOffsetInPixels(offset);
 
             // TODO: this.atlasName
 

@@ -20,7 +20,7 @@
                     path + 'd5/d51b7909-09a5-4945-a4d0-d9241c16523e/button-with-meta.png'
                 ];
 
-                it('cc.SpriteAsset.texture should be cc.Texture2D', function (done) {
+                it('cc.SpriteFrame.texture should be cc.Texture2D', function (done) {
 
                     var spriteUuid = Editor.urlToUuid( assets[0] );
                     var textureUuid = Editor.urlToUuid( assets[1] );
@@ -28,7 +28,7 @@
 //                    cc.AssetLibrary.queryAssetInfo(spriteUuid, function(err, url) {
 //                        if (err) throw err;
 //
-//                        assert( asset instanceof cc.SpriteAsset );
+//                        assert( asset instanceof cc.SpriteFrame );
 //                        assert( asset.texture instanceof cc.Texture2D );
 //
 //                        expect( asset._uuid ).equal( spriteUuid );
