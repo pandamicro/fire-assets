@@ -89,7 +89,7 @@ class SpriteMeta extends Editor.metas.asset {
     this.borderRight = 0;
   }
 
-  deserialize = function ( jsonObj ) {
+  deserialize ( jsonObj ) {
     super.deserialize(jsonObj);
 
     this.rawTextureUuid = jsonObj.rawTextureUuid;
@@ -118,8 +118,9 @@ class SpriteMeta extends Editor.metas.asset {
     ];
   }
 
-  import = function ( fspath, cb ) {
+  import ( fspath, cb ) {
     // var Lwip = require('lwip'); /*DISABLE: lwip*/
+    const Jimp = require('jimp');
 
     var self = this;
 
@@ -127,7 +128,7 @@ class SpriteMeta extends Editor.metas.asset {
     var json = JSON.parse(text);
 
     var rawTextureUuid = json.rawTextureUuid;
-    var rawTextureFile = assetdb.uuidToFspath(rawTextureUuid);
+    var rawTextureFile = this._assetdb.uuidToFspath(rawTextureUuid);
 
     if ( !rawTextureFile ) {
       cb ( new Error('Can not find raw texture for ' + fspath + ", uuid not found: " + rawTextureUuid) );

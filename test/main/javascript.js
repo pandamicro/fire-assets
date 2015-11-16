@@ -2,7 +2,7 @@ var Fs = require('fire-fs');
 var Path = require('fire-path');
 var Url = require('fire-url');
 
-var AssetDBUtils = require('./utils');
+var AssetDBUtils = require('../utils');
 
 //
 describe('javascript', function () {
@@ -10,7 +10,7 @@ describe('javascript', function () {
         AssetDBUtils.init( 'javascript-assets/assets', done );
     });
 
-    after( AssetDBUtils.deinit );
+    // after( AssetDBUtils.deinit );
 
     it('should import to library', function ( done ) {
         var assets = [
@@ -21,14 +21,8 @@ describe('javascript', function () {
             var uuid = Editor.assetdb.urlToUuid(url);
             var basename = Path.basename(url);
 
-            var jsonPath = Editor.assetdb._uuid2importPath(uuid);
-            var filePath = Path.join(Path.dirname(Editor.assetdb._uuid2importPath(uuid)), uuid, basename);
-
-            expect( Fs.existsSync( jsonPath ) )
-                .to.be.equal(true);
-
-            expect( Fs.existsSync( filePath ) )
-                .to.be.equal(true);
+            var jsPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.js';
+            expect( Fs.existsSync( jsPath ) ).to.eql(true);
         });
 
         done();
@@ -48,7 +42,7 @@ describe('javascript.export', function () {
         var dest = Editor.assetdb._fspath('assets://rotate2.js');
         var data = Fs.readFileSync( temp );
 
-        var meta = new Editor.metas.javascript();
+        var meta = new Editor.metas.javascript( Editor.assetdb );
         meta.export(dest, data, function () {
             expect( Fs.existsSync(dest) ).to.be.true;
             done();
@@ -61,7 +55,7 @@ describe('javascript.export', function () {
         var dest = Editor.assetdb._fspath('assets://rotate2.js');
         var data = null;
 
-        var meta = new Editor.metas.javascript();
+        var meta = new Editor.metas.javascript( Editor.assetdb );
         meta.export(dest, data, function () {
             expect( Fs.existsSync(dest) ).to.not.be.true;
             done();

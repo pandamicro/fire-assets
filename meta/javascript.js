@@ -39,7 +39,6 @@ class JavaScriptMeta extends Editor.metas.asset {
 
       function ( data, next ) {
         self._assetdb.saveAssetToLibrary( self.uuid, data, '.js' );
-
         next ( null );
       }
     ], cb);

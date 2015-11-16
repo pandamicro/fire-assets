@@ -1,16 +1,14 @@
 var Path = require('fire-path');
 var Fs = require('fire-fs');
 var Del = require('del');
+const AssetDB = Editor.require('app://asset-db');
 
 module.exports = {
     init: function ( path, done ) {
         // simple init
-        if ( !Editor.assets ) Editor.assets = {};
-        if ( !Editor.metas ) Editor.metas = {};
-        if ( !Editor.inspectors ) Editor.inspectors = {};
-
-        // init engine-framework
-        Editor.require('app://cocos2d/cocos2d-html5');
+        // if ( !Editor.assets ) Editor.assets = {};
+        // if ( !Editor.metas ) Editor.metas = {};
+        // if ( !Editor.inspectors ) Editor.inspectors = {};
 
         // init asset-db
         var AssetDB = Editor.require('app://asset-db');
@@ -18,9 +16,6 @@ module.exports = {
             'cwd': Path.join( __dirname, 'playground' ),
             'library': 'library',
         });
-
-        // init fire-assets
-        require('../init');
 
         Editor.assetdb.register( '.png', false, Editor.metas.texture );
         Editor.assetdb.register( '.jpg', false, Editor.metas.texture );
@@ -33,7 +28,7 @@ module.exports = {
 
         // start mounting
         var src = Path.join( __dirname, 'fixtures', path);
-        var dest = Path.join( __dirname, 'playground/assets/' );
+        var dest = Path.join( Editor.projectPath, 'assets/' );
 
         Fs.copySync( src, dest );
 
@@ -43,6 +38,6 @@ module.exports = {
     },
 
     deinit: function ( done ) {
-        Del( Path.join( __dirname, 'playground' ), { force: true }, done );
+        Del( Editor.projectPath, { force: true }, done );
     }
 };
