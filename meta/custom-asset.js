@@ -19,7 +19,7 @@ class CustomAssetMeta extends Editor.metas.asset {
     ];
   }
 
-  import = function (fspath, cb) {
+  import (fspath, cb) {
     var self = this;
 
     Fs.readFile(fspath, {encoding: 'utf-8'}, function (err, data) {

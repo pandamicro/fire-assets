@@ -89,7 +89,7 @@ class SpriteMeta extends Editor.metas.asset {
     this.borderRight = 0;
   }
 
-  deserialize = function ( jsonObj ) {
+  deserialize ( jsonObj ) {
     super.deserialize(jsonObj);
 
     this.rawTextureUuid = jsonObj.rawTextureUuid;
@@ -118,7 +118,7 @@ class SpriteMeta extends Editor.metas.asset {
     ];
   }
 
-  import = function ( fspath, cb ) {
+  import ( fspath, cb ) {
     // var Lwip = require('lwip'); /*DISABLE: lwip*/
 
     var self = this;
