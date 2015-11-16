@@ -1,7 +1,9 @@
-var $super = Editor.metas.asset;
-function AudioClipMeta () {
-    $super.call(this);
+'use strict';
+
+class AudioClipMeta extends Editor.metas.asset { 
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
 }
-Editor.JS.extend(AudioClipMeta, $super);
 
 module.exports = AudioClipMeta;

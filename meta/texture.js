@@ -1,95 +1,86 @@
 'use strict';
 
 class TextureMeta extends Editor.metas.asset {
-    constructor () {
-        super();
+  constructor ( assetdb ) {
+    super( assetdb );
 
-        this.type = 'raw'; // raw, normal-map, sprite
-        this.wrapMode = 'clamp';
-        this.filterMode = 'bilinear';
+    this.type = 'raw'; // raw, normal-map, sprite
+    this.wrapMode = 'clamp';
+    this.filterMode = 'bilinear';
+  }
+
+  deserialize ( jsonObj ) {
+    super.deserialize(jsonObj);
+
+    this.type = jsonObj.type;
+    this.wrapMode = jsonObj.wrapMode;
+    this.filterMode = jsonObj.filterMode;
+  }
+
+  useRawfile () {
+    return this.type === 'raw';
+  }
+
+  dests () {
+    if ( this.type === 'raw' ) {
+      return [];
     }
 
-    serialize () {
-        super.serialize();
-        return this;
-    }
+    return [
+      this._assetdb._uuidToImportPathNoExt(this.uuid) + '.png',
+    ];
+  }
 
-    deserialize ( jsonObj ) {
-        super.deserialize(jsonObj);
+  import ( fspath, cb ) {
+    // var Lwip = require('lwip'); /*DISABLE*/
+    const Jimp = require('jimp');
+    const Async = require('async');
 
-        this.type = jsonObj.type;
-        this.wrapMode = jsonObj.wrapMode;
-        this.filterMode = jsonObj.filterMode;
+    Async.waterfall([
+      next => {
+        // Lwip.open( fspath, next ); /*DISABLE*/
+        new Jimp( fspath, next );
+      },
 
-        return this;
-    }
+      ( image, next ) => {
+        if ( this.type === 'sprite' ) {
+          // TODO
+          // var basename = Path.basename(fspath);
 
-    useRawfile () {
-        return this.type === 'raw';
-    }
+          // var texture = new cc.TextureAsset();
+          // texture.name = Path.basenameNoExt(fspath);
+          // texture._setRawFiles([
+          //   basename
+          // ]);
+          // // TODO
+          // // texture.wrapMode = convertWrapMode(this.wrapMode);
+          // // texture.filterMode = convertFilterMode(this.filterMode);
+          // texture.width = image.width();
+          // texture.height = image.height();
 
-    dests ( assetdb ) {
-        if ( this.type === 'raw' ) {
-            return [];
+          // if ( texture.type === 'sprite' ) {
+          //   // TODO: create sprite meta here
+          // }
+
+          // this._assetdb.copyAssetToLibrary( this.uuid, fspath );
+          // this._assetdb.saveAssetToLibrary( this.uuid, texture );
         }
 
-        return [
-            assetdb._uuidToImportPathNoExt(this.uuid) + '.png',
-        ];
-    }
+        next ( null, image );
+      },
 
-    import ( assetdb, fspath, cb ) {
-        // var Lwip = require('lwip'); /*DISABLE*/
-        const Jimp = require('jimp');
-        const Async = require('async');
+      // DISABLE
+      // ( image, next ) => {
+      //   this._assetdb.createThumbnail( this.uuid, 32, image, next );
+      // },
 
-        Async.waterfall([
-            next => {
-                // Lwip.open( fspath, next ); /*DISABLE*/
-                new Jimp( fspath, next );
-            },
-
-            ( image, next ) => {
-                if ( this.type === 'sprite' ) {
-                    // TODO
-                    // var basename = Path.basename(fspath);
-
-                    // var texture = new cc.Texture2D();
-                    // texture.name = Path.basenameNoExt(fspath);
-                    // texture._setRawFiles([
-                    //     basename
-                    // ]);
-                    // // TODO
-                    // // texture.wrapMode = convertWrapMode(this.wrapMode);
-                    // // texture.filterMode = convertFilterMode(this.filterMode);
-                    // texture.width = image.width();
-                    // texture.height = image.height();
-
-                    // if ( texture.type === 'sprite' ) {
-                    //     // TODO: create sprite meta here
-                    // }
-
-                    // assetdb.copyAssetToLibrary( this.uuid, fspath );
-                    // assetdb.saveAssetToLibrary( this.uuid, texture );
-                }
-
-                next ( null, image );
-            },
-
-            // DISABLE
-            // ( image, next ) => {
-            //     assetdb.createThumbnail( this.uuid, 32, image, next );
-            // },
-
-        ], err => {
-            if ( cb ) {
-                cb ( err );
-            }
-        });
-    }
+    ], err => {
+      if ( cb ) {
+        cb ( err );
+      }
+    });
+  }
 }
-
 TextureMeta.prototype.export = null;
 
 module.exports = TextureMeta;
-
