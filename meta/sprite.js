@@ -1,3 +1,5 @@
+'use strict';
+
 var Async = require('async');
 var Fs = require('fs');
 var Path = require('fire-path');
@@ -67,10 +69,9 @@ var _getTrimRect = function (image, w, h, trimThreshold) {
     return [tx, ty, tw, th];
 };
 
-
-var $super = Editor.metas.asset;
-function SpriteMeta () {
-    $super.call(this);
+class SpriteMeta extends Editor.metas.asset { 
+  constructor ( assetdb ) {
+    super( assetdb );
 
     this.rawTextureUuid = '';
     this.trimType = 'auto'; // auto, custom
@@ -86,17 +87,10 @@ function SpriteMeta () {
     this.borderBottom = 0;
     this.borderLeft = 0;
     this.borderRight = 0;
-}
-Editor.JS.extend(SpriteMeta,$super);
+  }
 
-
-SpriteMeta.prototype.serialize = function () {
-    $super.prototype.serialize.call(this);
-    return this;
-};
-
-SpriteMeta.prototype.deserialize = function ( jsonObj ) {
-    $super.prototype.deserialize.call(this, jsonObj);
+  deserialize = function ( jsonObj ) {
+    super.deserialize(jsonObj);
 
     this.rawTextureUuid = jsonObj.rawTextureUuid;
     this.trimType = jsonObj.trimType;
@@ -112,19 +106,19 @@ SpriteMeta.prototype.deserialize = function ( jsonObj ) {
     this.borderBottom = jsonObj.borderBottom;
     this.borderLeft = jsonObj.borderLeft;
     this.borderRight = jsonObj.borderRight;
-};
+  }
 
-SpriteMeta.prototype.useRawfile = function () {
+  useRawfile () {
     return false;
-};
+  }
 
-SpriteMeta.prototype.dests = function ( assetdb ) {
+  dests () {
     return [
-        assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
+        this._assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
     ];
-};
+  }
 
-SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
+  import = function ( fspath, cb ) {
     // var Lwip = require('lwip'); /*DISABLE: lwip*/
 
     var self = this;
@@ -136,75 +130,76 @@ SpriteMeta.prototype.import = function ( assetdb, fspath, cb ) {
     var rawTextureFile = assetdb.uuidToFspath(rawTextureUuid);
 
     if ( !rawTextureFile ) {
-        cb ( new Error('Can not find raw texture for ' + fspath + ", uuid not found: " + rawTextureUuid) );
-        return;
+      cb ( new Error('Can not find raw texture for ' + fspath + ", uuid not found: " + rawTextureUuid) );
+      return;
     }
 
     Async.waterfall([
-        function ( next ) {
-            // Lwip.open( rawTextureFile, next ); /*DISABLE: lwip*/
-            new Jimp( rawTextureFile, next );
-        },
+      function ( next ) {
+        // Lwip.open( rawTextureFile, next ); /*DISABLE: lwip*/
+        new Jimp( rawTextureFile, next );
+      },
 
-        function ( image, next ) {
-            if ( !image ) {
-                next(new Error('Can not load image for ' + rawTextureFile));
-            }
-
-            var basename = Path.basename(fspath);
-
-            // DISABLE: lwip
-            // var rawWidth = image.width();
-            // var rawHeight = image.height();
-            var rawWidth = image.bitmap.width;
-            var rawHeight = image.bitmap.height;
-
-            var sprite = new cc.SpriteFrame();
-            sprite.name = Path.basenameNoExt(fspath);
-            sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
-            sprite.setRectInPixels(cc.rect(0,0, self.width,self.height));
-            //sprite._setRawFiles([
-            //    basename
-            //]);
-
-            sprite._textureFilename = assetdb.uuidToUrl(rawTextureUuid);
-
-            var trimX, trimY;
-            if ( self.trimType === 'auto' ) {
-                var rect = _getTrimRect ( image, rawWidth, rawHeight, self.trimThreshold );
-                sprite.setRectInPixels(cc.rect(rect[0],rect[1], rect[2],rect[3]));
-                trimX = rect[0];
-                trimY = rect[1];
-            }
-            else {
-                trimX = cc.clampf(self.trimX, 0, rawWidth);
-                trimY = cc.clampf(self.trimY, 0, rawHeight);
-                var width = cc.clampf(self.width, 0, rawWidth - self.trimX);
-                var height = cc.clampf(self.height, 0, rawHeight - trimY);
-                sprite.setRectInPixels(cc.rect(trimX,trimY, width,height));
-            }
-
-            if ( self.spriteType === 'sliced') {
-                sprite.insetTop = self.borderTop;
-                sprite.insetBottom = self.borderBottom;
-                sprite.insetLeft = self.borderLeft;
-                sprite.insetRight = self.borderRight;
-            }
-
-            var rawCenter = cc.p(rawWidth, rawHeight).div(2);
-            var offset = sprite.getRectInPixels().center.sub(rawCenter);
-            sprite.setOffsetInPixels(offset);
-
-            // TODO: this.atlasName
-
-            assetdb.saveAssetToLibrary( self.uuid, sprite );
-
-            next ( null, sprite );
+      function ( image, next ) {
+        if ( !image ) {
+          next(new Error('Can not load image for ' + rawTextureFile));
         }
+
+        var basename = Path.basename(fspath);
+
+        // DISABLE: lwip
+        // var rawWidth = image.width();
+        // var rawHeight = image.height();
+        var rawWidth = image.bitmap.width;
+        var rawHeight = image.bitmap.height;
+
+        var sprite = new cc.SpriteFrame();
+        sprite.name = Path.basenameNoExt(fspath);
+        sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
+        sprite.setRectInPixels(cc.rect(0,0, self.width,self.height));
+        //sprite._setRawFiles([
+        //  basename
+        //]);
+
+        sprite._textureFilename = self._assetdb.uuidToUrl(rawTextureUuid);
+
+        var trimX, trimY;
+        if ( self.trimType === 'auto' ) {
+          var rect = _getTrimRect ( image, rawWidth, rawHeight, self.trimThreshold );
+          sprite.setRectInPixels(cc.rect(rect[0],rect[1], rect[2],rect[3]));
+          trimX = rect[0];
+          trimY = rect[1];
+        }
+        else {
+          trimX = cc.clampf(self.trimX, 0, rawWidth);
+          trimY = cc.clampf(self.trimY, 0, rawHeight);
+          var width = cc.clampf(self.width, 0, rawWidth - self.trimX);
+          var height = cc.clampf(self.height, 0, rawHeight - trimY);
+          sprite.setRectInPixels(cc.rect(trimX,trimY, width,height));
+        }
+
+        if ( self.spriteType === 'sliced') {
+          sprite.insetTop = self.borderTop;
+          sprite.insetBottom = self.borderBottom;
+          sprite.insetLeft = self.borderLeft;
+          sprite.insetRight = self.borderRight;
+        }
+
+        var rawCenter = cc.p(rawWidth, rawHeight).div(2);
+        var offset = sprite.getRectInPixels().center.sub(rawCenter);
+        sprite.setOffsetInPixels(offset);
+
+        // TODO: this.atlasName
+
+        self._assetdb.saveAssetToLibrary( self.uuid, sprite );
+
+        next ( null, sprite );
+      }
     ], function ( err ) {
-        if (cb) cb (err);
+      if (cb) cb (err);
     });
-};
+  }
+}
 
 SpriteMeta.prototype.export = null;
 

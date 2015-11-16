@@ -1,9 +1,11 @@
+'use strict';
+
 var CustomAssetMeta = require('./custom-asset');
 
-var $super = CustomAssetMeta;
-function PrefabMeta () {
-    $super.call(this);
+class PrefabMeta extends CustomAssetMeta { 
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
 }
-Editor.JS.extend(PrefabMeta, $super);
 
 module.exports = PrefabMeta;
