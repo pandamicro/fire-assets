@@ -1,7 +1,7 @@
 var Fs = require('fire-fs');
 var Path = require('fire-path');
 
-var AssetDBUtils = require('./utils');
+var AssetDBUtils = require('../utils');
 
 var Ipc = require('ipc');
 
@@ -40,7 +40,8 @@ describe('bitmap-font core level', function () {
     });
 
     after( function ( done ) {
-        AssetDBUtils.deinit( done );
+        // AssetDBUtils.deinit( done );
+        done();
     });
 
     it('should import to library', function ( done ) {

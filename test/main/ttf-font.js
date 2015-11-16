@@ -1,14 +1,18 @@
 var Fs = require('fire-fs');
 var Path = require('fire-path');
-var Url = require('fire-url');
 
-var AssetDBUtils = require('./utils');
+var AssetDBUtils = require('../utils');
 
+var Ipc = require('ipc');
 
-//
-describe('test sprite core level', function () {
+describe('ttf-font core level', function () {
+
+    var assets = [
+        'assets://Abberancy.ttf'
+    ];
+
     before(function ( done ) {
-        AssetDBUtils.init( 'sprite-assets/assets', done );
+        AssetDBUtils.init( 'ttf-assets/assets', done );
     });
 
     after( function ( done ) {
@@ -16,17 +20,13 @@ describe('test sprite core level', function () {
     });
 
     it('should import to library', function ( done ) {
-        var uuid;
-        var assets = [
-            'assets://simple-sprite.sprite',
-        ];
 
         assets.forEach( function ( url ) {
             var uuid = Editor.assetdb.urlToUuid(url);
-            var basename = Path.basename(url);
+            var extname = Path.extname(url);
 
-            var jsonPath = Editor.assetdb._uuid2importPath(uuid);
-            var filePath = Path.join(Path.dirname(Editor.assetdb._uuid2importPath(uuid)), uuid, basename);
+            var jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
+            var filePath = Path.join( Path.dirname(jsonPath), uuid + extname );
 
             expect( Fs.existsSync( jsonPath ) )
                 .to.be.equal(true);
@@ -42,4 +42,6 @@ describe('test sprite core level', function () {
 
         done();
     });
+
 });
+

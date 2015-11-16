@@ -2,7 +2,7 @@ var Fs = require('fire-fs');
 var Path = require('fire-path');
 var Url = require('fire-url');
 
-var AssetDBUtils = require('./utils');
+var AssetDBUtils = require('../utils');
 
 //
 describe('scene', function () {
@@ -21,10 +21,9 @@ describe('scene', function () {
             var uuid = Editor.assetdb.urlToUuid(url);
             var basename = Path.basename(url);
 
-            var jsonPath = Editor.assetdb._uuid2importPath(uuid);
+            var jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
 
-            expect( Fs.existsSync( jsonPath ) )
-                .to.be.equal(true);
+            expect( Fs.existsSync( jsonPath ) ).to.be.equal(true);
         });
 
         done();
@@ -44,7 +43,7 @@ describe('scene.export', function () {
         var dest = Editor.assetdb._fspath('assets://level2.fire');
         var data = Fs.readFileSync( temp );
 
-        var meta = new Editor.metas.scene();
+        var meta = new Editor.metas.scene( Editor.assetdb );
         meta.export(dest, data, function () {
             expect( Fs.existsSync(dest) ).to.be.true;
             done();
@@ -57,7 +56,7 @@ describe('scene.export', function () {
         var dest = Editor.assetdb._fspath('assets://level2.fire');
         var data = null;
 
-        var meta = new Editor.metas.scene();
+        var meta = new Editor.metas.scene( Editor.assetdb );
         meta.export(dest, data, function () {
             expect( Fs.existsSync(dest) ).to.not.be.true;
             done();

@@ -120,6 +120,7 @@ class SpriteMeta extends Editor.metas.asset {
 
   import ( fspath, cb ) {
     // var Lwip = require('lwip'); /*DISABLE: lwip*/
+    const Jimp = require('jimp');
 
     var self = this;
 
@@ -127,7 +128,7 @@ class SpriteMeta extends Editor.metas.asset {
     var json = JSON.parse(text);
 
     var rawTextureUuid = json.rawTextureUuid;
-    var rawTextureFile = assetdb.uuidToFspath(rawTextureUuid);
+    var rawTextureFile = this._assetdb.uuidToFspath(rawTextureUuid);
 
     if ( !rawTextureFile ) {
       cb ( new Error('Can not find raw texture for ' + fspath + ", uuid not found: " + rawTextureUuid) );

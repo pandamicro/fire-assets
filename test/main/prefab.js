@@ -2,7 +2,7 @@ var Fs = require('fire-fs');
 var Path = require('fire-path');
 var Url = require('fire-url');
 
-var AssetDBUtils = require('./utils');
+var AssetDBUtils = require('../utils');
 
 describe('prefab', function () {
 
