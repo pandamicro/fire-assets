@@ -1,65 +1,57 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
-var Url = require('fire-url');
+'use strict';
 
-var AssetDBUtils = require('../utils');
+const Fs = require('fire-fs');
+
+Editor.require('app://editor/test-utils/init');
+Editor.require('app://editor/share/register-fire-assets');
+Editor.require('app://editor/core/init-fire-assets');
 
 //
-describe('scene', function () {
-    before(function ( done ) {
-        AssetDBUtils.init( 'scene-assets/assets', done );
-    });
+// describe('scene', function () {
+//   Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/scene-assets/assets') );
 
-    after( AssetDBUtils.deinit );
+//   it('should import to library', function ( done ) {
+//     let assets = [
+//       'assets://level.fire',
+//     ];
 
-    it('should import to library', function ( done ) {
-        var assets = [
-            'assets://level.fire',
-        ];
+//     assets.forEach( function ( url ) {
+//       let uuid = Editor.assetdb.urlToUuid(url);
+//       let jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
 
-        assets.forEach( function ( url ) {
-            var uuid = Editor.assetdb.urlToUuid(url);
-            var basename = Path.basename(url);
+//       expect( Fs.existsSync( jsonPath ) ).to.be.equal(true);
+//     });
 
-            var jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
-
-            expect( Fs.existsSync( jsonPath ) ).to.be.equal(true);
-        });
-
-        done();
-    });
-});
+//     done();
+//   });
+// });
 
 describe('scene.export', function () {
-    beforeEach(function ( done ) {
-        AssetDBUtils.init( 'scene-assets/assets', done );
+  Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/scene-assets/assets') );
+
+  it('should create a scene file from imput data', function (done) {
+
+    let temp = Editor.assetdb._fspath('assets://level.fire');
+    let dest = Editor.assetdb._fspath('assets://level2.fire');
+    let data = Fs.readFileSync( temp );
+
+    let meta = new Editor.metas.scene( Editor.assetdb );
+    meta.export(dest, data, function () {
+      expect( Fs.existsSync(dest) ).to.eql(true);
+      done();
     });
+  });
 
-    afterEach( AssetDBUtils.deinit );
+  it('should do nothing if input data is null', function (done) {
 
-    it('should create a scene file from imput data', function (done) {
+    // let temp = Editor.assetdb._fspath('assets://level.fire');
+    let dest = Editor.assetdb._fspath('assets://level2.fire');
+    let data = null;
 
-        var temp = Editor.assetdb._fspath('assets://level.fire');
-        var dest = Editor.assetdb._fspath('assets://level2.fire');
-        var data = Fs.readFileSync( temp );
-
-        var meta = new Editor.metas.scene( Editor.assetdb );
-        meta.export(dest, data, function () {
-            expect( Fs.existsSync(dest) ).to.be.true;
-            done();
-        });
+    let meta = new Editor.metas.scene( Editor.assetdb );
+    meta.export(dest, data, function () {
+      expect( Fs.existsSync(dest) ).to.not.eql(true);
+      done();
     });
-
-    it('should do nothing if input data is null', function (done) {
-
-        var temp = Editor.assetdb._fspath('assets://level.fire');
-        var dest = Editor.assetdb._fspath('assets://level2.fire');
-        var data = null;
-
-        var meta = new Editor.metas.scene( Editor.assetdb );
-        meta.export(dest, data, function () {
-            expect( Fs.existsSync(dest) ).to.not.be.true;
-            done();
-        });
-    });
+  });
 });

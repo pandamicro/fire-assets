@@ -1,63 +1,41 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
-var Url = require('fire-url');
+'use strict';
 
-var AssetDBUtils = require('../utils');
+// const Fs = require('fire-fs');
+// const Path = require('fire-path');
+
+Editor.require('app://editor/test-utils/init');
+Editor.require('app://editor/share/register-fire-assets');
+Editor.require('app://editor/core/init-fire-assets');
 
 //
-describe('texture', function () {
-    before(function ( done ) {
-        AssetDBUtils.init( 'texture-assets/assets', done );
-    });
+// describe('texture', function () {
+//   Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/texture-assets/assets') );
 
-    after( function ( done ) {
-        AssetDBUtils.deinit( done );
-    });
+//   it('should import to library', function ( done ) {
+//     let assets = [
+//       'assets://button-with-meta.png',
+//       'assets://star.png',
+//       'assets://imgres.jpg',
+//     ];
 
-    it('should import to library', function ( done ) {
-        var uuid;
-        var assets = [
-            'assets://button-with-meta.png',
-            'assets://star.png',
-            'assets://imgres.jpg',
-        ];
+//     assets.forEach( function ( url ) {
+//       let uuid = Editor.assetdb.urlToUuid(url);
+//       let basename = Path.basename(url);
 
-        assets.forEach( function ( url ) {
-            var uuid = Editor.assetdb.urlToUuid(url);
-            var basename = Path.basename(url);
+//       let jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
+//       let filePath = Path.join(Path.dirname(jsonPath), uuid, basename);
 
-            var jsonPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.json';
-            var filePath = Path.join(Path.dirname(jsonPath), uuid, basename);
+//       expect( Fs.existsSync( jsonPath ) ).to.be.eql(true);
+//       expect( Fs.existsSync( filePath ) ).to.be.eql(true);
 
-            expect( Fs.existsSync( jsonPath ) )
-                .to.be.equal(true);
+//       let buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
+//       let buf2 = Fs.readFileSync( filePath );
 
-            expect( Fs.existsSync( filePath ) )
-                .to.be.equal(true);
+//       expect(buf1).to.be.deep.equal(buf2);
+//     });
 
-            var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
-            var buf2 = Fs.readFileSync( filePath );
+//     done();
+//   });
 
-            expect(buf1).to.be.deep.equal(buf2);
-        });
-
-        done();
-    });
-
-    it('should remove thumbnail if remove texture asset', function (done) {
-        var url = 'assets://button-with-meta.png';
-        var uuid = Editor.assetdb.urlToUuid(url);
-
-        var thumbnailPath = Path.join(Editor.assetdb._thumbnailPath, uuid.substring(0,2), uuid + '.png');
-
-        Editor.assetdb.delete(url, function (err) {
-            assert( !err );
-
-            expect( Fs.existsSync(thumbnailPath) ).to.not.be.true;
-
-            done();
-        });
-    });
-
-});
+// });
 
