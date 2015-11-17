@@ -1,19 +1,19 @@
 'use strict';
 
 var Async = require('async');
-var Fs = require('fs');
 var Path = require('fire-path');
 
 var _getPixiel = function (image, x, y ) {
-    // return image.getPixel(x,y); DISABLE: lwip
+    return image.getPixel(x,y);
 
-    var idx = x * 4 + y * image.bitmap.width * 4;
-    return {
-        r: image.bitmap.data[idx],
-        g: image.bitmap.data[idx+1],
-        b: image.bitmap.data[idx+2],
-        a: image.bitmap.data[idx+3],
-    };
+    // DISABLE: jimp
+    // var idx = x * 4 + y * image.bitmap.width * 4;
+    // return {
+    //     r: image.bitmap.data[idx],
+    //     g: image.bitmap.data[idx+1],
+    //     b: image.bitmap.data[idx+2],
+    //     a: image.bitmap.data[idx+3],
+    // };
 };
 
 var _getTrimRect = function (image, w, h, trimThreshold) {
@@ -69,7 +69,7 @@ var _getTrimRect = function (image, w, h, trimThreshold) {
     return [tx, ty, tw, th];
 };
 
-class SpriteMeta extends Editor.metas.asset { 
+class SpriteMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
 
@@ -119,71 +119,65 @@ class SpriteMeta extends Editor.metas.asset {
   }
 
   import ( fspath, cb ) {
-    // var Lwip = require('lwip'); /*DISABLE: lwip*/
-    const Jimp = require('jimp');
+    const Lwip = require('lwip');
+    // const Jimp = require('jimp'); // DISABLE: jimp
 
-    var self = this;
-
-    var text = Fs.readFileSync( fspath, {encoding: 'utf-8'} );
-    var json = JSON.parse(text);
-
-    var rawTextureUuid = json.rawTextureUuid;
+    var rawTextureUuid = this.rawTextureUuid;
     var rawTextureFile = this._assetdb.uuidToFspath(rawTextureUuid);
 
     if ( !rawTextureFile ) {
-      cb ( new Error('Can not find raw texture for ' + fspath + ", uuid not found: " + rawTextureUuid) );
+      cb ( new Error( `Can not find raw texture for ${fspath}, uuid not found: ${rawTextureUuid}` ) );
       return;
     }
 
     Async.waterfall([
-      function ( next ) {
-        // Lwip.open( rawTextureFile, next ); /*DISABLE: lwip*/
-        new Jimp( rawTextureFile, next );
+      next => {
+        Lwip.open( rawTextureFile, next );
+        // new Jimp( rawTextureFile, next ); // DISABLE: jimp
       },
 
-      function ( image, next ) {
+      ( image, next ) => {
         if ( !image ) {
           next(new Error('Can not load image for ' + rawTextureFile));
         }
+        // var basename = Path.basename(fspath);
 
-        var basename = Path.basename(fspath);
+        var rawWidth = image.width();
+        var rawHeight = image.height();
 
-        // DISABLE: lwip
-        // var rawWidth = image.width();
-        // var rawHeight = image.height();
-        var rawWidth = image.bitmap.width;
-        var rawHeight = image.bitmap.height;
+        // DISABLE: jimp
+        // var rawWidth = image.bitmap.width;
+        // var rawHeight = image.bitmap.height;
 
         var sprite = new cc.SpriteFrame();
         sprite.name = Path.basenameNoExt(fspath);
         sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
-        sprite.setRectInPixels(cc.rect(0,0, self.width,self.height));
-        //sprite._setRawFiles([
-        //  basename
-        //]);
+        sprite.setRectInPixels(cc.rect(0,0, this.width,this.height));
 
-        sprite._textureFilename = self._assetdb.uuidToUrl(rawTextureUuid);
+        sprite._textureFilename = this._assetdb.uuidToUrl(rawTextureUuid);
 
-        var trimX, trimY;
-        if ( self.trimType === 'auto' ) {
-          var rect = _getTrimRect ( image, rawWidth, rawHeight, self.trimThreshold );
+        if ( this.trimType === 'auto' ) {
+          var rect = _getTrimRect ( image, rawWidth, rawHeight, this.trimThreshold );
           sprite.setRectInPixels(cc.rect(rect[0],rect[1], rect[2],rect[3]));
-          trimX = rect[0];
-          trimY = rect[1];
-        }
-        else {
-          trimX = cc.clampf(self.trimX, 0, rawWidth);
-          trimY = cc.clampf(self.trimY, 0, rawHeight);
-          var width = cc.clampf(self.width, 0, rawWidth - self.trimX);
-          var height = cc.clampf(self.height, 0, rawHeight - trimY);
-          sprite.setRectInPixels(cc.rect(trimX,trimY, width,height));
+          this.trimX = rect[0];
+          this.trimY = rect[1];
+          this.width = rect[2];
+          this.height = rect[3];
+        } else {
+          this.trimX = Math.clamp(this.trimX, 0, rawWidth);
+          this.trimY = Math.clamp(this.trimY, 0, rawHeight);
+          this.width = Math.clamp(this.width, 0, rawWidth - this.trimX);
+          this.height = Math.clamp(this.height, 0, rawHeight - this.trimY);
+          sprite.setRectInPixels(cc.rect(
+            this.trimX, this.trimY, this.width, this.height
+          ));
         }
 
-        if ( self.spriteType === 'sliced') {
-          sprite.insetTop = self.borderTop;
-          sprite.insetBottom = self.borderBottom;
-          sprite.insetLeft = self.borderLeft;
-          sprite.insetRight = self.borderRight;
+        if ( this.spriteType === 'sliced') {
+          sprite.insetTop = this.borderTop;
+          sprite.insetBottom = this.borderBottom;
+          sprite.insetLeft = this.borderLeft;
+          sprite.insetRight = this.borderRight;
         }
 
         var rawCenter = cc.p(rawWidth, rawHeight).div(2);
@@ -192,12 +186,14 @@ class SpriteMeta extends Editor.metas.asset {
 
         // TODO: this.atlasName
 
-        self._assetdb.saveAssetToLibrary( self.uuid, sprite );
+        this._assetdb.saveAssetToLibrary( this.uuid, sprite );
 
         next ( null, sprite );
       }
-    ], function ( err ) {
-      if (cb) cb (err);
+    ], err => {
+      if (cb) {
+        cb (err);
+      }
     });
   }
 }
