@@ -7,6 +7,22 @@ class TextureMeta extends Editor.metas.asset {
     this.type = 'raw'; // raw, normal-map, sprite
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
+
+    // sprite data
+    this.rawTextureUuid = '';
+    this.trimType = 'auto'; // auto, custom
+    this.trimThreshold = 1;
+    this.spriteType = 'normal'; // normal, sliced
+
+    this.trimX = 0;
+    this.trimY = 0;
+    this.width = 0;
+    this.height = 0;
+
+    this.borderTop = 0;
+    this.borderBottom = 0;
+    this.borderLeft = 0;
+    this.borderRight = 0;
   }
 
   deserialize ( jsonObj ) {
@@ -15,6 +31,23 @@ class TextureMeta extends Editor.metas.asset {
     this.type = jsonObj.type;
     this.wrapMode = jsonObj.wrapMode;
     this.filterMode = jsonObj.filterMode;
+
+    if ( this.type === 'sprite' ) {
+      this.rawTextureUuid = this.uuid;
+      this.trimType = jsonObj.trimType;
+      this.trimThreshold = jsonObj.trimThreshold;
+      this.spriteType = jsonObj.spriteType;
+
+      this.trimX = jsonObj.trimX;
+      this.trimY = jsonObj.trimY;
+      this.width = jsonObj.width;
+      this.height = jsonObj.height;
+
+      this.borderTop = jsonObj.borderTop;
+      this.borderBottom = jsonObj.borderBottom;
+      this.borderLeft = jsonObj.borderLeft;
+      this.borderRight = jsonObj.borderRight;
+    }
   }
 
   useRawfile () {
@@ -27,58 +60,22 @@ class TextureMeta extends Editor.metas.asset {
     }
 
     return [
-      this._assetdb._uuidToImportPathNoExt(this.uuid) + '.png',
+      this._assetdb._uuidToImportPathNoExt(this.uuid) + '.json',
     ];
   }
 
   import ( fspath, cb ) {
-    // var Lwip = require('lwip'); /*DISABLE*/
-    const Jimp = require('jimp');
-    const Async = require('async');
+    if ( this.type === 'raw' ) {
+      cb ();
+      return;
+    }
 
-    Async.waterfall([
-      next => {
-        // Lwip.open( fspath, next ); /*DISABLE*/
-        new Jimp( fspath, next );
-      },
-
-      ( image, next ) => {
-        if ( this.type === 'sprite' ) {
-          // TODO
-          // var basename = Path.basename(fspath);
-
-          // var texture = new cc.TextureAsset();
-          // texture.name = Path.basenameNoExt(fspath);
-          // texture._setRawFiles([
-          //   basename
-          // ]);
-          // // TODO
-          // // texture.wrapMode = convertWrapMode(this.wrapMode);
-          // // texture.filterMode = convertFilterMode(this.filterMode);
-          // texture.width = image.width();
-          // texture.height = image.height();
-
-          // if ( texture.type === 'sprite' ) {
-          //   // TODO: create sprite meta here
-          // }
-
-          // this._assetdb.copyAssetToLibrary( this.uuid, fspath );
-          // this._assetdb.saveAssetToLibrary( this.uuid, texture );
-        }
-
-        next ( null, image );
-      },
-
-      // DISABLE
-      // ( image, next ) => {
-      //   this._assetdb.createThumbnail( this.uuid, 32, image, next );
-      // },
-
-    ], err => {
-      if ( cb ) {
-        cb ( err );
-      }
-    });
+    if ( this.type === 'sprite' ) {
+      const SpriteMeta = Editor.metas.sprite;
+      let spriteMeta = new SpriteMeta(this._assetdb);
+      spriteMeta.import.apply(this,[fspath,cb]);
+      return;
+    }
   }
 }
 TextureMeta.prototype.export = null;

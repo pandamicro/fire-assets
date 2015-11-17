@@ -2,61 +2,156 @@
 <link rel="import" href="packages://inspector/share/image-preview.html">
 
 <dom-module id="texture-inspector">
-    <link rel="import" type="css" href="packages://inspector/share/common.css">
-    <style>
-    </style>
+  <link rel="import" type="css" href="packages://inspector/share/common.css">
+  <template>
+    <inspector-meta-header
+      target="[[target]]"
+      icon="[[_thumbnail(target.uuid,target.__mtime__)]]"
+      dirty="{{dirty}}"
+    >
+    </inspector-meta-header>
 
-    <template>
-        <inspector-meta-header
-            target="[[target]]"
-            icon="[[_thumbnail(target.uuid,target.__mtime__)]]"
-            dirty="{{dirty}}"
+    <div class="props flex-1">
+      <editor-custom-prop name="Type">
+        <editor-select value="{{target.type}}">
+          <editor-option value="raw">Raw</editor-option>
+          <editor-option value="sprite">Sprite</editor-option>
+        </editor-select>
+      </editor-custom-prop>
+
+      <editor-custom-prop name="Wrap Mode">
+        <editor-select value="{{target.wrapMode}}">
+          <editor-option value="clamp">Clamp</editor-option>
+          <editor-option value="repeat">Repeat</editor-option>
+        </editor-select>
+      </editor-custom-prop>
+
+      <editor-custom-prop name="Filter Mode">
+        <editor-select value="{{target.filterMode}}">
+          <editor-option value="point">Point</editor-option>
+          <editor-option value="bilinear">Bilinear</editor-option>
+          <editor-option value="trilinear">Trilinear</editor-option>
+        </editor-select>
+      </editor-custom-prop>
+
+      <editor-section text="Sprite" hidden="{{!_isSprite(target.type)}}">
+        <!-- <editor-custom-prop name="Raw Texture Uuid">      -->
+        <!--   <editor-input value="{{target.rawTextureUuid}}" -->
+        <!--   ></editor-input>                                -->
+        <!-- </editor-custom-prop>                             -->
+
+        <editor-custom-prop name="Trim Type">
+          <editor-select value="{{target.trimType}}"
+          >
+            <editor-option value="auto">Auto</editor-option>
+            <editor-option value="custom">Custom</editor-option>
+          </editor-select>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Trim Threshold">
+          <editor-unit-input value="{{target.trimThreshold}}"
+          >
+          </editor-unit-input>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Trim X"
+          disabled="{{!_isTrimCustom(target.trimType)}}"
         >
-        </inspector-meta-header>
+          <editor-unit-input value="{{target.trimX}}"
+          >
+          </editor-unit-input>
+        </editor-custom-prop>
 
-        <div class="props flex-1">
-            <editor-custom-prop name="Type">
-                <editor-select value="{{target.type}}">
-                    <editor-option value="raw">Raw</editor-option>
-                    <editor-option value="sprite">Sprite</editor-option>
-                    <editor-option value="normal-map">Normal Map</editor-option>
-                </editor-select>
-            </editor-custom-prop>
-
-            <editor-custom-prop name="Wrap Mode">
-                <editor-select value="{{target.wrapMode}}">
-                    <editor-option value="clamp">Clamp</editor-option>
-                    <editor-option value="repeat">Repeat</editor-option>
-                </editor-select>
-            </editor-custom-prop>
-
-            <editor-custom-prop name="Filter Mode">
-                <editor-select value="{{target.filterMode}}">
-                    <editor-option value="point">Point</editor-option>
-                    <editor-option value="bilinear">Bilinear</editor-option>
-                    <editor-option value="trilinear">Trilinear</editor-option>
-                </editor-select>
-            </editor-custom-prop>
-        </div>
-
-        <inspector-image-preview id="preview"
-            path="[[target.__path__]]"
-            mtime="[[target.__mtime__]]"
+        <editor-custom-prop name="Trim Y"
+          disabled="{{!_isTrimCustom(target.trimType)}}"
         >
-        </inspector-image-preview>
-    </template>
+          <editor-unit-input value="{{target.trimY}}"
+          >
+          </editor-unit-input>
+        </editor-custom-prop>
 
-    <script>
-        Editor.registerElement({
-            _thumbnail: function ( uuid, mtime ) {
-                if ( uuid )
-                    return `thumbnail://${uuid}?32`;
-                return '';
-            },
+        <editor-custom-prop name="Trim Width"
+          disabled="{{!_isTrimCustom(target.trimType)}}"
+        >
+          <editor-unit-input value="{{target.width}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
 
-            resize: function () {
-                this.$.preview.resize();
-            },
-        });
-    </script>
+        <editor-custom-prop name="Trim Height"
+          disabled="{{!_isTrimCustom(target.trimType)}}"
+        >
+          <editor-unit-input value="{{target.height}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Sprite Type">
+          <editor-select value="{{target.spriteType}}"
+          >
+            <editor-option value="normal">Normal</editor-option>
+            <editor-option value="sliced">Sliced</editor-option>
+          </editor-select>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Border Top"
+          disabled="{{!_isSliced(target.spriteType)}}"
+        >
+          <editor-unit-input value="{{target.borderTop}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Border Bottom"
+          disabled="{{!_isSliced(target.spriteType)}}"
+        >
+          <editor-unit-input value="{{target.borderBottom}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Border Left"
+          disabled="{{!_isSliced(target.spriteType)}}"
+        >
+          <editor-unit-input value="{{target.borderLeft}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
+
+        <editor-custom-prop name="Border Right"
+          disabled="{{!_isSliced(target.spriteType)}}"
+        >
+          <editor-unit-input value="{{target.borderRight}}"
+          ></editor-unit-input>
+        </editor-custom-prop>
+      </editor-section>
+    </div>
+
+    <inspector-image-preview id="preview"
+      path="[[target.__path__]]"
+      mtime="[[target.__mtime__]]"
+    >
+    </inspector-image-preview>
+  </template>
+
+  <script>
+    Editor.registerElement({
+      _thumbnail: function ( uuid, mtime ) {
+        if ( uuid )
+          return `thumbnail://${uuid}?32`;
+        return '';
+      },
+
+      resize: function () {
+        this.$.preview.resize();
+      },
+
+      _isSprite: function ( textureType ) {
+        return textureType === 'sprite';
+      },
+
+      _isSliced: function ( spriteType ) {
+        return spriteType === 'sliced';
+      },
+
+      _isTrimCustom: function ( trimType ) {
+        return trimType === 'custom';
+      },
+    });
+  </script>
 </dom-module>
