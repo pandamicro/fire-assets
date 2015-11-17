@@ -77,6 +77,16 @@ class TextureMeta extends Editor.metas.asset {
       return;
     }
   }
+
+  assetType () {
+    if ( this.type === 'sprite' ) {
+      return 'sprite';
+    }
+
+    return 'texture';
+  }
+
+  static defaultType() { return 'texture'; }
 }
 TextureMeta.prototype.export = null;
 

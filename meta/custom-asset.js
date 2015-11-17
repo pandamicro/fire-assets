@@ -33,6 +33,7 @@ class CustomAssetMeta extends Editor.metas.asset {
       if (cb) cb(err);
     });
   }
+  static defaultType() { return 'custom-asset'; }
 }
 
 module.exports = CustomAssetMeta;

@@ -3,7 +3,7 @@
 var Fs = require('fire-fs');
 var Path = require('fire-path');
 
-class SpriteAnimationMeta extends Editor.metas.asset { 
+class SpriteAnimationMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
 
@@ -65,6 +65,8 @@ class SpriteAnimationMeta extends Editor.metas.asset {
 
     if ( cb ) cb ();
   }
+
+  static defaultType() { return 'sprite-animation'; }
 }
 
 SpriteAnimationMeta.prototype.export = null;

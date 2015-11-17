@@ -52,6 +52,7 @@ class JavaScriptMeta extends Editor.metas.asset {
       if (cb) cb();
     }
   }
+  static defaultType() { return 'javascript'; }
 }
 
 module.exports = JavaScriptMeta;
