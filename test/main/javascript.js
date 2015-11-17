@@ -1,64 +1,60 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
-var Url = require('fire-url');
+'use strict';
 
-var AssetDBUtils = require('../utils');
+const Fs = require('fire-fs');
+const Path = require('fire-path');
+
+Editor.require('app://editor/test-utils/init');
+Editor.require('app://editor/share/register-fire-assets');
+Editor.require('app://editor/core/init-fire-assets');
 
 //
 describe('javascript', function () {
-    before(function ( done ) {
-        AssetDBUtils.init( 'javascript-assets/assets', done );
+  Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/javascript-assets/assets') );
+
+  it('should import to library', function ( done ) {
+    let assets = [
+      'assets://rotate.js',
+    ];
+
+    assets.forEach( function ( url ) {
+      let uuid = Editor.assetdb.urlToUuid(url);
+      // var basename = Path.basename(url);
+
+      let jsPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.js';
+      console.log(jsPath);
+      expect( Fs.existsSync( jsPath ) ).to.eql(true);
     });
 
-    // after( AssetDBUtils.deinit );
-
-    it('should import to library', function ( done ) {
-        var assets = [
-            'assets://rotate.js',
-        ];
-
-        assets.forEach( function ( url ) {
-            var uuid = Editor.assetdb.urlToUuid(url);
-            var basename = Path.basename(url);
-
-            var jsPath = Editor.assetdb._uuidToImportPathNoExt( uuid ) + '.js';
-            expect( Fs.existsSync( jsPath ) ).to.eql(true);
-        });
-
-        done();
-    });
+    done();
+  });
 });
 
 describe('javascript.export', function () {
-    beforeEach(function ( done ) {
-        AssetDBUtils.init( 'javascript-assets/assets', done );
+  Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/javascript-assets/assets') );
+
+  it('should create a javascript file from input data', function (done) {
+
+    var temp = Editor.assetdb._fspath('assets://rotate.js');
+    var dest = Editor.assetdb._fspath('assets://rotate2.js');
+    var data = Fs.readFileSync( temp );
+
+    var meta = new Editor.metas.javascript( Editor.assetdb );
+    meta.export(dest, data, function () {
+      expect( Fs.existsSync(dest) ).to.be.true;
+      done();
     });
+  });
 
-    afterEach( AssetDBUtils.deinit );
+  it('should do nothing if input data is null', function (done) {
 
-    it('should create a javascript file from input data', function (done) {
+    var temp = Editor.assetdb._fspath('assets://rotate.js');
+    var dest = Editor.assetdb._fspath('assets://rotate2.js');
+    var data = null;
 
-        var temp = Editor.assetdb._fspath('assets://rotate.js');
-        var dest = Editor.assetdb._fspath('assets://rotate2.js');
-        var data = Fs.readFileSync( temp );
-
-        var meta = new Editor.metas.javascript( Editor.assetdb );
-        meta.export(dest, data, function () {
-            expect( Fs.existsSync(dest) ).to.be.true;
-            done();
-        });
+    var meta = new Editor.metas.javascript( Editor.assetdb );
+    meta.export(dest, data, function () {
+      expect( Fs.existsSync(dest) ).to.not.be.true;
+      done();
     });
-
-    it('should do nothing if input data is null', function (done) {
-
-        var temp = Editor.assetdb._fspath('assets://rotate.js');
-        var dest = Editor.assetdb._fspath('assets://rotate2.js');
-        var data = null;
-
-        var meta = new Editor.metas.javascript( Editor.assetdb );
-        meta.export(dest, data, function () {
-            expect( Fs.existsSync(dest) ).to.not.be.true;
-            done();
-        });
-    });
+  });
 });

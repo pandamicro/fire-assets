@@ -1,73 +1,40 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
+'use strict';
 
-var AssetDBUtils = require('../utils');
+const Fs = require('fire-fs');
+const Path = require('fire-path');
 
-var Ipc = require('ipc');
-
-// describe('bitmap-font core level', function () {
-
-//     after( function ( done ) {
-//         AssetDBUtils.deinit( done );
-//     });
-
-//     it('should report error', function (done) {
-
-//         // try {
-//             AssetDBUtils.init( 'font-assets/assets-without-texture', function (err) {
-
-//                 // assert(err)
-//                 console.log(' err ' + err);
-//                 done();
-//             });
-//         // }
-//         // catch (err){
-//         //     done();
-//         // }
-//     });
-
-// });
+Editor.require('app://editor/test-utils/init');
 
 describe('bitmap-font core level', function () {
+  Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/font-assets/assets') );
 
-    var assets = [
-        'assets://arial-unicode-26.fnt',
-        'assets://arial-unicode-26.png'
-    ];
+  // let assets = [
+  //   'assets://arial-unicode-26.fnt',
+  //   'assets://arial-unicode-26.png'
+  // ];
 
-    before(function ( done ) {
-        AssetDBUtils.init( 'font-assets/assets', done );
-    });
+  // TODO
+  // it('should import to library', function ( done ) {
 
-    after( function ( done ) {
-        // AssetDBUtils.deinit( done );
-        done();
-    });
+  //   assets.forEach( function ( url ) {
+  //     var uuid = Editor.assetdb.urlToUuid(url);
 
-    it('should import to library', function ( done ) {
+  //     var basename = Path.basename(url);
 
-        assets.forEach( function ( url ) {
-            var uuid = Editor.assetdb.urlToUuid(url);
+  //     var jsonPath = Editor.assetdb._uuidToImportPathNoExt(uuid) + '.json';
+  //     var filePath = Path.join(Editor.assetdb._uuidToImportPathNoExt(uuid), basename);
 
-            var basename = Path.basename(url);
+  //     expect( Fs.existsSync( jsonPath ) ).to.be.eql(true);
+  //     expect( Fs.existsSync( filePath ) ).to.be.eql(true);
 
-            var jsonPath = Editor.assetdb._uuidToImportPathNoExt(uuid) + '.json';
-            var filePath = Path.join(Editor.assetdb._uuidToImportPathNoExt(uuid), basename);
+  //     var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
+  //     var buf2 = Fs.readFileSync( filePath );
 
-            expect( Fs.existsSync( jsonPath ) )
-                .to.be.true;
+  //     expect(buf1).to.be.deep.equal(buf2);
+  //   });
 
-            expect( Fs.existsSync( filePath ) )
-                .to.be.true;
-
-            var buf1 = Fs.readFileSync( Editor.assetdb._fspath(url) );
-            var buf2 = Fs.readFileSync( filePath );
-
-            expect(buf1).to.be.deep.equal(buf2);
-        });
-
-        done();
-    });
+  //   done();
+  // });
 
 });
 
