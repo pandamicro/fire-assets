@@ -60,6 +60,8 @@ class CoffeeScriptMeta extends Editor.metas.asset {
       if (cb) cb();
     }
   }
+
+  static defaultType() { return 'coffeescript'; }
 }
 
 module.exports = CoffeeScriptMeta;

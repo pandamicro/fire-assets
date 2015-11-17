@@ -30,6 +30,7 @@ class BitmapFontMeta extends Editor.metas.asset {
 
     this.texturePath = '';
   }
+  static defaultType() { return 'bitmap-font'; }
 }
 BitmapFontMeta.prototype.export = null;
 
