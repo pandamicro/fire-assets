@@ -16,8 +16,6 @@ class SpriteAtlasMeta extends Editor.metas.asset {
     this.type = '';
   }
 
-  static validate ( assetpath ) { return false; }
-
   static defaultType() { return 'sprite-atlas'; }
 
   parse () {}
@@ -38,7 +36,7 @@ class SpriteAtlasMeta extends Editor.metas.asset {
 
     this.updateSubMetas( subMetas );
 
-    // Overwrite sub metas' import function
+    // !HACK: Overwrite sub metas' import function
     var subMetas = this.getSubMetas();
     for ( var key in subMetas ) {
       subMetas[key].import = this.importSprite;
@@ -46,6 +44,9 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   }
 
   dest () {
+    // TODO: Should decide whether sub meta's import will be invoked during parent meta import
+    // if so, it's ok to only include parent meta's output files in dest,
+    // otherwise, parent meta dest should include all sub meta's output files
     return [
       this._assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
     ];
@@ -67,7 +68,7 @@ class SpriteAtlasMeta extends Editor.metas.asset {
 
     this.parse( fspath );
 
-    // Overwrite sub metas' import function
+    // !HACK: Overwrite sub metas' import function
     var subMetas = this.getSubMetas();
     for ( var key in subMetas ) {
       subMetas[key].import = this.importSprite;
