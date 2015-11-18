@@ -77,6 +77,7 @@ class SpriteMeta extends Editor.metas.asset {
     this.trimType = 'auto'; // auto, custom
     this.trimThreshold = 1;
     this.spriteType = 'normal'; // normal, sliced
+    this.rotated = false;
 
     this.trimX = 0;
     this.trimY = 0;
@@ -96,6 +97,7 @@ class SpriteMeta extends Editor.metas.asset {
     this.trimType = jsonObj.trimType;
     this.trimThreshold = jsonObj.trimThreshold;
     this.spriteType = jsonObj.spriteType;
+    this.rotated = jsonObj.rotated;
 
     this.trimX = jsonObj.trimX;
     this.trimY = jsonObj.trimY;
@@ -116,6 +118,33 @@ class SpriteMeta extends Editor.metas.asset {
     return [
         this._assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
     ];
+  }
+
+  createSpriteFrame ( fspath, rawWidth, rawHeight ) {
+    var sprite = new cc.SpriteFrame();
+    var texUuid = this.rawTextureUuid;
+    sprite.name = Path.basenameNoExt(fspath);
+    sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
+    sprite.setRectInPixels(cc.rect(0,0, this.width,this.height));
+
+    sprite._textureFilename = this._assetdb.uuidToUrl(texUuid);
+    sprite.setRectInPixels(cc.rect(
+      this.trimX, this.trimY, this.width, this.height
+    ));
+    sprite.setRotated(this.rotated);
+
+    if ( this.spriteType === 'sliced') {
+      sprite.insetTop = this.borderTop;
+      sprite.insetBottom = this.borderBottom;
+      sprite.insetLeft = this.borderLeft;
+      sprite.insetRight = this.borderRight;
+    }
+
+    var rawCenter = cc.p(rawWidth, rawHeight).div(2);
+    var offset = sprite.getRectInPixels().center.sub(rawCenter);
+    sprite.setOffsetInPixels(offset);
+
+    return sprite;
   }
 
   import ( fspath, cb ) {
@@ -142,23 +171,15 @@ class SpriteMeta extends Editor.metas.asset {
         }
         // var basename = Path.basename(fspath);
 
-        var rawWidth = image.width();
-        var rawHeight = image.height();
+        let rawWidth = image.width();
+        let rawHeight = image.height();
 
         // DISABLE: jimp
         // var rawWidth = image.bitmap.width;
         // var rawHeight = image.bitmap.height;
 
-        var sprite = new cc.SpriteFrame();
-        sprite.name = Path.basenameNoExt(fspath);
-        sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
-        sprite.setRectInPixels(cc.rect(0,0, this.width,this.height));
-
-        sprite._textureFilename = this._assetdb.uuidToUrl(rawTextureUuid);
-
         if ( this.trimType === 'auto' ) {
-          var rect = _getTrimRect ( image, rawWidth, rawHeight, this.trimThreshold );
-          sprite.setRectInPixels(cc.rect(rect[0],rect[1], rect[2],rect[3]));
+          let rect = _getTrimRect ( image, rawWidth, rawHeight, this.trimThreshold );
           this.trimX = rect[0];
           this.trimY = rect[1];
           this.width = rect[2];
@@ -168,21 +189,9 @@ class SpriteMeta extends Editor.metas.asset {
           this.trimY = Math.clamp(this.trimY, 0, rawHeight);
           this.width = Math.clamp(this.width, 0, rawWidth - this.trimX);
           this.height = Math.clamp(this.height, 0, rawHeight - this.trimY);
-          sprite.setRectInPixels(cc.rect(
-            this.trimX, this.trimY, this.width, this.height
-          ));
         }
 
-        if ( this.spriteType === 'sliced') {
-          sprite.insetTop = this.borderTop;
-          sprite.insetBottom = this.borderBottom;
-          sprite.insetLeft = this.borderLeft;
-          sprite.insetRight = this.borderRight;
-        }
-
-        var rawCenter = cc.p(rawWidth, rawHeight).div(2);
-        var offset = sprite.getRectInPixels().center.sub(rawCenter);
-        sprite.setOffsetInPixels(offset);
+        let sprite = this.createSpriteFrame( fspath, rawWidth, rawHeight );
 
         // TODO: this.atlasName
 
@@ -197,7 +206,7 @@ class SpriteMeta extends Editor.metas.asset {
     });
   }
 
-  static defaultType() { return 'sprite'; }
+  static defaultType() { return 'sprite-frame'; }
 }
 
 SpriteMeta.prototype.export = null;
