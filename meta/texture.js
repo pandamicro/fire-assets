@@ -1,5 +1,7 @@
 'use strict';
 
+const SpriteMeta = require('./sprite-frame');
+
 class TextureMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
@@ -20,7 +22,7 @@ class TextureMeta extends Editor.metas.asset {
     // let fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
     for (let key in jsonObj.subMetas) {
       let subJsonObj = jsonObj.subMetas[key];
-      let meta = new Editor.metas['sprite-frame'](this._assetdb);
+      let meta = new SpriteMeta(this._assetdb);
       meta.deserialize( subJsonObj );
 
       subMetas[key] = meta;
@@ -56,11 +58,15 @@ class TextureMeta extends Editor.metas.asset {
       const SpriteMeta = Editor.metas['sprite-frame'];
       const Path = require('fire-path');
 
-      let spriteMeta = new SpriteMeta(this._assetdb);
+      let name = Path.basenameNoExt(fspath);
+      let subMetas = this.getSubMetas();
+      let spriteMeta = subMetas[name];
+      if ( !spriteMeta ) {
+        spriteMeta = new SpriteMeta(this._assetdb);
+      }
       spriteMeta.rawTextureUuid = this.uuid;
 
-      let subMetas = {};
-      subMetas[Path.basenameNoExt(fspath)] = spriteMeta;
+      subMetas[name] = spriteMeta;
       this.updateSubMetas( subMetas );
 
       cb ();
