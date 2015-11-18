@@ -3,7 +3,7 @@
 const Fs = require('fire-fs');
 const Path = require('fire-path');
 const Plist = require('plist');
-const SpriteMeta = require('./sprite');
+const SpriteMeta = require('./sprite-frame');
 
 const BRACE_REGEX = /[\{\}]/g;
 

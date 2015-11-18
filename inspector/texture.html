@@ -1,5 +1,6 @@
 <link rel="import" href="packages://inspector/share/meta-header.html">
 <link rel="import" href="packages://inspector/share/image-preview.html">
+<link rel="import" href="packages://fire-assets/share/sprite-section.html">
 
 <dom-module id="texture-inspector">
   <link rel="import" type="css" href="packages://inspector/share/common.css">
@@ -36,90 +37,7 @@
 
       <template is="dom-if" if="{{_isSprite(target.type)}}">
         <editor-section text="Sprite">
-          <!-- <editor-custom-prop name="Raw Texture Uuid">      -->
-          <!--   <editor-input value="{{target.rawTextureUuid}}" -->
-          <!--   ></editor-input>                                -->
-          <!-- </editor-custom-prop>                             -->
-
-          <editor-custom-prop name="Trim Type">
-            <editor-select value="{{target.trimType}}"
-            >
-              <editor-option value="auto">Auto</editor-option>
-              <editor-option value="custom">Custom</editor-option>
-            </editor-select>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Trim Threshold">
-            <editor-unit-input value="{{target.trimThreshold}}"
-            >
-            </editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Trim X"
-            disabled="{{!_isTrimCustom(target.trimType)}}"
-          >
-            <editor-unit-input value="{{target.trimX}}"
-            >
-            </editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Trim Y"
-            disabled="{{!_isTrimCustom(target.trimType)}}"
-          >
-            <editor-unit-input value="{{target.trimY}}"
-            >
-            </editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Trim Width"
-            disabled="{{!_isTrimCustom(target.trimType)}}"
-          >
-            <editor-unit-input value="{{target.width}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Trim Height"
-            disabled="{{!_isTrimCustom(target.trimType)}}"
-          >
-            <editor-unit-input value="{{target.height}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Sprite Type">
-            <editor-select value="{{target.spriteType}}"
-            >
-              <editor-option value="normal">Normal</editor-option>
-              <editor-option value="sliced">Sliced</editor-option>
-            </editor-select>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Border Top"
-            disabled="{{!_isSliced(target.spriteType)}}"
-          >
-            <editor-unit-input value="{{target.borderTop}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Border Bottom"
-            disabled="{{!_isSliced(target.spriteType)}}"
-          >
-            <editor-unit-input value="{{target.borderBottom}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Border Left"
-            disabled="{{!_isSliced(target.spriteType)}}"
-          >
-            <editor-unit-input value="{{target.borderLeft}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
-
-          <editor-custom-prop name="Border Right"
-            disabled="{{!_isSliced(target.spriteType)}}"
-          >
-            <editor-unit-input value="{{target.borderRight}}"
-            ></editor-unit-input>
-          </editor-custom-prop>
+          <sprite-section target="{{target.subMetas.0}}"></sprite-section>
         </editor-section>
       </template>
     </div>
@@ -154,14 +72,6 @@
 
       _isSprite: function ( textureType ) {
         return textureType === 'sprite';
-      },
-
-      _isSliced: function ( spriteType ) {
-        return spriteType === 'sliced';
-      },
-
-      _isTrimCustom: function ( trimType ) {
-        return trimType === 'custom';
       },
     });
   </script>

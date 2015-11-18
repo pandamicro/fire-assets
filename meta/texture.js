@@ -7,22 +7,6 @@ class TextureMeta extends Editor.metas.asset {
     this.type = 'raw'; // raw, normal-map, sprite
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
-
-    // sprite data
-    this.rawTextureUuid = '';
-    this.trimType = 'auto'; // auto, custom
-    this.trimThreshold = 1;
-    this.spriteType = 'normal'; // normal, sliced
-
-    this.trimX = 0;
-    this.trimY = 0;
-    this.width = 0;
-    this.height = 0;
-
-    this.borderTop = 0;
-    this.borderBottom = 0;
-    this.borderLeft = 0;
-    this.borderRight = 0;
   }
 
   deserialize ( jsonObj ) {
@@ -32,22 +16,17 @@ class TextureMeta extends Editor.metas.asset {
     this.wrapMode = jsonObj.wrapMode;
     this.filterMode = jsonObj.filterMode;
 
-    if ( this.type === 'sprite' ) {
-      this.rawTextureUuid = this.uuid;
-      this.trimType = jsonObj.trimType;
-      this.trimThreshold = jsonObj.trimThreshold;
-      this.spriteType = jsonObj.spriteType;
+    let subMetas = {};
+    // let fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
+    for (let key in jsonObj.subMetas) {
+      let subJsonObj = jsonObj.subMetas[key];
+      let meta = new Editor.metas['sprite-frame'](this._assetdb);
+      meta.deserialize( subJsonObj );
 
-      this.trimX = jsonObj.trimX;
-      this.trimY = jsonObj.trimY;
-      this.width = jsonObj.width;
-      this.height = jsonObj.height;
-
-      this.borderTop = jsonObj.borderTop;
-      this.borderBottom = jsonObj.borderBottom;
-      this.borderLeft = jsonObj.borderLeft;
-      this.borderRight = jsonObj.borderRight;
+      subMetas[key] = meta;
     }
+
+    this.updateSubMetas( subMetas );
   }
 
   useRawfile () {
@@ -59,9 +38,12 @@ class TextureMeta extends Editor.metas.asset {
       return [];
     }
 
-    return [
-      this._assetdb._uuidToImportPathNoExt(this.uuid) + '.json',
-    ];
+    let results = [];
+    for ( let key in this.__subMetas__ ) {
+      let uuid = this.__subMetas__[key].uuid;
+      results.push( this._assetdb._uuidToImportPathNoExt(uuid) + '.json' );
+    }
+    return results;
   }
 
   import ( fspath, cb ) {
@@ -71,19 +53,19 @@ class TextureMeta extends Editor.metas.asset {
     }
 
     if ( this.type === 'sprite' ) {
-      const SpriteMeta = Editor.metas.sprite;
+      const SpriteMeta = Editor.metas['sprite-frame'];
+      const Path = require('fire-path');
+
       let spriteMeta = new SpriteMeta(this._assetdb);
-      spriteMeta.import.apply(this,[fspath,cb]);
+      spriteMeta.rawTextureUuid = this.uuid;
+
+      let subMetas = {};
+      subMetas[Path.basenameNoExt(fspath)] = spriteMeta;
+      this.updateSubMetas( subMetas );
+
+      cb ();
       return;
     }
-  }
-
-  assetType () {
-    if ( this.type === 'sprite' ) {
-      return 'sprite';
-    }
-
-    return 'texture';
   }
 
   static defaultType() { return 'texture'; }
