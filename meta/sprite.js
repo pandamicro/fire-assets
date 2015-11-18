@@ -206,7 +206,7 @@ class SpriteMeta extends Editor.metas.asset {
     });
   }
 
-  static defaultType() { return 'sprite'; }
+  static defaultType() { return 'sprite-frame'; }
 }
 
 SpriteMeta.prototype.export = null;

@@ -10,6 +10,28 @@
             dirty="{{dirty}}"
         >
         </inspector-meta-header>
+
+        <div class="props flex-1">
+            <editor-custom-prop name="Raw Texture File" disabled="true">
+                <editor-input value="{{target.rawTextureFile}}"
+                ></editor-input>
+            </editor-custom-prop>
+
+            <editor-custom-prop name="Type" disabled="true">
+                <editor-input value="{{target.type}}"
+                ></editor-input>
+            </editor-custom-prop>
+
+            <editor-custom-prop name="Width" disabled="true">
+                <editor-unit-input value="{{target.size.width}}"
+                ></editor-unit-input>
+            </editor-custom-prop>
+
+            <editor-custom-prop name="Height" disabled="true">
+                <editor-unit-input value="{{target.size.height}}"
+                ></editor-unit-input>
+            </editor-custom-prop>
+        </div>
     </template>
 
     <script>
