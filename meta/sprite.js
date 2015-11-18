@@ -205,6 +205,8 @@ class SpriteMeta extends Editor.metas.asset {
       }
     });
   }
+
+  static defaultType() { return 'sprite'; }
 }
 
 SpriteMeta.prototype.export = null;

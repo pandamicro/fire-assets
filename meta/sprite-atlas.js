@@ -62,7 +62,7 @@ function _texturePackerParser ( fspath ) {
   this.updateSubMetas( subMetas );
 }
 
-class SpriteAtlasMeta extends Editor.metas.asset { 
+class SpriteAtlasMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
     this.parse = _texturePackerParser;
@@ -72,7 +72,7 @@ class SpriteAtlasMeta extends Editor.metas.asset {
     return false;
   }
 
-  validate ( assetpath ) {
+  static validate ( assetpath ) {
     var dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
     return typeof dictionary.frames !== 'undefined' 
         && typeof dictionary.metadata !== 'undefined';
@@ -123,6 +123,8 @@ class SpriteAtlasMeta extends Editor.metas.asset {
 
     if (cb) cb();
   }
+
+  static defaultType() { return 'sprite-atlas'; }
 }
 
 module.exports = SpriteAtlasMeta;

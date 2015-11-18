@@ -43,6 +43,8 @@ class TTFFontMeta extends Editor.metas.asset {
 
     if ( cb ) cb ();
   }
+
+  static defaultType() { return 'ttf-font'; }
 }
 
 TTFFontMeta.prototype.export = null;
