@@ -6,7 +6,7 @@ class TextureMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
 
-    this.type = 'raw'; // raw, normal-map, sprite
+    this.type = 'sprite'; // raw, normal-map, sprite
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
   }
@@ -32,7 +32,7 @@ class TextureMeta extends Editor.metas.asset {
   }
 
   useRawfile () {
-    return this.type === 'raw';
+    return true;
   }
 
   dests () {
