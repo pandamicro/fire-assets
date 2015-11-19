@@ -50,6 +50,7 @@ class TextureMeta extends Editor.metas.asset {
 
   import ( fspath, cb ) {
     if ( this.type === 'raw' ) {
+      this.updateSubMetas({});
       cb ();
       return;
     }
