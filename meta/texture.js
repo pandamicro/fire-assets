@@ -61,13 +61,22 @@ class TextureMeta extends Editor.metas.asset {
 
       let name = Path.basenameNoExt(fspath);
       let subMetas = this.getSubMetas();
-      let spriteMeta = subMetas[name];
+      let keys = Object.keys(subMetas);
+      let spriteMeta = null;
+
+      // try to use the old subMeta
+      if ( keys.length ) {
+        spriteMeta = subMetas[keys[0]];
+      }
       if ( !spriteMeta ) {
         spriteMeta = new SpriteMeta(this._assetdb);
       }
       spriteMeta.rawTextureUuid = this.uuid;
 
-      subMetas[name] = spriteMeta;
+      // overwrite
+      subMetas = {
+        [name]: spriteMeta
+      };
       this.updateSubMetas( subMetas );
 
       cb ();
