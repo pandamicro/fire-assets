@@ -32,7 +32,7 @@ class TextureMeta extends Editor.metas.asset {
   }
 
   useRawfile () {
-    return this.type === 'raw';
+    return true;
   }
 
   dests () {
