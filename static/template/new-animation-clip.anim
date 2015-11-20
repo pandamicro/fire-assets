@@ -2,8 +2,8 @@
   "__type__": "cc.AnimationClip",
   "_name": "",
   "_objFlags": 0,
-  "_length": 0,
-  "frameRate": 60,
-  "curveData": [],
+  "_duration": 0,
+  "sample": 60,
+  "curveData": {},
   "events": []
 }
