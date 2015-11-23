@@ -55,38 +55,22 @@
       ></editor-unit-input>
     </editor-custom-prop>
 
-    <editor-custom-prop name="Sprite Type">
-      <editor-select value="{{target.spriteType}}"
-      >
-        <editor-option value="normal">Normal</editor-option>
-        <editor-option value="sliced">Sliced</editor-option>
-      </editor-select>
-    </editor-custom-prop>
-
-    <editor-custom-prop name="Border Top"
-      disabled="{{!_isSliced(target.spriteType)}}"
-    >
+    <editor-custom-prop name="Border Top">
       <editor-unit-input value="{{target.borderTop}}"
       ></editor-unit-input>
     </editor-custom-prop>
 
-    <editor-custom-prop name="Border Bottom"
-      disabled="{{!_isSliced(target.spriteType)}}"
-    >
+    <editor-custom-prop name="Border Bottom">
       <editor-unit-input value="{{target.borderBottom}}"
       ></editor-unit-input>
     </editor-custom-prop>
 
-    <editor-custom-prop name="Border Left"
-      disabled="{{!_isSliced(target.spriteType)}}"
-    >
+    <editor-custom-prop name="Border Left">
       <editor-unit-input value="{{target.borderLeft}}"
       ></editor-unit-input>
     </editor-custom-prop>
 
-    <editor-custom-prop name="Border Right"
-      disabled="{{!_isSliced(target.spriteType)}}"
-    >
+    <editor-custom-prop name="Border Right">
       <editor-unit-input value="{{target.borderRight}}"
       ></editor-unit-input>
     </editor-custom-prop>
@@ -94,10 +78,6 @@
 
   <script>
     Editor.registerElement({
-      _isSliced: function ( spriteType ) {
-        return spriteType === 'sliced';
-      },
-
       _isTrimCustom: function ( trimType ) {
         return trimType === 'custom';
       },
