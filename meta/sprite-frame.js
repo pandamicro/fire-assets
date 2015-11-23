@@ -76,7 +76,6 @@ class SpriteMeta extends Editor.metas.asset {
     this.rawTextureUuid = '';
     this.trimType = 'auto'; // auto, custom
     this.trimThreshold = 1;
-    this.spriteType = 'normal'; // normal, sliced
     this.rotated = false;
 
     this.trimX = 0;
@@ -96,7 +95,6 @@ class SpriteMeta extends Editor.metas.asset {
     this.rawTextureUuid = jsonObj.rawTextureUuid;
     this.trimType = jsonObj.trimType;
     this.trimThreshold = jsonObj.trimThreshold;
-    this.spriteType = jsonObj.spriteType;
     this.rotated = jsonObj.rotated;
 
     this.trimX = jsonObj.trimX;
@@ -124,6 +122,7 @@ class SpriteMeta extends Editor.metas.asset {
     var sprite = new cc.SpriteFrame();
     var texUuid = this.rawTextureUuid;
     sprite.name = Path.basenameNoExt(fspath);
+    sprite.setOriginalSize(cc.size(rawWidth, rawHeight));
     sprite.setOriginalSizeInPixels(cc.size(rawWidth, rawHeight));
     sprite.setRectInPixels(cc.rect(0,0, this.width,this.height));
 
@@ -133,12 +132,10 @@ class SpriteMeta extends Editor.metas.asset {
     ));
     sprite.setRotated(this.rotated);
 
-    if ( this.spriteType === 'sliced') {
-      sprite.insetTop = this.borderTop;
-      sprite.insetBottom = this.borderBottom;
-      sprite.insetLeft = this.borderLeft;
-      sprite.insetRight = this.borderRight;
-    }
+    sprite.insetTop = this.borderTop;
+    sprite.insetBottom = this.borderBottom;
+    sprite.insetLeft = this.borderLeft;
+    sprite.insetRight = this.borderRight;
 
     var rawCenter = cc.p(rawWidth, rawHeight).div(2);
     var offset = sprite.getRectInPixels().center.sub(rawCenter);
