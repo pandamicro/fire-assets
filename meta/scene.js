@@ -1,6 +1,8 @@
 'use strict';
 
-class SceneMeta extends Editor.metas.asset {
+var CustomAssetMeta = require('./custom-asset');
+
+class SceneMeta extends CustomAssetMeta {
   constructor ( assetdb ) {
     super( assetdb );
   }
