@@ -2,7 +2,7 @@
 
 var Fs = require('fire-fs');
 
-class JavaScriptMeta extends Editor.metas.asset { 
+class JavaScriptMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
   }

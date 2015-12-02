@@ -26,14 +26,14 @@ class SpriteAnimationMeta extends Editor.metas.asset {
     this.delay = jsonObj.delay;
   }
 
+  useRawfile () {
+    return false;
+  }
+
   dests () {
     return [
       this._assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
     ];
-  }
-
-  useRawfile () {
-    return false;
   }
 
   import ( fspath, cb ) {

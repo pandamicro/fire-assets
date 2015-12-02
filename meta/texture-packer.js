@@ -35,8 +35,8 @@ class TexturePackerMeta extends SpriteAtlasMeta {
 
   static validate ( assetpath ) {
     var dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
-    return typeof dictionary.frames !== 'undefined' 
-        && typeof dictionary.metadata !== 'undefined';
+    return typeof dictionary.frames !== 'undefined' &&
+        typeof dictionary.metadata !== 'undefined';
   }
 
   parse ( fspath ) {

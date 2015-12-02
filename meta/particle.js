@@ -3,7 +3,7 @@
 const Fs = require('fire-fs');
 const Plist = require('plist');
 
-class ParticleMeta extends Editor.metas.asset {
+class ParticleMeta extends Editor.metas['raw-asset'] {
   constructor ( assetdb ) {
     super( assetdb );
   }

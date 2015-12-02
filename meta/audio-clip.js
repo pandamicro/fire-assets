@@ -1,9 +1,10 @@
 'use strict';
 
-class AudioClipMeta extends Editor.metas.asset { 
+class AudioClipMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
   }
+
   static defaultType() { return 'audio-clip'; }
 }
 

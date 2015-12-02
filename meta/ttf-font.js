@@ -2,7 +2,7 @@
 
 var Path = require('fire-path');
 
-class TTFFontMeta extends Editor.metas.asset { 
+class TTFFontMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
 
