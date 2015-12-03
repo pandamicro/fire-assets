@@ -1,11 +1,7 @@
 'use strict';
 
-const Fs = require('fire-fs');
-const Path = require('fire-path');
-const Plist = require('plist');
 const SpriteMeta = require('./sprite-frame');
-
-const BRACE_REGEX = /[\{\}]/g;
+// const BRACE_REGEX = /[\{\}]/g;
 
 class SpriteAtlasMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
@@ -25,9 +21,8 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   deserialize ( jsonObj ) {
     super.deserialize(jsonObj);
 
-    var subMetas = {}, 
-        metaData, meta, key,
-        fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
+    var subMetas = {}, metaData, meta, key;
+    // fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
     for (key in jsonObj.subMetas) {
       metaData = jsonObj.subMetas[key];
       meta = subMetas[key] = new SpriteMeta( this._assetdb );
@@ -37,19 +32,22 @@ class SpriteAtlasMeta extends Editor.metas.asset {
     this.updateSubMetas( subMetas );
 
     // !HACK: Overwrite sub metas' import function
-    var subMetas = this.getSubMetas();
-    for ( var key in subMetas ) {
+    subMetas = this.getSubMetas();
+    for ( key in subMetas ) {
       subMetas[key].import = this.importSprite;
     }
   }
 
-  dest () {
+  dests () {
     // TODO: Should decide whether sub meta's import will be invoked during parent meta import
     // if so, it's ok to only include parent meta's output files in dest,
     // otherwise, parent meta dest should include all sub meta's output files
-    return [
-      this._assetdb._uuidToImportPathNoExt( this.uuid ) + '.json',
-    ];
+    let results = [];
+    var subMetas = this.getSubMetas();
+    for ( var key in subMetas ) {
+      results.push(this._assetdb._uuidToImportPathNoExt(subMetas[key].uuid) + '.json');
+    }
+    return results;
   }
 
   importSprite ( fspath, cb ) {

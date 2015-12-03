@@ -1,6 +1,6 @@
 'use strict';
 
-class TiledMapMeta extends Editor.metas.asset {
+class TiledMapMeta extends Editor.metas['raw-asset'] {
   constructor ( assetdb ) {
     super( assetdb );
   }
