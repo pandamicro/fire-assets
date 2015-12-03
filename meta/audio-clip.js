@@ -1,6 +1,6 @@
 'use strict';
 
-class AudioClipMeta extends Editor.metas.asset {
+class AudioClipMeta extends Editor.metas['raw-asset'] {
   constructor ( assetdb ) {
     super( assetdb );
   }
