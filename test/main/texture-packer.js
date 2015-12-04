@@ -13,15 +13,15 @@ describe('test texture packer atlas', function () {
   it('should be imported to library', function ( done ) {
     var uuid;
     var assets = [
-      'assets://Untitled.plist/E0.png',
-      'assets://Untitled.plist/E1.png',
-      'assets://Untitled.plist/E2.png',
-      'assets://Untitled.plist/E3.png',
-      'assets://Untitled.plist/E4.png',
-      'assets://Untitled.plist/E5.png',
-      'assets://Untitled.plist/ship01.png',
-      'assets://Untitled.plist/ship02.png',
-      'assets://Untitled.plist/ship03.png',
+      'db://assets/Untitled.plist/E0.png',
+      'db://assets/Untitled.plist/E1.png',
+      'db://assets/Untitled.plist/E2.png',
+      'db://assets/Untitled.plist/E3.png',
+      'db://assets/Untitled.plist/E4.png',
+      'db://assets/Untitled.plist/E5.png',
+      'db://assets/Untitled.plist/ship01.png',
+      'db://assets/Untitled.plist/ship02.png',
+      'db://assets/Untitled.plist/ship03.png',
     ];
 
     assets.forEach( function ( url ) {

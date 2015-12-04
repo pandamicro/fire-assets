@@ -9,8 +9,8 @@ describe('bitmap-font core level', function () {
   Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/font-assets/assets') );
 
   // let assets = [
-  //   'assets://arial-unicode-26.fnt',
-  //   'assets://arial-unicode-26.png'
+  //   'db://assets/arial-unicode-26.fnt',
+  //   'db://assets/arial-unicode-26.png'
   // ];
 
   // TODO

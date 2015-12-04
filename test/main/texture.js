@@ -13,9 +13,9 @@ Editor.require('app://editor/core/init-fire-assets');
 
 //   it('should import to library', function ( done ) {
 //     let assets = [
-//       'assets://button-with-meta.png',
-//       'assets://star.png',
-//       'assets://imgres.jpg',
+//       'db://assets/button-with-meta.png',
+//       'db://assets/star.png',
+//       'db://assets/imgres.jpg',
 //     ];
 
 //     assets.forEach( function ( url ) {

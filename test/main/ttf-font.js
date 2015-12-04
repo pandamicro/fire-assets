@@ -12,7 +12,7 @@ describe('ttf-font core level', function () {
   Helper.runAssetDB( Editor.url('packages://fire-assets/test/fixtures/ttf-assets/assets') );
 
   var assets = [
-    'assets://Abberancy.ttf'
+    'db://assets/Abberancy.ttf'
   ];
 
 

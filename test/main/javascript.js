@@ -13,7 +13,7 @@ describe('javascript', function () {
 
   it('should import to library', function ( done ) {
     let assets = [
-      'assets://rotate.js',
+      'db://assets/rotate.js',
     ];
 
     assets.forEach( function ( url ) {
@@ -34,8 +34,8 @@ describe('javascript.export', function () {
 
   it('should create a javascript file from input data', function (done) {
 
-    var temp = Editor.assetdb._fspath('assets://rotate.js');
-    var dest = Editor.assetdb._fspath('assets://rotate2.js');
+    var temp = Editor.assetdb._fspath('db://assets/rotate.js');
+    var dest = Editor.assetdb._fspath('db://assets/rotate2.js');
     var data = Fs.readFileSync( temp );
 
     var meta = new Editor.metas.javascript( Editor.assetdb );
@@ -47,8 +47,8 @@ describe('javascript.export', function () {
 
   it('should do nothing if input data is null', function (done) {
 
-    var temp = Editor.assetdb._fspath('assets://rotate.js');
-    var dest = Editor.assetdb._fspath('assets://rotate2.js');
+    var temp = Editor.assetdb._fspath('db://assets/rotate.js');
+    var dest = Editor.assetdb._fspath('db://assets/rotate2.js');
     var data = null;
 
     var meta = new Editor.metas.javascript( Editor.assetdb );

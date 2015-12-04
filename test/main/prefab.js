@@ -11,7 +11,7 @@ describe('prefab', function () {
 
   it('should import to library', function () {
     let assets = [
-      'assets://bg.prefab',
+      'db://assets/bg.prefab',
     ];
     assets.forEach(function (url) {
       let uuid = Editor.assetdb.urlToUuid(url);
