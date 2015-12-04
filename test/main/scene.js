@@ -12,7 +12,7 @@ Editor.require('app://editor/core/init-fire-assets');
 
 //   it('should import to library', function ( done ) {
 //     let assets = [
-//       'assets://level.fire',
+//       'db://assets/level.fire',
 //     ];
 
 //     assets.forEach( function ( url ) {
@@ -31,8 +31,8 @@ describe('scene.export', function () {
 
   it('should create a scene file from imput data', function (done) {
 
-    let temp = Editor.assetdb._fspath('assets://level.fire');
-    let dest = Editor.assetdb._fspath('assets://level2.fire');
+    let temp = Editor.assetdb._fspath('db://assets/level.fire');
+    let dest = Editor.assetdb._fspath('db://assets/level2.fire');
     let data = Fs.readFileSync( temp );
 
     let meta = new Editor.metas.scene( Editor.assetdb );
@@ -44,8 +44,8 @@ describe('scene.export', function () {
 
   it('should do nothing if input data is null', function (done) {
 
-    // let temp = Editor.assetdb._fspath('assets://level.fire');
-    let dest = Editor.assetdb._fspath('assets://level2.fire');
+    // let temp = Editor.assetdb._fspath('db://assets/level.fire');
+    let dest = Editor.assetdb._fspath('db://assets/level2.fire');
     let data = null;
 
     let meta = new Editor.metas.scene( Editor.assetdb );

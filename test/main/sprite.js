@@ -13,7 +13,7 @@ describe('test sprite core level', function () {
   // it('should import to library', function ( done ) {
   //   var uuid;
   //   var assets = [
-  //     'assets://simple-sprite.sprite',
+  //     'db://assets/simple-sprite.sprite',
   //   ];
 
   //   assets.forEach( function ( url ) {
