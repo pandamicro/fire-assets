@@ -6,7 +6,6 @@ const SpriteMeta = require('./sprite-frame');
 class SpriteAtlasMeta extends Editor.metas.asset {
   constructor ( assetdb ) {
     super( assetdb );
-    this.rawTexturePath = '';
     this.rawTextureUuid = '';
     this.size = cc.size(0, 0);
     this.type = '';
@@ -39,9 +38,6 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   }
 
   dests () {
-    // TODO: Should decide whether sub meta's import will be invoked during parent meta import
-    // if so, it's ok to only include parent meta's output files in dest,
-    // otherwise, parent meta dest should include all sub meta's output files
     let results = [];
     var subMetas = this.getSubMetas();
     for ( var key in subMetas ) {

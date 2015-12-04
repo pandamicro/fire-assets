@@ -48,8 +48,8 @@ class TexturePackerMeta extends SpriteAtlasMeta {
     // Parse info
     var dirName = Path.dirname( fspath );
     // realTextureFileName & textureFileName
-    this.rawTexturePath = Path.join( dirName, info.realTextureFileName || info.textureFileName );
-    this.rawTextureUuid = assetdb.fspathToUuid( this.rawTexturePath );
+    var rawTexturePath = Path.join( dirName, info.realTextureFileName || info.textureFileName );
+    this.rawTextureUuid = assetdb.fspathToUuid( rawTexturePath );
     // size
     this.size = _parseSize( info.size );
 
