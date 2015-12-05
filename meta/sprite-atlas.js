@@ -1,28 +1,75 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
-var Plist = require('plist');
+'use strict';
 
+const SpriteMeta = require('./sprite-frame');
+// const BRACE_REGEX = /[\{\}]/g;
 
-var $super = Editor.metas.asset;
+class SpriteAtlasMeta extends Editor.metas.asset {
+  constructor ( assetdb ) {
+    super( assetdb );
+    this.rawTextureUuid = '';
+    this.size = cc.size(0, 0);
+    this.type = '';
+  }
 
-function SpriteAtlasMeta () {
-    $super.call(this);
+  static defaultType() { return 'sprite-atlas'; }
+
+  parse () {}
+
+  useRawfile () { return false; }
+
+  deserialize ( jsonObj ) {
+    super.deserialize(jsonObj);
+
+    var subMetas = {}, metaData, meta, key;
+    // fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
+    for (key in jsonObj.subMetas) {
+      metaData = jsonObj.subMetas[key];
+      meta = subMetas[key] = new SpriteMeta( this._assetdb );
+      meta.deserialize( metaData );
+    }
+
+    this.updateSubMetas( subMetas );
+
+    // !HACK: Overwrite sub metas' import function
+    subMetas = this.getSubMetas();
+    for ( key in subMetas ) {
+      subMetas[key].import = this.importSprite;
+    }
+  }
+
+  dests () {
+    let results = [];
+    var subMetas = this.getSubMetas();
+    for ( var key in subMetas ) {
+      results.push(this._assetdb._uuidToImportPathNoExt(subMetas[key].uuid) + '.json');
+    }
+    return results;
+  }
+
+  importSprite ( fspath, cb ) {
+    var sprite = this.createSpriteFrame( fspath, this._rawWidth, this._rawHeight );
+
+    // TODO: this.atlasName
+
+    this._assetdb.saveAssetToLibrary( this.uuid, sprite );
+
+    if (cb) cb( null, sprite );
+  }
+
+  import ( fspath, cb ) {
+    // Copy source file
+    this._assetdb.copyAssetToLibrary( this.uuid, fspath );
+
+    this.parse( fspath );
+
+    // !HACK: Overwrite sub metas' import function
+    var subMetas = this.getSubMetas();
+    for ( var key in subMetas ) {
+      subMetas[key].import = this.importSprite;
+    }
+
+    if (cb) cb();
+  }
 }
 
-SpriteAtlasMeta.validate = function ( assetpath ) {
-
-    var dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
-
-    var format1 = typeof dictionary.frames !== 'undefined' && typeof dictionary.texture !== 'undefined';
-    var format2 = typeof dictionary.frames !== 'undefined' && typeof dictionary.metadata !== 'undefined';
-    var format3 = typeof dictionary.frames !== 'undefined' && typeof dictionary.meta !== 'undefined';
-
-    return format1 || format2 || format3;
-};
-
-Editor.JS.extend(SpriteAtlasMeta, $super);
-
-SpriteAtlasMeta.prototype.export = null;
-
 module.exports = SpriteAtlasMeta;
-

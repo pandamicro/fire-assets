@@ -1,86 +1,91 @@
 'use strict';
 
-var $super = Editor.metas.asset;
-function TextureMeta () {
-    $super.call(this);
+const SpriteMeta = require('./sprite-frame');
 
-    this.type = 'raw'; // raw, normal-map, sprite
+class TextureMeta extends Editor.metas.asset {
+  constructor ( assetdb ) {
+    super( assetdb );
+
+    this.type = 'sprite'; // raw, normal-map, sprite
     this.wrapMode = 'clamp';
     this.filterMode = 'bilinear';
-}
-Editor.JS.extend(TextureMeta,$super);
+  }
 
-TextureMeta.prototype.serialize = function () {
-    $super.prototype.serialize.call(this);
-    return this;
-};
+  deserialize ( jsonObj ) {
+    super.deserialize(jsonObj);
 
-TextureMeta.prototype.deserialize = function ( jsonObj ) {
-    $super.prototype.deserialize.call(this, jsonObj);
     this.type = jsonObj.type;
     this.wrapMode = jsonObj.wrapMode;
     this.filterMode = jsonObj.filterMode;
-};
 
-TextureMeta.prototype.useRawfile = function () {
-    return this.type === 'raw';
-};
+    let subMetas = {};
+    // let fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
+    for (let key in jsonObj.subMetas) {
+      let subJsonObj = jsonObj.subMetas[key];
+      let meta = new SpriteMeta(this._assetdb);
+      meta.deserialize( subJsonObj );
 
-TextureMeta.prototype.dests = function ( assetdb ) {
-    return [
-        assetdb._uuidToImportPathNoExt( this.uuid ) + '.thumb.png',
-    ];
-};
+      subMetas[key] = meta;
+    }
 
-TextureMeta.prototype.import = function ( assetdb, fspath, cb ) {
-    // var Lwip = require('lwip'); /*DISABLE*/
-    var Jimp = require('jimp');
-    var Async = require('async');
-    var self = this;
+    this.updateSubMetas( subMetas );
+  }
 
-    Async.waterfall([
-        function ( next ) {
-            // Lwip.open( fspath, next ); /*DISABLE*/
-            new Jimp( fspath, next );
-        },
+  useRawfile () {
+    return true;
+  }
 
-        function ( image, next ) {
-            if ( this.type === 'sprite' ) {
-                // TODO
-                // var basename = Path.basename(fspath);
+  dests () {
+    if ( this.type === 'raw' ) {
+      return [];
+    }
 
-                // var texture = new cc.TextureAsset();
-                // texture.name = Path.basenameNoExt(fspath);
-                // texture._setRawFiles([
-                //     basename
-                // ]);
-                // // TODO
-                // // texture.wrapMode = convertWrapMode(this.wrapMode);
-                // // texture.filterMode = convertFilterMode(this.filterMode);
-                // texture.width = image.width();
-                // texture.height = image.height();
+    let results = [];
+    for ( let key in this.__subMetas__ ) {
+      let uuid = this.__subMetas__[key].uuid;
+      results.push( this._assetdb._uuidToImportPathNoExt(uuid) + '.json' );
+    }
+    return results;
+  }
 
-                // if ( texture.type === 'sprite' ) {
-                //     // TODO: create sprite meta here
-                // }
+  import ( fspath, cb ) {
+    if ( this.type === 'raw' ) {
+      this.updateSubMetas({});
+      cb ();
+      return;
+    }
 
-                // assetdb.copyAssetToLibrary( self.uuid, fspath );
-                // assetdb.saveAssetToLibrary( self.uuid, texture );
-            }
+    if ( this.type === 'sprite' ) {
+      const SpriteMeta = Editor.metas['sprite-frame'];
+      const Path = require('fire-path');
 
-            next ( null, image );
-        },
+      let name = Path.basenameNoExt(fspath);
+      let subMetas = this.getSubMetas();
+      let keys = Object.keys(subMetas);
+      let spriteMeta = null;
 
-        function ( image, next ) {
-            assetdb.createThumbnail( self.uuid, 32, image, next );
-        },
+      // try to use the old subMeta
+      if ( keys.length ) {
+        spriteMeta = subMetas[keys[0]];
+      }
+      if ( !spriteMeta ) {
+        spriteMeta = new SpriteMeta(this._assetdb);
+      }
+      spriteMeta.rawTextureUuid = this.uuid;
 
-    ], function ( err ) {
-        if ( cb ) cb ( err );
-    });
-};
+      // overwrite
+      subMetas = {
+        [name]: spriteMeta
+      };
+      this.updateSubMetas( subMetas );
 
+      cb ();
+      return;
+    }
+  }
+
+  static defaultType() { return 'texture'; }
+}
 TextureMeta.prototype.export = null;
 
 module.exports = TextureMeta;
-

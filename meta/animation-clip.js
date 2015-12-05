@@ -1,9 +1,13 @@
+'use strict';
+
 var CustomAssetMeta = require('./custom-asset');
 
-var $super = CustomAssetMeta;
-function AnimationClipMeta () {
-    $super.call(this);
+class AnimationClipMeta extends CustomAssetMeta {
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
+
+  static defaultType() { return 'animation-clip'; }
 }
-Editor.JS.extend(AnimationClipMeta, $super);
 
 module.exports = AnimationClipMeta;

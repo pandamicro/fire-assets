@@ -1,9 +1,13 @@
-var Fs = require('fire-fs');
+'use strict';
 
-var $super = Editor.metas.asset;
-function SceneMeta () {
-    $super.call(this);
+var CustomAssetMeta = require('./custom-asset');
+
+class SceneMeta extends CustomAssetMeta {
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
+
+  static defaultType() { return 'scene'; }
 }
-Editor.JS.extend(SceneMeta, $super);
 
 module.exports = SceneMeta;

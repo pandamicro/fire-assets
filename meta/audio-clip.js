@@ -1,7 +1,11 @@
-var $super = Editor.metas.asset;
-function AudioClipMeta () {
-    $super.call(this);
+'use strict';
+
+class AudioClipMeta extends Editor.metas['raw-asset'] {
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
+
+  static defaultType() { return 'audio-clip'; }
 }
-Editor.JS.extend(AudioClipMeta, $super);
 
 module.exports = AudioClipMeta;

@@ -1,24 +1,21 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
-var Plist = require('plist');
+'use strict';
 
+const Fs = require('fire-fs');
+const Plist = require('plist');
 
-var $super = Editor.metas.asset;
+class ParticleMeta extends Editor.metas['raw-asset'] {
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
 
-function ParticleMeta () {
-    $super.call(this);
-}
-
-ParticleMeta.validate = function ( assetpath ) {
-
-    var dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
-
+  static validate ( assetpath ) {
+    let dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
     return typeof dictionary.maxParticles !== 'undefined';
-};
+  }
 
-Editor.JS.extend(ParticleMeta, $super);
+  static defaultType() { return 'particle'; }
+}
 
 ParticleMeta.prototype.export = null;
 
 module.exports = ParticleMeta;
-

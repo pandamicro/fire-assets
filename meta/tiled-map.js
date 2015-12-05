@@ -1,15 +1,13 @@
-var Fs = require('fire-fs');
-var Path = require('fire-path');
+'use strict';
 
-var $super = Editor.metas.asset;
+class TiledMapMeta extends Editor.metas['raw-asset'] {
+  constructor ( assetdb ) {
+    super( assetdb );
+  }
 
-function TiledMapMeta () {
-    $super.call(this);
+  static defaultType() { return 'tiled-map'; }
 }
-
-Editor.JS.extend(TiledMapMeta, $super);
 
 TiledMapMeta.prototype.export = null;
 
 module.exports = TiledMapMeta;
-

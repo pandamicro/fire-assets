@@ -1,24 +1,15 @@
 <link rel="import" href="packages://inspector/share/meta-header.html">
-<link rel="import" href="packages://inspector/share/code-preview.html">
 
-<dom-module id="coffeescript-inspector">
+<dom-module id="raw-asset-inspector">
     <link rel="import" type="css" href="packages://inspector/share/common.css">
 
     <template>
         <inspector-meta-header
             target="[[target]]"
-            icon="packages://fire-assets/static/icon/coffeescript.png"
+            icon="packages://fire-assets/static/icon/raw-asset.png"
             dirty="{{dirty}}"
         >
         </inspector-meta-header>
-
-        <inspector-code-preview
-            id="preview"
-            class="flex-1"
-            type="[[target.__assetType__]]"
-            path="[[target.__path__]]"
-        >
-        </inspector-code-preview>
     </template>
 
     <script>

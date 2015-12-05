@@ -1,0 +1,27 @@
+<link rel="import" href="packages://inspector/share/meta-header.html">
+<link rel="import" href="packages://fire-assets/share/sprite-section.html">
+
+<dom-module id="sprite-frame-inspector">
+  <link rel="import" type="css" href="packages://inspector/share/common.css">
+
+  <template>
+    <inspector-meta-header
+      target="[[target]]"
+      icon="packages://fire-assets/static/icon/sprite-frame.png"
+      dirty="{{dirty}}"
+    >
+    </inspector-meta-header>
+
+    <div class="props flex-1">
+      <sprite-section target="{{target}}"></sprite-section>
+    </div>
+  </template>
+
+  <script>
+    Editor.registerElement({
+      _isTrimCustom: function ( trimType ) {
+        return trimType === 'custom';
+      },
+    });
+  </script>
+</dom-module>
