@@ -38,7 +38,9 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   }
 
   dests () {
-    let results = [];
+    let results = [
+      this._assetdb._uuidToImportPathNoExt(this.uuid) + '.json'
+    ];
     var subMetas = this.getSubMetas();
     for ( var key in subMetas ) {
       results.push(this._assetdb._uuidToImportPathNoExt(subMetas[key].uuid) + '.json');
@@ -57,10 +59,10 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   }
 
   import ( fspath, cb ) {
-    // Copy source file
-    this._assetdb.copyAssetToLibrary( this.uuid, fspath );
-
     this.parse( fspath );
+
+    // Save atlas
+    this._assetdb.saveAssetToLibrary( this.uuid, this.serialize() );
 
     // !HACK: Overwrite sub metas' import function
     var subMetas = this.getSubMetas();
