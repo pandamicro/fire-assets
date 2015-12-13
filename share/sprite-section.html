@@ -74,6 +74,15 @@
       <editor-unit-input value="{{target.borderRight}}"
       ></editor-unit-input>
     </editor-custom-prop>
+
+    <div class="layout horizontal center-center">
+      <editor-button
+              style="width: 240px;"
+              on-click="_editSprite"
+              nofocus
+              >Edit</editor-button>
+    </div>
+
   </template>
 
   <script>
@@ -81,6 +90,13 @@
       _isTrimCustom: function ( trimType ) {
         return trimType === 'custom';
       },
+
+      _editSprite: function () {
+        Editor.Panel.open('sprite-editor.panel', {
+          uuid: this.target.uuid
+        });
+      }
+
     });
   </script>
 </dom-module>
