@@ -1,5 +1,6 @@
 'use strict';
 
+const Path = require('fire-path');
 const SpriteMeta = require('./sprite-frame');
 // const BRACE_REGEX = /[\{\}]/g;
 
@@ -11,7 +12,9 @@ class SpriteAtlasMeta extends Editor.metas.asset {
     this.type = '';
   }
 
-  static defaultType() { return 'sprite-atlas'; }
+  static defaultType () { return 'sprite-atlas'; }
+
+  static version () { return 1; }
 
   parse () {}
 
@@ -51,7 +54,11 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   importSprite ( fspath, cb ) {
     var sprite = this.createSpriteFrame( fspath, this._rawWidth, this._rawHeight );
 
-    // TODO: this.atlasName
+    var parentPath = Path.dirname( fspath );
+    var parentUuid = this._assetdb.fspathToUuid( parentPath );
+    if ( parentUuid ) {
+      sprite._atlasUuid = parentUuid;
+    }
 
     this._assetdb.saveAssetToLibrary( this.uuid, sprite );
 
