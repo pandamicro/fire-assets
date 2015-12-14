@@ -55,20 +55,35 @@ class TexturePackerMeta extends SpriteAtlasMeta {
 
     // Parse frames
     var subMetas = {};
+    var rotated = false, trimmed, sourceSize, frame
     for (let key in frames) {
       let frame = frames[key];
       let subMeta = subMetas[key] = new SpriteMeta( assetdb );
 
       subMeta.rawTextureUuid = this.rawTextureUuid;
-      subMeta.rotated = !!frame.rotated;
-      subMeta.trimType = frame.trimmed ? 'custom' : 'auto';
+
+      if (info.format === 2) {
+        rotated = frame.rotated;
+        trimmed = frame.trimmed;
+        sourceSize = frame.sourceSize;
+        frame = frame.frame;
+      }
+      else if (info.format === 3) {
+        rotated = frame.textureRotated;
+        trimmed = frame.trimmed;
+        sourceSize = frame.spriteSourceSize;
+        frame = frame.textureRect;
+      }
+
+      subMeta.rotated = !!rotated;
+      subMeta.trimType = trimmed ? 'custom' : 'auto';
       subMeta.spriteType = 'normal';
 
-      let rawSize = _parseSize( frame.sourceSize );
+      let rawSize = _parseSize( sourceSize );
       subMeta._rawWidth = rawSize.width;
       subMeta._rawHeight = rawSize.height;
 
-      let rect = _parseTrimmedRect( frame.frame );
+      let rect = _parseTrimmedRect( frame );
       subMeta.trimX = rect.x;
       subMeta.trimY = rect.y;
       subMeta.width = rect.w;
