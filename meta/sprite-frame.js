@@ -74,7 +74,6 @@ class SpriteMeta extends Editor.metas.asset {
     super( assetdb );
 
     this.rawTextureUuid = '';
-    this.atlasUuid = '';
     this.trimType = 'auto'; // auto, custom
     this.trimThreshold = 1;
     this.rotated = false;
@@ -94,7 +93,6 @@ class SpriteMeta extends Editor.metas.asset {
     super.deserialize(jsonObj);
 
     this.rawTextureUuid = jsonObj.rawTextureUuid;
-    this.atlasUuid = jsonObj.atlasUuid;
     this.trimType = jsonObj.trimType;
     this.trimThreshold = jsonObj.trimThreshold;
     this.rotated = jsonObj.rotated;
@@ -156,11 +154,6 @@ class SpriteMeta extends Editor.metas.asset {
     if ( !rawTextureFile ) {
       cb ( new Error( `Can not find raw texture for ${fspath}, uuid not found: ${rawTextureUuid}` ) );
       return;
-    }
-
-    var atlas = this._assetdb.uuidToFspath(this.atlasUuid);
-    if (!atlas) {
-        this.atlasUuid = '';
     }
 
     Async.waterfall([
