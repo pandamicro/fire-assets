@@ -87,6 +87,15 @@
 
   <script>
     Editor.registerElement({
+
+      properties: {
+        target: {
+          type: Object,
+          value: null,
+          notify: true,
+        },
+      },
+
       _isTrimCustom: function ( trimType ) {
         return trimType === 'custom';
       },

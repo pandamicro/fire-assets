@@ -1,4 +1,5 @@
 <link rel="import" href="packages://inspector/share/meta-header.html">
+<link rel="import" href="packages://inspector/share/image-preview.html">
 <link rel="import" href="packages://fire-assets/share/sprite-section.html">
 
 <dom-module id="sprite-frame-inspector">
@@ -15,13 +16,27 @@
     <div class="props flex-1">
       <sprite-section target="{{target}}"></sprite-section>
     </div>
+
+    <inspector-image-preview id="preview"
+        target="[[target]]"
+        uuid="[[target.rawTextureUuid]]"
+        mtime="[[target.__mtime__]]"
+    >
+    </inspector-image-preview>
+
   </template>
 
   <script>
     Editor.registerElement({
+
       _isTrimCustom: function ( trimType ) {
         return trimType === 'custom';
       },
+
+      resize: function () {
+        this.$.preview.resize();
+      },
+
     });
   </script>
 </dom-module>
