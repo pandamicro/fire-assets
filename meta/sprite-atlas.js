@@ -23,6 +23,8 @@ class SpriteAtlasMeta extends Editor.metas.asset {
   deserialize ( jsonObj ) {
     super.deserialize(jsonObj);
 
+    this.rawTextureUuid = jsonObj.rawTextureUuid;
+
     var subMetas = {}, metaData, meta, key;
     // fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
     for (key in jsonObj.subMetas) {

@@ -12,9 +12,9 @@
         </inspector-meta-header>
 
         <div class="props flex-1">
-            <editor-custom-prop name="Raw Texture File" disabled="true">
-                <editor-input value="{{target.rawTextureFile}}"
-                ></editor-input>
+            <editor-custom-prop name="Raw Texture File">
+                <fire-asset class="flex-1" value="{{target.rawTextureUuid}}" type="texture" >
+                </fire-asset>
             </editor-custom-prop>
 
             <editor-custom-prop name="Type" disabled="true">
