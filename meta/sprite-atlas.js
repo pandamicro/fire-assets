@@ -69,7 +69,8 @@ class SpriteAtlasMeta extends Editor.metas.asset {
     this.parse( fspath );
 
     // Save atlas
-    this._assetdb.saveAssetToLibrary( this.uuid, this.serialize() );
+    var atlas = new cc.SpriteAtlas();
+    this._assetdb.saveAssetToLibrary( this.uuid, atlas );
 
     // !HACK: Overwrite sub metas' import function
     var subMetas = this.getSubMetas();
