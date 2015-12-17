@@ -10,15 +10,15 @@ const BRACE_REGEX = /[\{\}]/g;
 
 function _parseSize ( sizeStr ) {
   sizeStr = sizeStr.substr( 1, sizeStr.length - 2 );
-  var arr = sizeStr.split( ',' );
-  var width = parseInt( arr[0] );
-  var height = parseInt( arr[1] );
+  let arr = sizeStr.split( ',' );
+  let width = parseInt( arr[0] );
+  let height = parseInt( arr[1] );
   return cc.size( width, height );
 }
 
 function _parseTrimmedRect ( rectStr ) {
   rectStr = rectStr.replace(BRACE_REGEX, '');
-  var arr = rectStr.split( ',' );
+  let arr = rectStr.split( ',' );
   return {
     x: parseInt( arr[0] || 0 ),
     y: parseInt( arr[1] || 0 ),
@@ -34,31 +34,40 @@ class TexturePackerMeta extends SpriteAtlasMeta {
   }
 
   static validate ( assetpath ) {
-    var dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
+    let dictionary = Plist.parse( Fs.readFileSync(assetpath, 'utf8') );
     return typeof dictionary.frames !== 'undefined' &&
         typeof dictionary.metadata !== 'undefined';
   }
 
   parse ( fspath ) {
-    var assetdb = this._assetdb;
-    var plist = Plist.parse( Fs.readFileSync(fspath, 'utf8') );
-    var info = plist.metadata;
-    var frames = plist.frames;
+    let assetdb = this._assetdb;
+    let plist = Plist.parse( Fs.readFileSync(fspath, 'utf8') );
+    let info = plist.metadata;
+    let frames = plist.frames;
 
     // Parse info
-    var dirName = Path.dirname( fspath );
+    let dirName = Path.dirname( fspath );
     // realTextureFileName & textureFileName
-    var rawTexturePath = Path.join( dirName, info.realTextureFileName || info.textureFileName );
+    let rawTexturePath = Path.join( dirName, info.realTextureFileName || info.textureFileName );
     this.rawTextureUuid = assetdb.fspathToUuid( rawTexturePath );
     // size
     this.size = _parseSize( info.size );
 
+    //
+    let subMetas = {};
+    let oldSubMetas = this.getSubMetas();
+
     // Parse frames
-    var subMetas = {};
-    var rotated = false, trimmed, sourceSize, frame
     for (let key in frames) {
       let frame = frames[key];
-      let subMeta = subMetas[key] = new SpriteMeta( assetdb );
+      let rotated = false, trimmed, sourceSize;
+
+      // try to load from exists meta
+      let subMeta = oldSubMetas[key];
+      if ( !subMeta ) {
+          subMeta = new SpriteMeta( assetdb );
+      }
+      subMetas[key] = subMeta;
 
       subMeta.rawTextureUuid = this.rawTextureUuid;
 
