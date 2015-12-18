@@ -9,14 +9,22 @@ const SpriteMeta = require('./sprite-frame');
 const BRACE_REGEX = /[\{\}]/g;
 
 function _parseSize ( sizeStr ) {
-  sizeStr = sizeStr.substr( 1, sizeStr.length - 2 );
+  sizeStr = sizeStr.slice( 1, -2 );
   let arr = sizeStr.split( ',' );
   let width = parseInt( arr[0] );
   let height = parseInt( arr[1] );
   return cc.size( width, height );
 }
 
-function _parseTrimmedRect ( rectStr ) {
+function _parseVec2 ( vec2Str ) {
+  vec2Str = vec2Str.slice( 1, -2 );
+  var arr = vec2Str.split( ',' );
+  var x = parseInt( arr[0] );
+  var y = parseInt( arr[1] );
+  return new cc.Vec2( x, y );
+}
+
+function _parseRect ( rectStr ) {
   rectStr = rectStr.replace(BRACE_REGEX, '');
   let arr = rectStr.split( ',' );
   return {
@@ -53,14 +61,12 @@ class TexturePackerMeta extends SpriteAtlasMeta {
     // size
     this.size = _parseSize( info.size );
 
-    //
+    // Parse frames
     let subMetas = {};
     let oldSubMetas = this.getSubMetas();
-
-    // Parse frames
     for (let key in frames) {
       let frame = frames[key];
-      let rotated = false, trimmed, sourceSize;
+      let rotated = false, trimmed, sourceSize, offsetStr, textureRect;
 
       // try to load from exists meta
       let subMeta = oldSubMetas[key];
@@ -75,13 +81,15 @@ class TexturePackerMeta extends SpriteAtlasMeta {
         rotated = frame.rotated;
         trimmed = frame.trimmed;
         sourceSize = frame.sourceSize;
-        frame = frame.frame;
+        offsetStr = frame.offset;
+        textureRect = frame.frame;
       }
       else if (info.format === 3) {
         rotated = frame.textureRotated;
         trimmed = frame.trimmed;
         sourceSize = frame.spriteSourceSize;
-        frame = frame.textureRect;
+        offsetStr = frame.spriteOffset;
+        textureRect = frame.textureRect;
       }
 
       subMeta.rotated = !!rotated;
@@ -92,7 +100,11 @@ class TexturePackerMeta extends SpriteAtlasMeta {
       subMeta._rawWidth = rawSize.width;
       subMeta._rawHeight = rawSize.height;
 
-      let rect = _parseTrimmedRect( frame );
+      let offset = _parseVec2(offsetStr);
+      subMeta.offsetX = offset.x;
+      subMeta.offsetY = offset.y;
+
+      let rect = _parseRect( textureRect );
       subMeta.trimX = rect.x;
       subMeta.trimY = rect.y;
       subMeta.width = rect.w;

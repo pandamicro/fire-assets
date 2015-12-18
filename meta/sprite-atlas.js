@@ -14,7 +14,7 @@ class SpriteAtlasMeta extends Editor.metas.asset {
 
   static defaultType () { return 'sprite-atlas'; }
 
-  static version () { return '1'; }
+  static version () { return '1.1.0'; }
 
   parse () {}
 
