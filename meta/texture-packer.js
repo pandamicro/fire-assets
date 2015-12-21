@@ -9,7 +9,7 @@ const SpriteMeta = require('./sprite-frame');
 const BRACE_REGEX = /[\{\}]/g;
 
 function _parseSize ( sizeStr ) {
-  sizeStr = sizeStr.slice( 1, -2 );
+  sizeStr = sizeStr.slice( 1, -1 );
   let arr = sizeStr.split( ',' );
   let width = parseInt( arr[0] );
   let height = parseInt( arr[1] );
@@ -17,7 +17,7 @@ function _parseSize ( sizeStr ) {
 }
 
 function _parseVec2 ( vec2Str ) {
-  vec2Str = vec2Str.slice( 1, -2 );
+  vec2Str = vec2Str.slice( 1, -1 );
   var arr = vec2Str.split( ',' );
   var x = parseInt( arr[0] );
   var y = parseInt( arr[1] );
