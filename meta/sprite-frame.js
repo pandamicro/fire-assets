@@ -165,10 +165,10 @@ class SpriteMeta extends Editor.metas.asset {
           this.width = rect[2];
           this.height = rect[3];
         } else {
-          this.trimX = Math.clamp(this.trimX, 0, rawWidth);
-          this.trimY = Math.clamp(this.trimY, 0, rawHeight);
-          this.width = Math.clamp(this.width, 0, rawWidth - this.trimX);
-          this.height = Math.clamp(this.height, 0, rawHeight - this.trimY);
+          this.trimX = Editor.Math.clamp(this.trimX, 0, rawWidth);
+          this.trimY = Editor.Math.clamp(this.trimY, 0, rawHeight);
+          this.width = Editor.Math.clamp(this.width, 0, rawWidth - this.trimX);
+          this.height = Editor.Math.clamp(this.height, 0, rawHeight - this.trimY);
         }
 
         let sprite = this.createSpriteFrame( fspath, rawWidth, rawHeight );
