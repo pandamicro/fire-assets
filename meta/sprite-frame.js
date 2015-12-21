@@ -92,28 +92,6 @@ class SpriteMeta extends Editor.metas.asset {
     this.borderRight = 0;
   }
 
-  deserialize ( jsonObj ) {
-    super.deserialize(jsonObj);
-
-    this.rawTextureUuid = jsonObj.rawTextureUuid;
-    this.trimType = jsonObj.trimType;
-    this.trimThreshold = jsonObj.trimThreshold;
-    this.rotated = jsonObj.rotated;
-
-    this.offsetX = jsonObj.offsetX;
-    this.offsetY = jsonObj.offsetY;
-
-    this.trimX = jsonObj.trimX;
-    this.trimY = jsonObj.trimY;
-    this.width = jsonObj.width;
-    this.height = jsonObj.height;
-
-    this.borderTop = jsonObj.borderTop;
-    this.borderBottom = jsonObj.borderBottom;
-    this.borderLeft = jsonObj.borderLeft;
-    this.borderRight = jsonObj.borderRight;
-  }
-
   useRawfile () {
     return false;
   }
@@ -143,7 +121,6 @@ class SpriteMeta extends Editor.metas.asset {
     sprite.insetLeft = this.borderLeft;
     sprite.insetRight = this.borderRight;
 
-    var rawCenter = cc.p(rawWidth, rawHeight).div(2);
     var offset = cc.p(this.offsetX, this.offsetY);
     sprite.setOffsetInPixels(offset);
 
