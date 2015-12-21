@@ -15,17 +15,6 @@ class SpriteAnimationMeta extends Editor.metas.asset {
     this.delay = 0.2;
   }
 
-  deserialize ( jsonObj ) {
-    super.deserialize(jsonObj);
-
-    for (var i = 0; i < 10; i++) {
-      this[i] = jsonObj[i];
-    }
-
-    this.loop = jsonObj.loop;
-    this.delay = jsonObj.delay;
-  }
-
   useRawfile () {
     return false;
   }

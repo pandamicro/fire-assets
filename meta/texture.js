@@ -14,10 +14,6 @@ class TextureMeta extends Editor.metas.asset {
   deserialize ( jsonObj ) {
     super.deserialize(jsonObj);
 
-    this.type = jsonObj.type;
-    this.wrapMode = jsonObj.wrapMode;
-    this.filterMode = jsonObj.filterMode;
-
     let subMetas = {};
     // let fspath = this._assetdb.uuidToFspath(jsonObj.uuid);
     for (let key in jsonObj.subMetas) {
