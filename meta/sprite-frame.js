@@ -78,6 +78,9 @@ class SpriteMeta extends Editor.metas.asset {
     this.trimThreshold = 1;
     this.rotated = false;
 
+    this.offsetX = 0;
+    this.offsetY = 0;
+
     this.trimX = 0;
     this.trimY = 0;
     this.width = 0;
@@ -96,6 +99,9 @@ class SpriteMeta extends Editor.metas.asset {
     this.trimType = jsonObj.trimType;
     this.trimThreshold = jsonObj.trimThreshold;
     this.rotated = jsonObj.rotated;
+
+    this.offsetX = jsonObj.offsetX;
+    this.offsetY = jsonObj.offsetY;
 
     this.trimX = jsonObj.trimX;
     this.trimY = jsonObj.trimY;
@@ -138,7 +144,7 @@ class SpriteMeta extends Editor.metas.asset {
     sprite.insetRight = this.borderRight;
 
     var rawCenter = cc.p(rawWidth, rawHeight).div(2);
-    var offset = sprite.getRectInPixels().center.sub(rawCenter);
+    var offset = cc.p(this.offsetX, this.offsetY);
     sprite.setOffsetInPixels(offset);
 
     return sprite;
